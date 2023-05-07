@@ -1,0 +1,14 @@
+.container {
+  width: 92%;
+  margin: 0 auto;
+  padding: 8rem 0;
+}
+
+.subtitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: hsla(var(--accent-hsl));
+  text-align: center;
+  margin: 2rem auto;
+  width: 600px;
+  max-width: 90%;
+}

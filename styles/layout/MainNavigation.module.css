@@ -1,0 +1,153 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 90px;
+  z-index: 999;
+  background-color: transparent;
+}
+.container-login {
+  background-color: #fff;
+}
+
+.nav-container,
+.nav-container-dark-text {
+  position: relative;
+  width: 94%;
+  max-width: 1424px;
+  margin: 0 auto;
+  padding: 0.6rem auto;
+  overflow: hidden;
+}
+
+.nav-container {
+  background-color: transparent;
+  color: rgb(var(--background-rgb));
+}
+.nav-container-dark-text {
+  color: rgb(var(--foreground-rgb));
+}
+
+.main-menu {
+  display: none;
+}
+
+.nav {
+  display: grid;
+  grid-template-areas: "iconsLeft logo iconsRight";
+  grid-template-columns: 4rem auto 4rem;
+  align-items: center;
+  padding: 1.8rem 0;
+}
+
+.logo {
+  grid-area: logo;
+  margin: 0 auto;
+  padding: 0 1rem;
+  letter-spacing: -1px;
+  font-weight: var(--fw-600);
+  font-family: var(--font-poppins);
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  text-align: center;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.logo-light {
+  color: #e1cec3;
+}
+.logo-dark {
+  color: #de89a1;
+}
+
+.main-menu-icons-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: end;
+  /* gap: 0.9rem; */
+  grid-area: iconsRight;
+  /* font-size: 1rem; */
+}
+.main-menu-icons-left {
+  display: flex;
+  justify-self: start;
+  /* gap: 0.rem; */
+  grid-area: iconsLeft;
+  /* font-size: 1rem; */
+}
+
+.iconButton {
+  color: rgb(var(--background-rgb));
+  font-size: 0.8rem; /* replace with your desired color */
+}
+.iconButtonDark {
+  color: rgb(var(--foreground-rgb));
+  font-size: 0.8rem; /* replace with your desired color */
+}
+
+.link-list-item,
+.link-list-item-dark {
+  position: relative;
+}
+.active,
+.active-dark {
+  position: relative;
+}
+
+.active::before,
+.active-dark::before,
+.link-list-item::before,
+.link-list-item-dark::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 1px;
+  height: 2px;
+  transition: width 0.5s ease;
+}
+.active::before,
+.link-list-item::before {
+  background-color: #fff;
+}
+
+.active-dark::before,
+.link-list-item-dark::before {
+  background-color: #3f3f3fc0;
+}
+
+.link-list-item::before,
+.link-list-item-dark::before {
+  width: 0%;
+}
+
+.active::before,
+.active-dark::before {
+  width: 100%;
+}
+
+.link-list-item:hover::before,
+.link-list-item-dark:hover::before {
+  width: 100%;
+}
+
+@media (min-width: 793px) {
+  .nav {
+    grid-template-areas: " logo navLarge iconsLeft iconsRight";
+    grid-template-columns: 13rem auto 4rem 4rem;
+  }
+
+  .main-menu {
+    grid-area: "navLarge";
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+  }
+}

@@ -1,0 +1,71 @@
+.container {
+  position: relative;
+  z-index: 5;
+  width: 90%;
+  margin: 0 auto;
+  color: rgb(var(--background-rgb));
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.hero {
+  padding: 20rem 0;
+
+  position: relative;
+  margin: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-image: url("../../public/assets/images/Landing-bg-medium.png");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+
+.subtitle {
+  text-transform: uppercase;
+  text-align: center;
+  font-family: var(--font-poppins);
+  font-size: clamp(14px, 5vw, 18px);
+  font-weight: var(--fw-300);
+  line-height: 1;
+  margin-bottom: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.title {
+  font-family: var(--font-forum);
+  font-weight: 200;
+  font-size: clamp(4rem, 5vw, 7.125rem);
+  text-transform: uppercase;
+  line-height: 1;
+  width: min-content;
+  text-align: center;
+  margin-bottom: 2.735rem;
+  letter-spacing: 1px;
+}
+
+.formula-button {
+  background-color: rgba(230, 230, 229, 0.3);
+  color: white;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+
+  align-self: center;
+  padding: 0.8em 2em;
+  border-radius: 50px;
+
+  text-transform: uppercase;
+  font-size: clamp(15px, 2vw, 17px);
+  font-family: var(--font-poppins);
+  font-weight: normal;
+}
+
+.formula-button:hover,
+.formula-button:focus {
+  background-color: hsla(342, 57%, 90%, 0.5);
+}

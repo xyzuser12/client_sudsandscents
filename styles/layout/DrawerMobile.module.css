@@ -1,0 +1,16 @@
+.hamburger {
+  grid-area: burger;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.MuiButtonBase-root {
+  margin: 0;
+  border: 1px solid red;
+}
+
+@media (min-width: 793px) {
+  .container {
+    display: none;
+  }
+}

@@ -1,0 +1,349 @@
+.container {
+  width: 92%;
+  max-width: 970px;
+  margin: 8rem auto;
+}
+
+.create-formula-container {
+  display: grid;
+  grid-template-areas:
+    "title"
+    "image"
+    "editor"
+    "formula"
+    "actionButtons";
+}
+
+.base-wrapper {
+  width: 100%;
+  font-size: 1rem;
+}
+
+.base__select {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+}
+.title {
+  grid-area: title;
+  text-align: center;
+  margin: 1.5rem auto 1.5rem auto;
+}
+/* ========================IMAGE =================*/
+.image-wrapper {
+  grid-area: image;
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.image-backgound {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
+}
+
+/* ========================EDITOR =================*/
+.editor-wrapper {
+  grid-area: editor;
+  margin-top: 2.8em;
+}
+
+.classification {
+  display: inline-block;
+  color: #545454;
+  font-family: var(--font-poppins);
+  font-weight: 300;
+  font-size: clamp(0.8rem, 3vw, 1.0625rem);
+  margin-bottom: 0.1rem;
+}
+
+.editor-button-wrapper {
+  display: flex;
+  margin-top: 1.6rem;
+  justify-content: space-between;
+}
+
+.editor-button-wrapper .budget,
+.editor-button-wrapper .liter {
+  width: 49%;
+}
+
+.ingredient-optoins-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.9rem;
+  margin-top: 1.6rem;
+}
+
+.product-name {
+  font-family: var(--font-forum);
+  font-weight: 500;
+  color: #0c0c0f;
+  font-size: clamp(1.8rem, 5vw, 2.1875rem);
+}
+
+.oils-wrapper__options {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 4px 12px;
+}
+
+.oil-title {
+  font-family: var(--font-poppins);
+  font-size: 1.1rem;
+  color: #545454;
+  font-weight: normal;
+}
+
+.oil__required {
+  color: #ff5757;
+}
+
+.oil-option {
+  width: 50px;
+}
+
+.oil-option p {
+  margin-top: 0.2rem;
+  text-align: center;
+  font-size: 11px;
+  color: #545454;
+}
+
+.image-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all 0.1s ease;
+}
+
+.image-button.selected {
+  border: 1px solid #0c0c0f;
+  transition: all 0.4s ease;
+}
+.image-button div {
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+}
+
+.image-button div img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.item:hover::before {
+  content: attr(title);
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 0.2rem;
+  z-index: 1;
+}
+/* ========================FORMULA =================*/
+
+.formula-wrapper {
+  grid-area: formula;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.formula__tab {
+  margin-bottom: 2.6rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.formula-wrapper div div div div .formula-title,
+.formula-wrapper div div div div .description-title {
+  color: #545454;
+  font-family: var(--font-poppins);
+}
+
+.tab-panel {
+  padding: 0;
+}
+
+.ingredients-wrapper ul,
+.directions-wrapper ul,
+.cost-estimation-wrapper ul,
+.description {
+  margin-top: 1rem;
+  line-height: 2;
+}
+
+.ingredients-wrapper ul,
+.directions-wrapper ul,
+.cost-estimation-wrapper ul {
+  padding-left: 2rem;
+}
+
+.ingredients-header,
+.directions-header,
+.cost-estimation-header {
+  margin-top: 2rem;
+}
+
+.save-copy__button {
+  align-self: center;
+  padding: 0.8em 2em;
+  border-radius: 50px;
+
+  text-transform: uppercase;
+  font-size: clamp(10px, 2vw, 12px);
+  font-family: var(--font-poppins);
+  font-weight: normal;
+}
+
+.output__divider--bottom,
+.output__divider--top {
+  margin-top: 3rem;
+}
+
+/* ========================ACTION BUTTONS =================*/
+
+.actions-buttons-wrapper {
+  grid-area: actionButtons;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.quantity-button-group {
+  margin: 0;
+}
+
+.quantity-wrapper {
+  margin-top: 1.8rem;
+}
+
+.quantity-value {
+  color: black;
+  text-align: center;
+  width: 40px;
+  line-height: 2;
+}
+.quantity-value__text {
+  color: black;
+  text-align: center;
+  width: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  line-height: 2;
+}
+
+.decrement-button,
+.increment-button {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.decrement-button {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.increment-button {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.stack-action-button,
+.create-formula__button {
+  display: flex;
+  margin: 2rem 0 3rem 0;
+  justify-content: center;
+}
+
+.create-formula__button,
+.add-to-cart__button,
+.buy-now__button {
+  align-self: center;
+  padding: 0.8em 2em;
+  border-radius: 50px;
+
+  text-transform: uppercase;
+  font-size: clamp(14px, 2vw, 15px);
+  font-family: var(--font-poppins);
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+/* .create-formula__button {
+  align-self: center;
+} */
+
+.create-formula__button,
+.buy-now__button {
+  background-color: #de89a1;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+
+.total-cost {
+  color: #545454;
+  font-size: clamp(1.1rem, 2vw, 1.7rem);
+  font-weight: 700;
+}
+
+@media (min-width: 887px) {
+  .create-formula-container {
+    grid-template-areas:
+      ". title title"
+      "image editor editor"
+      "formula actionButtons actionButtons";
+    column-gap: 1.8rem;
+  }
+
+  .title {
+    grid-area: title;
+    text-align: center;
+    margin: 1.5rem auto 0 auto;
+  }
+
+  /* ========================EDITOR =================*/
+
+  .editor-wrapper {
+    margin-top: 0;
+  }
+
+  /* ========================IMAGE =================*/
+  .image-wrapper {
+    grid-area: image;
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  /* ========================FORMULA =================*/
+  .output__divider--bottom,
+  .output__divider--top {
+    display: none;
+  }
+}
+
+@media (min-width: 1040px) {
+  .create-formula-container {
+    grid-template-areas:
+      ". title title title"
+      "image editor editor editor"
+      "formula actionButtons actionButtons actionButtons"
+      "formula . . .";
+  }
+}
