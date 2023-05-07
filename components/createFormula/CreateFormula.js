@@ -233,7 +233,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                   </h4>
                   <div className={classes["oils-wrapper__options"]}>
                     {ingredient.options.map((option) => {
-                      return (
+                      return option.description ? (
                         <Tooltip title={option.description} key={option.id}>
                           <div
                             key={option.id}
@@ -263,6 +263,34 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                             <p>{option.title}</p>
                           </div>
                         </Tooltip>
+                      ) : (
+                        <div
+                          key={option.id}
+                          className={classes["oil-option"]}
+                          onClick={addIngredientHandler(
+                            option.id,
+                            option.title
+                          )}
+                        >
+                          <div
+                            className={`${classes["image-button"]} ${
+                              ingredients.find(
+                                (i) => i.ingredient.id === option.id
+                              )?.ingredient.isSelected && classes.selected
+                            }`}
+                          >
+                            <div>
+                              <Image
+                                src={option.image}
+                                width={50}
+                                height={50}
+                                alt="perfume"
+                                loading="lazy"
+                              />
+                            </div>
+                          </div>
+                          <p>{option.title}</p>
+                        </div>
                       );
                     })}
                   </div>
