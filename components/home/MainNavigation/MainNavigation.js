@@ -1,5 +1,5 @@
 // import { makeStyles } from "@mui/styles";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -9,10 +9,13 @@ import { IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import Badge from "@mui/material/Badge";
 
+import { CartContext } from "../../CartContext";
+
 import classes from "../../../styles/layout/MainNavigation.module.css";
 import DrawerMobile from "./DrawerMobile";
 import AccountMenu from "./AccountMenu";
 import ProductOptions from "./ProductOptions";
+import CartMenu from "./CartMenu";
 
 const ActiveLink = ({ href, styleMode, children }) => {
   const router = useRouter();
@@ -43,7 +46,6 @@ const ActiveLink = ({ href, styleMode, children }) => {
 };
 
 const MainNavigation = (props) => {
-  console.log(props.userSession);
   // if (session) {
   //   console.log(session);
   // }
@@ -134,36 +136,7 @@ const MainNavigation = (props) => {
             </ul>
           </div>
           <div className={classes["main-menu-icons-right"]}>
-            <IconButton
-              // classes={{
-              //   root: `${
-              //     props.styleMode === "light"
-              //       ? classes.iconButton
-              //       : classes.iconButtonDark
-              //   }`,
-              // }}
-              sx={{
-                fontSize: "0.8rem",
-                color: `${
-                  props.styleMode === "light"
-                    ? "rgb(var(--background-rgb))"
-                    : "rgb(var(--foreground-rgb))"
-                }`,
-              }}
-            >
-              <Badge
-                badgeContent={0}
-                color="primary"
-                max={99}
-                sx={{
-                  "& .MuiBadge-badge": {
-                    color: "#fff",
-                  },
-                }}
-              >
-                <ShoppingCartRoundedIcon />
-              </Badge>
-            </IconButton>
+            <CartMenu styleMode={props.styleMode} />
             <AccountMenu
               styleMode={props.styleMode}
               userSession={props.userSession}

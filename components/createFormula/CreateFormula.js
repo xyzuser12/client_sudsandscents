@@ -1,14 +1,18 @@
-import { Fragment, MouseEventHandler, ReactNode, useEffect } from "react";
+import {
+  Fragment,
+  MouseEventHandler,
+  ReactNode,
+  useEffect,
+  forwardRef,
+} from "react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -22,46 +26,98 @@ import Divider from "@mui/material/Divider";
 import { OutlinedInput } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
 import Tooltip from "@mui/material/Tooltip";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 import { InputAdornment } from "@mui/material";
-// import { CurrencyPhp } from "mdi-material-ui";
+import { CartContext } from "../CartContext";
 
 import classes from "../../styles/createFormula/CreateFormula.module.css";
 import outputImageBg from "../../public/assets/outputImage_background.png";
+import { flatMap } from "lodash";
+
+const ingreRaw = [
+  {
+    ingredient: {
+      id: "645355c7ef19e3b71076cee3",
+      isSelected: true,
+    },
+  },
+  {
+    ingredient: {
+      id: "64535667ef19e3b71076cf0c",
+      isSelected: false,
+    },
+  },
+  {
+    ingredient: {
+      id: "6453577cef19e3b71076cf18",
+      isSelected: true,
+    },
+  },
+];
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const CreateFormula = ({ categoryData, ingredientData }) => {
+  const { addProduct } = useContext(CartContext);
+  const { cartProducts } = useContext(CartContext);
   const [base, setBase] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [tabValue, setTabValue] = useState("1");
   const [loading, setLoading] = useState(false);
   const [showCreateFormulaButton, setShowCreateFormulaButton] = useState(true);
-  const [variety, setVariety] = useState("");
+  const [variety, setVariety] = useState(
+    categoryData.subcategories[0].category
+  );
   const [ingre, setIngre] = useState("");
+  const [numLiter, setNumLiter] = useState(1);
+  const [transformedProduct, setTransformedProducts] = useState();
+  const [hasMounted, setHasMounted] = useState(false);
+  const [totalEstimatedCost, setTotalEstimatedCost] = useState(245);
+  const [formula, setFormula] = useState(`
+  To make this blend you will need:
+  10ml jojoba oil
+  15 drops frankincense essential oil
+  9 drops lavender essential oil
+  6 drops cedar wood essential oil
+  15ml glass bottle (a roll-on bottle or one with a pipette works well)
+  Directions:
+  
+  Pour the jojoba oil into a glass bottle.
+  Add the drops of essential oils carefully.
+  Place the lid on the bottle and shake gently to ensure all the oils are blended
+  Cost Estimation:
+  
+  10ml Jojoba Oil: ₱ 120.00
+  15 drops Frankincense Essential Oil: ₱ 50.00
+  9 drops Lavender Essential Oil: ₱ 30.00
+  6 drops Cedar Wood Essential Oil: ₱ 25.00
+  15ml Glass Bottle: ₱ 20.00`);
 
+  const [openCartSnackbar, setOpenCartSnackbar] = useState(false);
   const customProductName = categoryData.name;
-  // const classification = categoryData.classification;
   const categoryImage = categoryData.image;
-  // const ingre = ingredientData.find(
-  //   (ingre) => ingre.ingredient_row_id === variety
-  // );
+
   console.log(categoryData);
   console.log(ingredientData);
   useEffect(() => {
-    if (ingredientData) {
+    if (ingredientData && variety) {
       setIngre(ingredientData.find((ingre) => ingre.categoryId === variety));
     }
-  }, [variety, ingredientData]);
+  }, [ingredientData, variety]);
 
-  const incrementQuantityHandler = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const decrementQuantityHandler = () => {
-    if (quantity > 1) {
-      setQuantity((prev) => prev - 1);
+  useEffect(() => {
+    if (hasMounted && cartProducts.length > 0) {
+      cartSnackbarHandler();
+      resetData();
+    } else {
+      setHasMounted(true);
     }
-  };
+  }, [cartProducts.length]);
 
   const addIngredientHandler = (id, value) => () => {
     setIngredients((prev) => {
@@ -84,7 +140,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
         return [
           ...prev,
           {
-            ingredient: { id, name: value, isSelected: true },
+            ingredient: { id, isSelected: true },
           },
         ];
       }
@@ -100,27 +156,127 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     setTabValue(newTabValue);
   };
 
-  const createFormulaHandler = () => {
-    setLoading((prev) => !prev);
-
-    setTimeout(() => {
-      setLoading(false);
-      setShowCreateFormulaButton(false);
-    }, 2000);
-  };
-
   const varietyChangeHandler = (value) => () => {
     if (value !== variety) {
       setVariety(value);
     }
   };
 
-  // console.log(ingredientData.find((ingre = variety === ingre)));
+  function getSelectedIngredientIds(ingreRaw) {
+    const selectedIds = [];
+
+    ingreRaw.forEach((item) => {
+      if (item.ingredient.isSelected) {
+        selectedIds.push(item.ingredient.id);
+      }
+    });
+
+    return selectedIds;
+  }
+
+  const literChangeHandler = (e) => {
+    setNumLiter(parseInt(e.target.value));
+  };
+
+  const resetData = () => {
+    setVariety(categoryData.subcategories[0].category);
+    setIngre("");
+    setTransformedProducts();
+    setNumLiter(1);
+    setIngredients([]);
+    setOpenCartSnackbar(false);
+    setShowCreateFormulaButton(true);
+    setBase("");
+    setQuantity(1);
+    setTabValue("1");
+    setTotalEstimatedCost(245);
+    setFormula(`
+    To make this blend you will need:
+    10ml jojoba oil
+    15 drops frankincense essential oil
+    9 drops lavender essential oil
+    6 drops cedar wood essential oil
+    15ml glass bottle (a roll-on bottle or one with a pipette works well)
+    Directions:
+    
+    Pour the jojoba oil into a glass bottle.
+    Add the drops of essential oils carefully.
+    Place the lid on the bottle and shake gently to ensure all the oils are blended
+    Cost Estimation:
+    
+    10ml Jojoba Oil: ₱ 120.00
+    15 drops Frankincense Essential Oil: ₱ 50.00
+    9 drops Lavender Essential Oil: ₱ 30.00
+    6 drops Cedar Wood Essential Oil: ₱ 25.00
+    15ml Glass Bottle: ₱ 20.00`);
+  };
+
+  const createFormulaHandler = () => {
+    const transformedProductRaw = [
+      categoryData.id,
+      categoryData.name,
+      categoryImage,
+      formula,
+      getSelectedIngredientIds(ingredients),
+      numLiter,
+      totalEstimatedCost,
+    ];
+
+    console.log(transformedProductRaw);
+
+    setLoading((prev) => !prev);
+
+    setTimeout(() => {
+      setLoading(false);
+      setShowCreateFormulaButton(false);
+    }, 2000);
+    setTransformedProducts(JSON.stringify(transformedProductRaw));
+  };
+
+  const cartSnackbarHandler = () => {
+    setOpenCartSnackbar(true);
+  };
+
+  const cartSnackbarCloseHandler = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenCartSnackbar(false);
+  };
+  const addToCartHandler = (prod) => {
+    addProduct(prod);
+    cartSnackbarHandler();
+    resetData();
+  };
+  console.log(ingre);
+  console.log(variety);
+  console.log(categoryData.id);
+  console.log(categoryData.name);
+  console.log(formula);
+  console.log(getSelectedIngredientIds(ingredients));
+  console.log(transformedProduct);
+  // console.log(JSON.parse(cartProducts[0]));
 
   return (
     <div
       className={`${classes.container} ${classes["create-formula-container"]}`}
     >
+      <Snackbar
+        open={openCartSnackbar}
+        autoHideDuration={2000}
+        onClose={cartSnackbarCloseHandler}
+      >
+        <Alert
+          onClose={cartSnackbarCloseHandler}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`${numLiter} ${numLiter > 1 ? "liters" : "liter"} of ${
+            categoryData.name
+          } was added to your cart.`}
+        </Alert>
+      </Snackbar>
       {/*========================1) TITLE DRID ITEM =======================*/}
       <div className={classes["title"]}>
         {/* <h3 className={classes.classification}>{classification}</h3> */}
@@ -156,7 +312,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             required
             labelId="base"
             id="base"
-            value={base}
+            value={categoryData.subcategories[0].category}
             label="Subcategory"
             className={classes["base__select"]}
             onChange={baseHandler}
@@ -211,6 +367,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                 inputProps={{ step: 1, min: 1 }}
                 endAdornment={"L"}
                 defaultValue={1}
+                onChange={literChangeHandler}
               />
               <FormHelperText id="liter-helper-text">
                 The liter of {categoryData.name}.
@@ -380,25 +537,6 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
       {/*======================5) ACTION BUTTONS GRID ITEM ========================*/}
       {ingre && (
         <div className={classes["actions-buttons-wrapper"]}>
-          {/* <FormControl sx={{ marginTop: "1.6rem" }}>
-            <InputLabel htmlFor="budget">
-              Liter<span className={classes["oil__required"]}>*</span>
-            </InputLabel>
-            <OutlinedInput
-              required
-              id="liter"
-              label="Liter"
-              aria-describedby="liter-helper-text"
-              type="number"
-              inputProps={{ step: 1, min: 1 }}
-              endAdornment={"L"}
-              defaultValue={1}
-            />
-            <FormHelperText id="liter-helper-text">
-              The liter of {categoryData.name}.
-            </FormHelperText>
-          </FormControl> */}
-
           {showCreateFormulaButton ? (
             <LoadingButton
               onClick={createFormulaHandler}
@@ -429,7 +567,9 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             <Fragment>
               <div className={classes["total-estimated-cost__wrapper"]}>
                 <h4 className={classes["oil-title"]}>Total estimated cost</h4>
-                <p className={classes["total-cost"]}>₱245.00</p>
+                <p className={classes["total-cost"]}>
+                  ₱{totalEstimatedCost.toFixed(2)}
+                </p>
               </div>
               <Stack
                 direction="row"
@@ -449,6 +589,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                     fontWeight: "normal",
                     letterSpacing: "1px",
                   }}
+                  onClick={() => addProduct(transformedProduct)}
                 >
                   Add to cart
                 </Button>
