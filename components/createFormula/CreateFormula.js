@@ -5,6 +5,7 @@ import {
   useEffect,
   forwardRef,
 } from "react";
+import crypto from "crypto";
 import Image from "next/image";
 import { useState, useContext } from "react";
 
@@ -101,6 +102,13 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const [openCartSnackbar, setOpenCartSnackbar] = useState(false);
   const customProductName = categoryData.name;
   const categoryImage = categoryData.image;
+
+  const randomBytes = crypto.randomBytes(16); // Generate a 16-byte (128-bit) random number
+  const uniqueId = crypto
+    .createHash("sha256")
+    .update(randomBytes)
+    .digest("hex");
+  const productId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
   console.log(categoryData);
   console.log(ingredientData);
@@ -213,6 +221,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
   const createFormulaHandler = () => {
     const transformedProductRaw = [
+      productId,
       categoryData.id,
       categoryData.name,
       categoryImage,

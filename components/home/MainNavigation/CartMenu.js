@@ -25,11 +25,16 @@ const cartDatas = [
 const CartMenu = (props) => {
   const { cartProducts } = useContext(CartContext);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cartDatas, setCartDatas] = useState([]);
   const [transformedCartDatas, setTransformedCartDatas] = useState([]);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    const transformedData = convertCartData(cartProducts);
+    const cartData = convertCartData(cartProducts);
+    const transformedData = getUniqueCartData(cartData);
+
+    setCartDatas(transformedData);
+
     const slicedData = transformedData.slice(-4);
     const reversedData = slicedData.reverse();
     setTransformedCartDatas(reversedData);
@@ -49,6 +54,7 @@ const CartMenu = (props) => {
 
     for (const cartData of cartDatas) {
       const [
+        productId,
         categoryId,
         categoryName,
         categoryImage,
@@ -62,6 +68,7 @@ const CartMenu = (props) => {
       const totalCost = totalEstimatedCost;
 
       result.push({
+        productId,
         categoryId,
         categoryName,
         categoryImage,
@@ -74,6 +81,29 @@ const CartMenu = (props) => {
 
     return result;
   };
+
+  function getUniqueCartData(cartDatas) {
+    const uniqueProducts = [];
+    const productCounts = {};
+
+    for (const cartData of cartDatas) {
+      const productId = cartData.productId;
+      if (!productCounts[productId]) {
+        productCounts[productId] = 1;
+        uniqueProducts.push(cartData);
+      } else {
+        productCounts[productId]++;
+      }
+    }
+
+    for (const product of uniqueProducts) {
+      const productId = product.productId;
+      const count = productCounts[productId];
+      product.numberOfLiter += count - 1;
+    }
+
+    return uniqueProducts;
+  }
 
   return (
     <Fragment>
@@ -94,7 +124,7 @@ const CartMenu = (props) => {
           }}
         >
           <Badge
-            badgeContent={cartProducts.length}
+            badgeContent={cartDatas.length}
             color="primary"
             max={99}
             sx={{
@@ -179,33 +209,35 @@ const CartMenu = (props) => {
                 <p className={classes.name}>{cartData.categoryName}</p>
                 <div className={classes.number}>
                   <div>{cartData.numberOfLiter}L</div>
-                  <div>₱{cartData.totalEstimatedCost.toFixed(2)}</div>
+                  <div>₱{cartData?.totalEstimatedCost?.toFixed(2)}</div>
                 </div>
               </div>
             </MenuItem>
             // </Tooltip>
           );
         })}
-        <Button
-          variant="contained"
-          className={classes["buy-now__button"]}
-          sx={{
-            alignSelf: "center",
-            padding: "0.8em 2em",
-            borderRadius: "3px",
-            textTransform: "uppercase",
-            fontSize: "12px",
-            fontWeight: "normal",
-            letterSpacing: "1px",
-            backgroundColor: "#de89a1",
-            color: "#fff",
-            outline: "none",
-            border: "none",
-            width: "100%",
-          }}
-        >
-          View my cart
-        </Button>
+        <Link href={"/cart"}>
+          <Button
+            variant="contained"
+            className={classes["buy-now__button"]}
+            sx={{
+              alignSelf: "center",
+              padding: "0.8em 2em",
+              borderRadius: "3px",
+              textTransform: "uppercase",
+              fontSize: "12px",
+              fontWeight: "normal",
+              letterSpacing: "1px",
+              backgroundColor: "#de89a1",
+              color: "#fff",
+              outline: "none",
+              border: "none",
+              width: "100%",
+            }}
+          >
+            View my cart
+          </Button>
+        </Link>
       </Menu>
     </Fragment>
   );
