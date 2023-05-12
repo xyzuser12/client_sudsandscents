@@ -105,6 +105,7 @@
 
 .table-body .table-row {
   /* border: 1px solid red; */
+  border-bottom: 1px solid #dadada;
 }
 .table-body td {
   /* border: 1px solid red; */
@@ -118,14 +119,12 @@
   width: 5%;
   padding: 0 0 0 1rem;
   border-right: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
 }
 .table-body .td-image {
   width: 20%;
   height: 100%;
   padding: 1rem 0 1rem 0.6rem;
   border-right: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
 
   /* border: 1px solid red; */
 }
@@ -137,8 +136,6 @@
   flex-direction: column;
   gap: 0.8rem;
   padding: 1rem;
-  border-right: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
 }
 .table-body .td-liters {
   width: 10%;
@@ -147,7 +144,7 @@
   min-width: 100px;
   padding: 0.4rem;
   border-right: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
+  border-left: 1px solid #dadada;
 }
 
 .table-body .td-liters div {
@@ -155,7 +152,6 @@
 }
 
 .table-body .td-subtotal {
-  border-bottom: 1px solid #dadada;
 }
 
 .table-body .td-subtotal p {
