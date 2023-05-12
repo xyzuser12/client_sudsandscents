@@ -389,21 +389,23 @@ const CreateFormulaPage = () => {
   function getSubCategories(categ) {
     // console.log(categ);
     const subCategories = [];
-    categ.forEach((category) => {
-      if (category.parent) {
-        const parentCategory = category.parent.name;
-        const parentCategoryId = category.parent._id;
-        const parentCategoryProperties = category.properties;
+    if (categ) {
+      categ.forEach((category) => {
+        if (category.parent) {
+          const parentCategory = category.parent.name;
+          const parentCategoryId = category.parent._id;
+          const parentCategoryProperties = category.properties;
 
-        subCategories.push({
-          id: category._id,
-          name: category.name,
-          parent: parentCategory,
-          parentId: parentCategoryId,
-          composition: parentCategoryProperties,
-        });
-      }
-    });
+          subCategories.push({
+            id: category._id,
+            name: category.name,
+            parent: parentCategory,
+            parentId: parentCategoryId,
+            composition: parentCategoryProperties,
+          });
+        }
+      });
+    }
 
     return subCategories;
   }

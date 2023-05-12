@@ -172,12 +172,13 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
   function getSelectedIngredientIds(ingreRaw) {
     const selectedIds = [];
-
-    ingreRaw.forEach((item) => {
-      if (item.ingredient.isSelected) {
-        selectedIds.push(item.ingredient.id);
-      }
-    });
+    if (ingreRaw) {
+      ingreRaw.forEach((item) => {
+        if (item.ingredient.isSelected) {
+          selectedIds.push(item.ingredient.id);
+        }
+      });
+    }
 
     return selectedIds;
   }
@@ -321,7 +322,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             required
             labelId="base"
             id="base"
-            value={categoryData.subcategories[0].category}
+            value={base}
             label="Subcategory"
             className={classes["base__select"]}
             onChange={baseHandler}

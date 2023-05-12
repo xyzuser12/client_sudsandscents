@@ -39,15 +39,17 @@ const FormulaCategoryList = ({ ingredients, categories }) => {
   function getTopLevelCategories(categ) {
     const topLevelCategories = [];
 
-    categ.forEach((category) => {
-      if (!category.parent) {
-        topLevelCategories.push({
-          id: category._id,
-          name: category.name,
-          image: category.image,
-        });
-      }
-    });
+    if (categ) {
+      categ.forEach((category) => {
+        if (!category.parent) {
+          topLevelCategories.push({
+            id: category._id,
+            name: category.name,
+            image: category.image,
+          });
+        }
+      });
+    }
 
     return topLevelCategories;
   }

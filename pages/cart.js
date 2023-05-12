@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
-import Button from "@/components/Button";
+import Button from "@mui/material/Button";
+import CutomButton from "../components/Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
@@ -14,6 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 import classes from "../styles/cart/Cart.module.css";
+import outputImageBg from "../public/assets/outputImage_background.png";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -54,6 +57,7 @@ const ProductInfoCell = styled.td`
 `;
 
 const ProductImageBox = styled.div`
+  position: relative;
   width: 70px;
   height: 100px;
   padding: 2px;
@@ -62,9 +66,18 @@ const ProductImageBox = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  img {
-    max-width: 60px;
-    max-height: 60px;
+  &.image {
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+  }
+  &.image-backgound {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
   @media screen and (min-width: 768px) {
     padding: 10px;
@@ -90,6 +103,59 @@ const CityHolder = styled.div`
   display: flex;
   gap: 5px;
 `;
+
+const ingreDataArr = [
+  {
+    category: "Oil-based",
+    categoryId: "6446553cbe70cd3d8b62bd0f",
+    composition: "Carrier Oils",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    id: "644662c5be70cd3d8b62bd73",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+    price: 42,
+    quantity: 11,
+    title: "Sweet Almond",
+  },
+  {
+    category: "Oil-based",
+    categoryId: "6446553cbe70cd3d8b62bd0f",
+    composition: "Carrier Oils",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    id: "6446630abe70cd3d8b62bd7f",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+    price: 29,
+    quantity: 34,
+    title: "Coconut",
+  },
+  {
+    category: "Floral",
+    categoryId: "64465be6be70cd3d8b62bd3b",
+    composition: "Essential Oils",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    id: "645354f2ef19e3b71076cecb",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+    price: 123,
+    quantity: 234,
+    title: "Rose",
+  },
+  {
+    category: "Floral",
+    categoryId: "64465be6be70cd3d8b62bd3b",
+    composition: "Essential Oils",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    id: "64535584ef19e3b71076ced7",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
+    price: 41,
+    quantity: 654,
+    title: "Jasmine",
+  },
+];
 
 const cartDatas = [
   {
@@ -177,6 +243,7 @@ export default function CartPage() {
   const [reverseOrderProducts, setReverseOrderProducts] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -357,53 +424,128 @@ export default function CartPage() {
     <div className={classes.container}>
       <div className={classes["inner-container"]}>
         <h2 className={classes.cart}>Cart</h2>
-        <div className={classes["cart-container"]}>
-          <div className={classes["cart-items"]}>
-            {!cartProducts?.length && <div>Your cart is empty</div>}
-            {products?.length > 0 && (
-              <div>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Select all items"
-                />
 
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Liters</th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.map((product, i) => (
+        <div className={classes["cart-container"]}>
+          <RevealWrapper delay={0} className={classes["cart-items"]}>
+            <div>
+              {!cartProducts?.length && <div>Your cart is empty</div>}
+              {products?.length > 0 && (
+                <div>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Select all items"
+                    className={classes["select-all"]}
+                    sx={{
+                      color: "#545454",
+                      margin: "0",
+                    }}
+                  />
+
+                  <table className={classes["table"]}>
+                    <thead className={classes["table-head"]}>
                       <tr>
-                        <ProductInfoCell>
-                          <ProductImageBox>
-                            <img
-                              src={product.categoryImage}
-                              alt={product.categoryName}
-                            />
-                          </ProductImageBox>
-                          {product.title}
-                        </ProductInfoCell>
-                        <td>
-                          <Button
-                            onClick={() => lessOfThisProduct(product.productId)}
-                          >
-                            -
-                          </Button>
-                          <QuantityLabel>{product.numberOfLiter}</QuantityLabel>
-                          <Button
-                            onClick={() => moreOfThisProduct(product.productId)}
-                          >
-                            +
-                          </Button>
-                        </td>
-                        <td>₱{product.totalEstimatedCost}</td>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Liters</th>
+                        <th>Subtotal</th>
                       </tr>
-                    ))}
-                    {/* <tr className="subtotal">
+                    </thead>
+                    <tbody
+                      className={classes["table-body"]}
+                      style={{ padding: "1px" }}
+                    >
+                      {products.map((product) => (
+                        //       <tr>
+                        //         <FormControlLabel
+                        //   control={<Checkbox />}
+
+                        // />
+                        //       </tr>
+                        <tr className={classes["table-row"]}>
+                          <td className={classes["select"]}>
+                            <FormControlLabel
+                              control={<Checkbox />}
+                              sx={{ marginRight: "0" }}
+                            />
+                          </td>
+                          <td className={classes["td-image"]}>
+                            <div className={classes["image-wrapper"]}>
+                              <Image
+                                src={product.categoryImage}
+                                alt="image of perfume"
+                                width={100}
+                                height={100}
+                                className={classes.image}
+                                loading="lazy"
+                              />
+                              <Image
+                                src={outputImageBg}
+                                alt="background of image of perfume"
+                                className={classes["image-backgound"]}
+                                loading="lazy"
+                              />
+                            </div>
+                            <p className={classes["product-name"]}>
+                              {product.categoryName}
+                            </p>
+                          </td>
+                          <td className={classes["td-price"]}>
+                            {product.ingredients.map((ingredientId) => {
+                              const foundIngredient = ingredients.find(
+                                (ingredient) => ingredient._id === ingredientId
+                              );
+                              if (foundIngredient) {
+                                return (
+                                  <div key={foundIngredient._id}>
+                                    <p>
+                                      <i className={classes["ingredient-name"]}>
+                                        {foundIngredient.title}{" "}
+                                        {foundIngredient.composition}
+                                      </i>
+                                    </p>
+                                    <p className={classes["ingredient-price"]}>
+                                      ₱{foundIngredient.price.toFixed(2)}
+                                    </p>
+                                  </div>
+                                );
+                              }
+                              return null;
+                            })}
+                          </td>
+                          <td className={classes["td-liters"]}>
+                            <div>
+                              <CutomButton
+                                onClick={() =>
+                                  lessOfThisProduct(product.productId)
+                                }
+                              >
+                                -
+                              </CutomButton>
+                              <QuantityLabel>
+                                {product.numberOfLiter}
+                              </QuantityLabel>
+                              <CutomButton
+                                onClick={() =>
+                                  moreOfThisProduct(product.productId)
+                                }
+                              >
+                                +
+                              </CutomButton>
+                            </div>
+                          </td>
+                          <td className={classes["td-subtotal"]}>
+                            <p>
+                              ₱
+                              {(
+                                product.totalEstimatedCost *
+                                product.numberOfLiter
+                              ).toFixed(2)}
+                            </p>
+                          </td>
+                        </tr>
+                      ))}
+                      {/* <tr className="subtotal">
                     <td colSpan={2}>Products</td>
                     <td>${productsTotal}</td>
                   </tr>
@@ -415,12 +557,127 @@ export default function CartPage() {
                     <td colSpan={2}>Total</td>
                     <td>${productsTotal + parseInt(shippingFee || 0)}</td>
                   </tr> */}
-                  </tbody>
-                </Table>
-              </div>
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </RevealWrapper>
+          <div className={classes["order-infos"]}>
+            {!!cartProducts?.length && (
+              <RevealWrapper delay={100}>
+                <div className={classes["order-infos-wrapper"]}>
+                  <div className={classes["delivery-address"]}>
+                    <h2 className={classes["delivery-address-title"]}>
+                      Delivery Address
+                    </h2>
+                  </div>
+                  <div className={classes["delivery-address-inputs-wrapper"]}>
+                    <Input
+                      type="text"
+                      placeholder="Name"
+                      value={name}
+                      name="name"
+                      onChange={(ev) => setName(ev.target.value)}
+                    />
+                    <Input
+                      type="tel"
+                      placeholder="Phone Number"
+                      value={phoneNumber}
+                      name="phoneNumber"
+                      onChange={(ev) => setPhoneNumber(ev.target.value)}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Email"
+                      value={email}
+                      name="email"
+                      onChange={(ev) => setEmail(ev.target.value)}
+                    />
+                    <CityHolder>
+                      <Input
+                        type="text"
+                        placeholder="City"
+                        value={city}
+                        name="city"
+                        onChange={(ev) => setCity(ev.target.value)}
+                      />
+                      <Input
+                        type="text"
+                        placeholder="Postal Code"
+                        value={postalCode}
+                        name="postalCode"
+                        onChange={(ev) => setPostalCode(ev.target.value)}
+                      />
+                    </CityHolder>
+                    <Input
+                      type="text"
+                      placeholder="Street Address"
+                      value={streetAddress}
+                      name="streetAddress"
+                      onChange={(ev) => setStreetAddress(ev.target.value)}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Country"
+                      value={country}
+                      name="country"
+                      onChange={(ev) => setCountry(ev.target.value)}
+                    />
+                  </div>
+                  <div className={classes["delivery-address"]}>
+                    <h2 className={classes["delivery-address-title"]}>
+                      Order Summary
+                    </h2>
+                  </div>
+                  <div className={classes["order-summary-wrapper"]}>
+                    <p>
+                      Subtotal ({products.length}{" "}
+                      {products.length > 1 ? "items" : "item"}):
+                    </p>
+                    <p>₱490.00</p>
+                    <p>Shipping:</p>
+                    <p>₱38.00</p>
+                  </div>
+                  <div className={classes["order-summary-bottom"]}>
+                    <div className={classes["voucher-wrapper"]}>
+                      <Input
+                        style={{ margin: "0" }}
+                        type="text"
+                        placeholder="Voucher Code"
+                        name="voucher"
+                      />
+                      <CutomButton>Apply</CutomButton>
+                    </div>
+                    <div className={classes["total-payment-wrapper"]}>
+                      <p>Total Payment: </p>
+                      <p>₱528.00</p>
+                    </div>
+                    <Button
+                      variant="contained"
+                      className={classes["buy-now__button"]}
+                      sx={{
+                        width: "100%",
+                        alignSelf: "center",
+                        padding: "0.8em 2em",
+                        borderRadius: "8px",
+                        textTransform: "uppercase",
+                        fontSize: "14px",
+                        fontWeight: "700",
+                        letterSpacing: "1px",
+                        backgroundColor: "#de89a1",
+                        color: "#fff",
+                        outline: "none",
+                        border: "none",
+                      }}
+                    >
+                      Continue to payment
+                    </Button>
+                  </div>
+                </div>
+              </RevealWrapper>
             )}
           </div>
-          <div className={classes["order-infos"]}></div>
         </div>
       </div>
     </div>
