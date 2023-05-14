@@ -66,6 +66,7 @@
   justify-content: center;
   align-items: center;
   justify-self: end;
+  gap: 10px;
   /* gap: 0.9rem; */
   grid-area: iconsRight;
   /* font-size: 1rem; */
@@ -132,7 +133,7 @@
   width: 100%;
 }
 
-@media (min-width: 793px) {
+@media (min-width: 940px) {
   .nav {
     grid-template-areas: " logo navLarge iconsLeft iconsRight";
     grid-template-columns: 13rem auto 4rem 4rem;

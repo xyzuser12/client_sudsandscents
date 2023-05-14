@@ -19,10 +19,10 @@ export default async function handler(req, res) {
       streetAddress,
       country,
       paymentMethod,
-      products,
+      productToPurchase,
     } = req.body;
     const orderDoc = await Order.create({
-      line_items: products,
+      line_items: productToPurchase,
       name,
       email,
       phoneNumber,

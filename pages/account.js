@@ -1,31 +1,42 @@
-import Header from "@/components/Header";
-import Title from "@/components/Title";
-import Center from "@/components/Center";
-import {signIn, signOut, useSession} from "next-auth/react";
-import Button from "@/components/Button";
-import styled from "styled-components";
-import WhiteBox from "@/components/WhiteBox";
-import {RevealWrapper} from "next-reveal";
-import Input from "@/components/Input";
-import {useEffect, useState} from "react";
-import axios from "axios";
-import Spinner from "@/components/Spinner";
-import ProductBox from "@/components/ProductBox";
-import Tabs from "@/components/Tabs";
-import SingleOrder from "@/components/SingleOrder";
+// import Header from "@/components/Header";
+// import Title from "@/components/Title";
+// import Center from "@/components/Center";
+import { useContext, useEffect, useState } from "react";
 
+import { signIn, signOut, useSession } from "next-auth/react";
+// import Button from "@/components/Button";
+import styled from "styled-components";
+// import WhiteBox from "@/components/WhiteBox";
+// import { RevealWrapper } from "next-reveal";
+// import Input from "@/components/Input";
+// import { useEffect, useState } from "react";
+import axios from "axios";
+// import Spinner from "@/components/Spinner";
+// import ProductBox from "@/components/
+// ProductBox";
+// import Tabs from "@/components/Tabs";
+// import SingleOrder from "@/components/SingleOrder";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import classes from "../styles/account/Account.module.css";
+import Image from "next/image";
+import EditIcon from "@mui/icons-material/Edit";
 const ColsWrapper = styled.div`
-  display:grid;
-  grid-template-columns: 1.2fr .8fr;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
   gap: 40px;
   margin: 40px 0;
-  p{
-    margin:5px;
+  p {
+    margin: 5px;
   }
 `;
 
 const CityHolder = styled.div`
-  display:flex;
+  display: flex;
   gap: 5px;
 `;
 
@@ -36,65 +47,471 @@ const WishedProductsGrid = styled.div`
 `;
 
 export default function AccountPage() {
-  const {data:session} = useSession();
-  const [name,setName] = useState('');
-  const [email,setEmail] = useState('');
-  const [city,setCity] = useState('');
-  const [postalCode,setPostalCode] = useState('');
-  const [streetAddress,setStreetAddress] = useState('');
-  const [country,setCountry] = useState('');
-  const [addressLoaded,setAddressLoaded] = useState(true);
-  const [wishlistLoaded,setWishlistLoaded] = useState(true);
-  const [orderLoaded,setOrderLoaded] = useState(true);
-  const [wishedProducts,setWishedProducts] = useState([]);
-  const [activeTab, setActiveTab] = useState('Orders');
-  const [orders, setOrders] = useState([]);
+  const { data: session } = useSession();
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorNumber, setErrorNumber] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPostal, setErrorPostal] = useState("");
 
-  async function logout() {
-    await signOut({
-      callbackUrl: process.env.NEXT_PUBLIC_URL,
-    });
-  }
-  async function login() {
-    await signIn('google');
-  }
-  function saveAddress() {
-    const data = {name,email,city,streetAddress,postalCode,country};
-    axios.put('/api/address', data);
+  const [isErrorName, setIsErrorName] = useState(false);
+  const [isErrorNumber, setIsErrorNumber] = useState(false);
+  const [isErrorEmail, setIsErrorEmail] = useState(false);
+  const [isErrorPostal, setIsErrorPostal] = useState(false);
+
+  console.log(session);
+
+  function saveAccountDetails() {
+    const data = {
+      name,
+      phoneNumber,
+      email,
+      city,
+      streetAddress,
+      postalCode,
+      country,
+    };
+    console.log(data);
+    axios.put("/api/address", data);
   }
   useEffect(() => {
     if (!session) {
       return;
     }
-    setAddressLoaded(false);
-    setWishlistLoaded(false);
-    setOrderLoaded(false);
-    axios.get('/api/address').then(response => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setCity(response.data.city);
-      setPostalCode(response.data.postalCode);
-      setStreetAddress(response.data.streetAddress);
-      setCountry(response.data.country);
-      setAddressLoaded(true);
+    // setAddressLoaded(false);
+    // setWishlistLoaded(false);
+    // setOrderLoaded(false);
+    axios.get("/api/address").then((response) => {
+      setName(response?.data?.name);
+      setPhoneNumber(response?.data?.phoneNumber);
+      setEmail(response?.data?.email);
+      setCity(response?.data?.city);
+      setPostalCode(response?.data?.postalCode);
+      setStreetAddress(response?.data?.streetAddress);
+      setCountry(response?.data?.country);
+      // setAddressLoaded(true);
     });
-    axios.get('/api/wishlist').then(response => {
-      setWishedProducts(response.data.map(wp => wp.product));
-      setWishlistLoaded(true);
-    });
-    axios.get('/api/orders').then(response => {
-      setOrders(response.data);
-      setOrderLoaded(true);
-    });
+
+    // axios.get('/api/wishlist').then(response => {
+    //   setWishedProducts(response.data.map(wp => wp.product));
+    //   setWishlistLoaded(true);
+    // });
+    // axios.get('/api/orders').then(response => {
+    //   setOrders(response.data);
+    //   setOrderLoaded(true);
+    // });
   }, [session]);
-  function productRemovedFromWishlist(idToRemove) {
-    setWishedProducts(products => {
-      return [...products.filter(p => p._id.toString() !== idToRemove)];
-    });
-  }
+  const validateFields = () => {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    const phoneRegex = /^09\d{9}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const postalCodeRegex = /^\d{4,5}$/;
+
+    // Validate name
+    if (!nameRegex.test(name)) {
+      isValid = false;
+      setIsErrorName(true);
+      setErrorName("Invalid name");
+    } else {
+      isValid = true;
+      setIsErrorName(false);
+      setErrorName("");
+    }
+
+    // Validate phone number
+    if (!phoneRegex.test(phoneNumber)) {
+      isValid = false;
+      setIsErrorNumber(true);
+      setErrorNumber("Invalid phone number");
+    } else {
+      isValid = true;
+      setIsErrorNumber(false);
+      setErrorNumber("");
+    }
+
+    // Validate email
+    if (!emailRegex.test(email)) {
+      isValid = false;
+      setIsErrorEmail(true);
+      setErrorEmail("Invalid email");
+    } else {
+      isValid = true;
+      setIsErrorEmail(false);
+      setErrorEmail("");
+    }
+
+    // Validate postal code
+    if (!postalCodeRegex.test(postalCode)) {
+      isValid = false;
+
+      setIsErrorPostal(true);
+      setErrorPostal("Invalid postal code");
+    } else {
+      isValid = true;
+      setIsErrorPostal(false);
+      setErrorPostal("");
+    }
+
+    // Validate country
+
+    return isValid;
+  };
+
+  // const {data:session} = useSession();
+  // const [name,setName] = useState('');
+  // const [email,setEmail] = useState('');
+  // const [city,setCity] = useState('');
+  // const [postalCode,setPostalCode] = useState('');
+  // const [streetAddress,setStreetAddress] = useState('');
+  // const [country,setCountry] = useState('');
+  // const [addressLoaded,setAddressLoaded] = useState(true);
+  // const [wishlistLoaded,setWishlistLoaded] = useState(true);
+  // const [orderLoaded,setOrderLoaded] = useState(true);
+  // const [wishedProducts,setWishedProducts] = useState([]);
+  // const [activeTab, setActiveTab] = useState('Orders');
+  // const [orders, setOrders] = useState([]);
+
+  // async function logout() {
+  //   await signOut({
+  //     callbackUrl: process.env.NEXT_PUBLIC_URL,
+  //   });
+  // }
+  // async function login() {
+  //   await signIn('google');
+  // }
+  // function saveAddress() {
+  //   const data = {name,email,city,streetAddress,postalCode,country};
+  //   axios.put('/api/address', data);
+  // }
+  // useEffect(() => {
+  //   if (!session) {
+  //     return;
+  //   }
+  //   setAddressLoaded(false);
+  //   setWishlistLoaded(false);
+  //   setOrderLoaded(false);
+  //   axios.get('/api/address').then(response => {
+  //     setName(response.data.name);
+  //     setEmail(response.data.email);
+  //     setCity(response.data.city);
+  //     setPostalCode(response.data.postalCode);
+  //     setStreetAddress(response.data.streetAddress);
+  //     setCountry(response.data.country);
+  //     setAddressLoaded(true);
+  //   });
+  //   axios.get('/api/wishlist').then(response => {
+  //     setWishedProducts(response.data.map(wp => wp.product));
+  //     setWishlistLoaded(true);
+  //   });
+  //   axios.get('/api/orders').then(response => {
+  //     setOrders(response.data);
+  //     setOrderLoaded(true);
+  //   });
+  // }, [session]);
+  // function productRemovedFromWishlist(idToRemove) {
+  //   setWishedProducts(products => {
+  //     return [...products.filter(p => p._id.toString() !== idToRemove)];
+  //   });
+  // }
   return (
     <>
-      <Header />
+      <div className={classes.container}>
+        <div className={classes["inner-container"]}>
+          <h2 className={classes["account-title"]}>Account Details</h2>
+          <div className={classes["account-container"]}>
+            <div className={classes["information-wrapper"]}>
+              <h3>Information</h3>
+              <FormControl
+                error={isErrorName}
+                className={classes["name"]}
+                size="small"
+                sx={{
+                  m: 1,
+                  width: "100%",
+                  margin: "0",
+                  "& div": {
+                    fontSize: "14px",
+                    backgroundColor: `${isErrorName ? "#FDEDED" : "none"}`,
+                  },
+                }}
+              >
+                <label for="name" className={classes.label}>
+                  Name
+                </label>
+                <OutlinedInput
+                  id="name"
+                  name="name"
+                  type="text"
+                  onChange={(ev) => setName(ev.target.value)}
+                  onBlur={validateFields}
+                  required
+                  aria-describedby="name-error-text"
+                  value={name}
+                />
+                {isErrorName && errorName && (
+                  <FormHelperText
+                    id="name-error-text"
+                    sx={{ marginLeft: "4px" }}
+                  >
+                    {errorName}
+                  </FormHelperText>
+                )}
+              </FormControl>
+
+              <FormControl
+                error={isErrorNumber}
+                className={classes["phone-number"]}
+                size="small"
+                sx={{
+                  m: 1,
+                  width: "100%",
+                  margin: "0",
+                  "& div": {
+                    fontSize: "14px",
+                    backgroundColor: `${isErrorNumber ? "#FDEDED" : "none"}`,
+                  },
+                }}
+              >
+                <label for="phoneNumber" className={classes.label}>
+                  Phone number
+                </label>
+
+                <OutlinedInput
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="tel"
+                  onChange={(ev) => setPhoneNumber(ev.target.value)}
+                  onBlur={validateFields}
+                  required
+                  aria-describedby="number-error-text"
+                  value={phoneNumber}
+                />
+                {isErrorNumber && errorNumber && (
+                  <FormHelperText
+                    id="name-error-text"
+                    sx={{ marginLeft: "4px" }}
+                  >
+                    {errorNumber}
+                  </FormHelperText>
+                )}
+              </FormControl>
+              <FormControl
+                error={isErrorEmail}
+                className={classes["email"]}
+                size="small"
+                sx={{
+                  m: 1,
+                  width: "100%",
+                  margin: "0",
+                  "& div": {
+                    fontSize: "14px",
+                    backgroundColor: `${isErrorEmail ? "#FDEDED" : "none"}`,
+                  },
+                }}
+              >
+                <label for="email" className={classes.label}>
+                  Email
+                </label>
+
+                <OutlinedInput
+                  id="email"
+                  name="email"
+                  type="email"
+                  onChange={(ev) => setEmail(ev.target.value)}
+                  onBlur={validateFields}
+                  required
+                  aria-describedby="email-error-text"
+                  value={email}
+                />
+                {isErrorEmail && errorEmail && (
+                  <FormHelperText
+                    id="email-error-text"
+                    sx={{ marginLeft: "4px" }}
+                  >
+                    {errorEmail}
+                  </FormHelperText>
+                )}
+              </FormControl>
+              <div className={classes.country}>
+                <FormControl
+                  className={classes["city"]}
+                  size="small"
+                  sx={{
+                    m: 1,
+                    width: "100%",
+                    margin: "0",
+                    "& div": {
+                      fontSize: "14px",
+                    },
+                  }}
+                >
+                  <label for="city" className={classes.label}>
+                    City
+                  </label>
+
+                  <OutlinedInput
+                    id="city"
+                    name="city"
+                    type="text"
+                    onChange={(ev) => setCity(ev.target.value)}
+                    onBlur={validateFields}
+                    required
+                    aria-describedby="city-error-text"
+                    value={city}
+                  />
+                </FormControl>
+                <FormControl
+                  error={isErrorPostal}
+                  className={classes["postal-code"]}
+                  size="small"
+                  sx={{
+                    m: 1,
+                    width: "100%",
+                    margin: "0",
+                    "& div": {
+                      fontSize: "14px",
+                      backgroundColor: `${isErrorPostal ? "#FDEDED" : "none"}`,
+                    },
+                  }}
+                >
+                  <label for="postalCode" className={classes.label}>
+                    Postal code
+                  </label>
+
+                  <OutlinedInput
+                    id="postalCode"
+                    name="postalCode"
+                    type="text"
+                    onChange={(ev) => setPostalCode(ev.target.value)}
+                    onBlur={validateFields}
+                    required
+                    aria-describedby="postal-error-text"
+                    value={postalCode}
+                  />
+                  {isErrorPostal && errorPostal && (
+                    <FormHelperText
+                      id="postal-error-text"
+                      sx={{ marginLeft: "4px" }}
+                    >
+                      {errorPostal}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </div>
+              <FormControl
+                size="small"
+                className={classes["street-address"]}
+                sx={{
+                  m: 1,
+                  width: "100%",
+                  margin: "0",
+                  "& div": {
+                    fontSize: "14px",
+                  },
+                }}
+              >
+                <label for="streetAddress" className={classes.label}>
+                  Street address
+                </label>
+
+                <OutlinedInput
+                  id="streetAddress"
+                  name="streetAddress"
+                  type="text"
+                  onChange={(ev) => setStreetAddress(ev.target.value)}
+                  onBlur={validateFields}
+                  required
+                  aria-describedby="street-error-text"
+                  value={streetAddress}
+                />
+              </FormControl>
+              <FormControl
+                size="small"
+                sx={{
+                  m: 1,
+                  width: "100%",
+                  margin: "0",
+                  "& div": {
+                    fontSize: "14px",
+                  },
+                }}
+              >
+                <label for="country" className={classes.label}>
+                  Country
+                </label>
+
+                <OutlinedInput
+                  id="country"
+                  name="country"
+                  type="text"
+                  onChange={(ev) => setCountry(ev.target.value)}
+                  onBlur={validateFields}
+                  required
+                  aria-describedby="country-error-text"
+                  value={country}
+                />
+              </FormControl>
+
+              <Button
+                variant="contained"
+                className={classes["buy-now__button"]}
+                sx={{
+                  width: "100%",
+                  alignSelf: "center",
+                  padding: "0.8em 2em",
+                  borderRadius: "8px",
+                  textTransform: "uppercase",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  letterSpacing: "1px",
+                  backgroundColor: "#de89a1",
+                  color: "#fff",
+                  outline: "none",
+                  border: "none",
+                }}
+                onClick={saveAccountDetails}
+              >
+                Save
+              </Button>
+            </div>
+            <div className={classes["profile-pic-wrapper"]}>
+              <h3>Profile photo</h3>
+              <div className={classes["image-wrapper"]}>
+                <Image
+                  src={session?.user?.image}
+                  alt={`profile photo of ${session?.user?.name}`}
+                  width={200}
+                  height={200}
+                  className={classes["profile-photo"]}
+                />
+                <IconButton
+                  aria-label="delete"
+                  size="large"
+                  sx={{
+                    position: "absolute",
+                    bottom: "10px",
+                    right: "10px",
+                    "& svg": { fill: "#fff", zIndex: "1" },
+                    "& span": {
+                      backgroundColor: "#DE89A1",
+                    },
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <Header />
       <Center>
         <ColsWrapper>
           <div>
@@ -209,7 +626,7 @@ export default function AccountPage() {
             </RevealWrapper>
           </div>
         </ColsWrapper>
-      </Center>
+      </Center> */}
     </>
   );
 }

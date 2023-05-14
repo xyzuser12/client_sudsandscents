@@ -9,7 +9,7 @@
   border: 1px solid red;
 }
 
-@media (min-width: 793px) {
+@media (min-width: 940px) {
   .container {
     display: none;
   }

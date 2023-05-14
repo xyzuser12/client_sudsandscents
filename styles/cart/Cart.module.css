@@ -161,7 +161,9 @@
 
 .table-body .td-price .ingredient-name,
 .table-body .td-price .ingredient-price {
+  display: inline-block;
   font-size: 13px;
+  width: 100%;
 }
 
 .image-wrapper {

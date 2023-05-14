@@ -44,26 +44,14 @@ const AccountMenu = ({ styleMode, userSession }) => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            {/* <Avatar
-              classes={{
-                root: `${
-                  styleMode === "light"
-                    ? classes.iconButton
-                    : classes.iconButtonDark
-                }`,
-              }}
-              sx={{ width: 28, height: 28, backgroundColor: "transparent" }}
-              src={userSession?.data?.user.image}
-              alt={userSession?.data?.user.image}
-            /> */}
             {userSession && userSession.status === "authenticated" ? (
               <Avatar
-                sx={{ width: 28, height: 28, backgroundColor: "transparent" }}
+                sx={{ width: 30, height: 30, backgroundColor: "transparent" }}
               >
                 <Image
                   src={userSession.data.user.image}
-                  width="28"
-                  height="28"
+                  width="30"
+                  height="30"
                   alt={userSession.data.user.name}
                 />
               </Avatar>

@@ -503,7 +503,7 @@ export default function CartPage() {
         streetAddress,
         country,
         paymentMethod,
-        products,
+        productToPurchase,
       });
     } else {
       console.log("One or more fields are invalid");
@@ -1001,6 +1001,7 @@ export default function CartPage() {
                   <div className={classes["order-summary-bottom"]}>
                     <div className={classes["voucher-wrapper"]}>
                       <FormControl
+                        disabled={!productToPurchase.length}
                         className={classes["postal-code"]}
                         sx={{
                           m: 1,
@@ -1021,7 +1022,10 @@ export default function CartPage() {
                           id="voucher"
                         />
                       </FormControl>
-                      <CutomButton>Apply</CutomButton>
+                      <CutomButton disabled={!productToPurchase.length}>
+                        {" "}
+                        Apply
+                      </CutomButton>
                     </div>
                     <div className={classes["total-payment-wrapper"]}>
                       <p>Total Payment: </p>
