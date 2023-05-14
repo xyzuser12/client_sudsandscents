@@ -272,6 +272,7 @@
 .total-payment-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.8rem;
 }
 
@@ -280,6 +281,7 @@
   color: #545454;
 }
 .total-payment-wrapper p:last-child {
-  font-size: 19px;
+  font-weight: 700;
+  font-size: 20px;
   color: #de89a1;
 }

@@ -195,7 +195,7 @@ const cartDatas = [
     ],
     numberOfLiter: 2,
     productId:
-      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbt",
     totalEstimatedCost: 245,
   },
   {
@@ -229,7 +229,7 @@ const cartDatas = [
     ],
     numberOfLiter: 2,
     productId:
-      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbh",
     totalEstimatedCost: 245,
   },
 ];
@@ -274,10 +274,12 @@ export default function CartPage() {
   const [isErrorCountry, setIsErrorCountry] = useState(false);
   const [isErrorPaymentMethod, setIsErrorPaymentMethod] = useState(false);
 
+  const [productToPurchase, setProductToPurchase] = useState([]);
+  console.log(productToPurchase);
+
   useEffect(() => {
     const cartData = convertCartData(cartProducts);
     const transformedData = getUniqueCartData(cartData);
-    // console.log(getUniqueCartData(transformedData));
     const reversedData = transformedData.reverse();
     if (cartProducts.length > 0) {
       setReverseOrderProducts(reversedData);
@@ -349,15 +351,35 @@ export default function CartPage() {
     return uniqueProducts;
   }
 
-  function moreOfThisProduct(id) {
-    const item = cartProducts.find((item) => item.includes(id));
-    console.log(id);
-    console.log(item);
+  function moreOfThisProduct(productId) {
+    const item = cartProducts.find((item) => item.includes(productId));
     addProduct(item);
+
+    const updatedProducts = productToPurchase.map((product) => {
+      if (product.productId === productId) {
+        return {
+          ...product,
+          numberOfLiter: product.numberOfLiter + 1,
+        };
+      }
+      return product;
+    });
+    setProductToPurchase(updatedProducts);
   }
-  function lessOfThisProduct(id) {
-    const item = cartProducts.find((item) => item.includes(id));
+  function lessOfThisProduct(productId) {
+    const item = cartProducts.find((item) => item.includes(productId));
     removeProduct(item);
+
+    const updatedProducts = productToPurchase.map((product) => {
+      if (product.productId === productId) {
+        return {
+          ...product,
+          numberOfLiter: product.numberOfLiter - 1,
+        };
+      }
+      return product;
+    });
+    setProductToPurchase(updatedProducts);
   }
 
   const paymentMethodHandler = (e) => {
@@ -394,7 +416,6 @@ export default function CartPage() {
       isValid = false;
       setIsErrorNumber(true);
       setErrorNumber("Invalid phone number");
-      console.log("Invalid phone number");
     } else {
       setIsErrorNumber(false);
       setErrorNumber("");
@@ -405,7 +426,6 @@ export default function CartPage() {
       isValid = false;
       setIsErrorEmail(true);
       setErrorEmail("Email is required");
-      console.log("Invalid email");
     } else if (!emailRegex.test(email)) {
       isValid = false;
       setIsErrorEmail(true);
@@ -430,7 +450,6 @@ export default function CartPage() {
 
       setIsErrorPostal(true);
       setErrorPostal("Postal code is required");
-      console.log("Invalid postal code");
     } else if (!postalCodeRegex.test(postalCode)) {
       isValid = false;
 
@@ -455,7 +474,6 @@ export default function CartPage() {
       isValid = false;
       setIsErrorCountry(true);
       setErrorCountry("Country is required");
-      console.log("Country is required");
     } else {
       setIsErrorCountry(false);
       setErrorCountry("");
@@ -491,6 +509,26 @@ export default function CartPage() {
       console.log("One or more fields are invalid");
     }
   }
+  const checkboxChangeHandler = (event, productId) => {
+    if (event.target.checked) {
+      const selectedProduct = products.find(
+        (product) => product.productId === productId
+      );
+      setProductToPurchase([...productToPurchase, selectedProduct]);
+    } else {
+      const updatedProductList = productToPurchase.filter(
+        (product) => product.productId !== productId
+      );
+      setProductToPurchase(updatedProductList);
+    }
+  };
+
+  const subTotalOrderSummary = productToPurchase.reduce((acc, curr) => {
+    const productCost = curr.numberOfLiter * curr.totalEstimatedCost;
+    return acc + productCost;
+  }, 0);
+
+  console.log(subTotalOrderSummary);
 
   return (
     <div className={classes.container}>
@@ -528,16 +566,22 @@ export default function CartPage() {
                       style={{ padding: "1px" }}
                     >
                       {products.map((product) => (
-                        //       <tr>
-                        //         <FormControlLabel
-                        //   control={<Checkbox />}
-
-                        // />
-                        //       </tr>
-                        <tr className={classes["table-row"]}>
+                        <tr
+                          className={classes["table-row"]}
+                          key={product.productId}
+                        >
                           <td className={classes["select"]}>
                             <FormControlLabel
-                              control={<Checkbox />}
+                              control={
+                                <Checkbox
+                                  onChange={(event) =>
+                                    checkboxChangeHandler(
+                                      event,
+                                      product.productId
+                                    )
+                                  }
+                                />
+                              }
                               sx={{ marginRight: "0" }}
                             />
                           </td>
@@ -894,64 +938,6 @@ export default function CartPage() {
                         </FormHelperText>
                       )}
                     </FormControl>
-                    {/* <Input
-                      type="text"
-                      placeholder="Name"
-                      value={name}
-                      name="name"
-                      onChange={(ev) => setName(ev.target.value)}
-                      required
-                    /> */}
-                    {/* <Input
-                      type="tel"
-                      placeholder="Phone Number"
-                      value={phoneNumber}
-                      name="phoneNumber"
-                      onChange={(ev) => setPhoneNumber(ev.target.value)}
-                      required
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Email"
-                      value={email}
-                      name="email"
-                      onChange={(ev) => setEmail(ev.target.value)}
-                      required
-                    />
-                    <CityHolder>
-                      <Input
-                        type="text"
-                        placeholder="City"
-                        value={city}
-                        name="city"
-                        onChange={(ev) => setCity(ev.target.value)}
-                        required
-                      />
-                      <Input
-                        type="text"
-                        placeholder="Postal Code"
-                        value={postalCode}
-                        name="postalCode"
-                        onChange={(ev) => setPostalCode(ev.target.value)}
-                        required
-                      />
-                    </CityHolder>
-                    <Input
-                      type="text"
-                      placeholder="Street Address"
-                      value={streetAddress}
-                      name="streetAddress"
-                      onChange={(ev) => setStreetAddress(ev.target.value)}
-                      required
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Country"
-                      value={country}
-                      name="country"
-                      onChange={(ev) => setCountry(ev.target.value)}
-                      required
-                    /> */}
                   </div>
                   <div
                     className={classes["delivery-address"]}
@@ -984,7 +970,6 @@ export default function CartPage() {
                       }}
                     >
                       <MenuItem value={"COD"}>COD</MenuItem>
-                      <MenuItem value={"Gcash"}>Gcash</MenuItem>
                     </Select>
                     {isErrorPaymentMethod && errorPaymentMethod && (
                       <FormHelperText
@@ -1006,12 +991,12 @@ export default function CartPage() {
 
                   <div className={classes["order-summary-wrapper"]}>
                     <p>
-                      Subtotal ({products.length}{" "}
-                      {products.length > 1 ? "items" : "item"}):
+                      Subtotal ({productToPurchase.length}{" "}
+                      {productToPurchase.length > 1 ? "items" : "item"}):
                     </p>
-                    <p>₱490.00</p>
+                    <p>₱{subTotalOrderSummary.toFixed(2)}</p>
                     <p>Shipping:</p>
-                    <p>₱38.00</p>
+                    <p>₱80.00</p>
                   </div>
                   <div className={classes["order-summary-bottom"]}>
                     <div className={classes["voucher-wrapper"]}>
@@ -1040,9 +1025,15 @@ export default function CartPage() {
                     </div>
                     <div className={classes["total-payment-wrapper"]}>
                       <p>Total Payment: </p>
-                      <p>₱528.00</p>
+                      <p>
+                        ₱
+                        {productToPurchase.length > 0
+                          ? (subTotalOrderSummary + 80).toFixed(2)
+                          : 0}
+                      </p>
                     </div>
                     <Button
+                      disabled={!(productToPurchase.length > 0)}
                       variant="contained"
                       className={classes["buy-now__button"]}
                       sx={{
