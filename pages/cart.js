@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Header from "@/components/Header";
+
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@mui/material/Button";
@@ -243,6 +244,8 @@ const cartRaw = [
 ];
 
 export default function CartPage() {
+  const { data: session } = useSession();
+
   const { cartProducts, addProduct, removeProduct, clearCart } =
     useContext(CartContext);
   const [products, setProducts] = useState([]);
@@ -294,6 +297,34 @@ export default function CartPage() {
       setIngredients(ingredients);
     });
   }, []);
+
+  useEffect(() => {
+    if (!session) {
+      return;
+    }
+    // setAddressLoaded(false);
+    // setWishlistLoaded(false);
+    // setOrderLoaded(false);
+    axios.get("/api/address").then((response) => {
+      setName(response?.data?.name);
+      setPhoneNumber(response?.data?.phoneNumber);
+      setEmail(response?.data?.email);
+      setCity(response?.data?.city);
+      setPostalCode(response?.data?.postalCode);
+      setStreetAddress(response?.data?.streetAddress);
+      setCountry(response?.data?.country);
+      // setAddressLoaded(true);
+    });
+
+    // axios.get('/api/wishlist').then(response => {
+    //   setWishedProducts(response.data.map(wp => wp.product));
+    //   setWishlistLoaded(true);
+    // });
+    // axios.get('/api/orders').then(response => {
+    //   setOrders(response.data);
+    //   setOrderLoaded(true);
+    // });
+  }, [session]);
 
   const convertCartData = (cartDatas) => {
     const result = [];
@@ -704,6 +735,7 @@ export default function CartPage() {
                         onBlur={validateFields}
                         required
                         aria-describedby="name-error-text"
+                        value={name}
                       />
                       {isErrorName && errorName && (
                         <FormHelperText
@@ -742,6 +774,7 @@ export default function CartPage() {
                         onBlur={validateFields}
                         required
                         aria-describedby="number-error-text"
+                        value={phoneNumber}
                       />
                       {isErrorNumber && errorNumber && (
                         <FormHelperText
@@ -779,6 +812,7 @@ export default function CartPage() {
                         onBlur={validateFields}
                         required
                         aria-describedby="email-error-text"
+                        value={email}
                       />
                       {isErrorEmail && errorEmail && (
                         <FormHelperText
@@ -817,6 +851,7 @@ export default function CartPage() {
                           onBlur={validateFields}
                           required
                           aria-describedby="city-error-text"
+                          value={city}
                         />
                         {isErrorCity && errorCity && (
                           <FormHelperText
@@ -854,6 +889,7 @@ export default function CartPage() {
                           onBlur={validateFields}
                           required
                           aria-describedby="postal-error-text"
+                          value={postalCode}
                         />
                         {isErrorPostal && errorPostal && (
                           <FormHelperText
@@ -892,6 +928,7 @@ export default function CartPage() {
                         onBlur={validateFields}
                         required
                         aria-describedby="street-error-text"
+                        value={streetAddress}
                       />
                       {isErrorStreet && errorStreet && (
                         <FormHelperText
@@ -928,6 +965,7 @@ export default function CartPage() {
                         onBlur={validateFields}
                         required
                         aria-describedby="country-error-text"
+                        value={country}
                       />
                       {isErrorCountry && errorCountry && (
                         <FormHelperText
