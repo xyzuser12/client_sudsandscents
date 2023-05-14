@@ -219,11 +219,17 @@
 }
 
 .delivery-address-inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   padding: 1rem;
   border-top: 1px solid #dadada;
   border-bottom: 1px solid #dadada;
 }
-
+.country {
+  display: flex;
+  gap: 8px;
+}
 .order-summary-wrapper {
   color: #545454;
   font-size: 14px;

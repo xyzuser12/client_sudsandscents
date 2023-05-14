@@ -8,12 +8,18 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
-import Input from "@/components/Input";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import FilledInput from "@mui/material/FilledInput";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 import classes from "../styles/cart/Cart.module.css";
 import outputImageBg from "../public/assets/outputImage_background.png";
@@ -249,6 +255,24 @@ export default function CartPage() {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorNumber, setErrorNumber] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorCity, setErrorCity] = useState("");
+  const [errorPostal, setErrorPostal] = useState("");
+  const [errorStreet, setErrorStreet] = useState("");
+  const [errorCountry, setErrorCountry] = useState("");
+  const [errorPaymentMethod, setErrorPaymentMethod] = useState("");
+
+  const [isErrorName, setIsErrorName] = useState(false);
+  const [isErrorNumber, setIsErrorNumber] = useState(false);
+  const [isErrorEmail, setIsErrorEmail] = useState(false);
+  const [isErrorCity, setIsErrorCity] = useState(false);
+  const [isErrorPostal, setIsErrorPostal] = useState(false);
+  const [isErrorStreet, setIsErrorStreet] = useState(false);
+  const [isErrorCountry, setIsErrorCountry] = useState(false);
+  const [isErrorPaymentMethod, setIsErrorPaymentMethod] = useState(false);
 
   useEffect(() => {
     const cartData = convertCartData(cartProducts);
@@ -336,90 +360,138 @@ export default function CartPage() {
     removeProduct(item);
   }
 
-  console.log(cartProducts);
-  console.log(ingredients);
-  console.log(products);
-  console.log(reverseOrderProducts);
-  // const { data: session } = useSession();
-  // const [products, setProducts] = useState([]);
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [city, setCity] = useState("");
-  // const [postalCode, setPostalCode] = useState("");
-  // const [streetAddress, setStreetAddress] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [isSuccess, setIsSuccess] = useState(false);
-  // const [shippingFee, setShippingFee] = useState(null);
-  // useEffect(() => {
-  //   if (cartProducts.length > 0) {
-  //     axios.post("/api/cart", { ids: cartProducts }).then((response) => {
-  //       setProducts(response.data);
-  //     });
-  //   } else {
-  //     setProducts([]);
-  //   }
-  // }, [cartProducts]);
-  // useEffect(() => {
-  //   if (typeof window === "undefined") {
-  //     return;
-  //   }
-  //   if (window?.location.href.includes("success")) {
-  //     setIsSuccess(true);
-  //     clearCart();
-  //   }
-  //   axios.get("/api/settings?name=shippingFee").then((res) => {
-  //     setShippingFee(res.data?.value);
-  //   });
-  // }, []);
-  // useEffect(() => {
-  //   if (!session) {
-  //     return;
-  //   }
-  //   axios.get("/api/address").then((response) => {
-  //     setName(response.data?.name);
-  //     setEmail(response.data?.email);
-  //     setCity(response.data?.city);
-  //     setPostalCode(response.data?.postalCode);
-  //     setStreetAddress(response.data?.streetAddress);
-  //     setCountry(response.data?.country);
-  //   });
-  // }, [session]);
+  const paymentMethodHandler = (e) => {
+    setPaymentMethod(e.target.value);
+  };
 
-  // async function goToPayment() {
-  //   const response = await axios.post("/api/checkout", {
-  //     name,
-  //     email,
-  //     city,
-  //     postalCode,
-  //     streetAddress,
-  //     country,
-  //     cartProducts,
-  //   });
-  //   if (response.data.url) {
-  //     window.location = response.data.url;
-  //   }
-  // }
-  // let productsTotal = 0;
-  // for (const productId of cartProducts) {
-  //   const price = products.find((p) => p._id === productId)?.price || 0;
-  //   productsTotal += price;
-  // }
+  const validateFields = () => {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    const phoneRegex = /^09\d{9}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const postalCodeRegex = /^\d{4,5}$/;
 
-  // if (isSuccess) {
-  //   return (
-  //     <>
-  //       <Header />
-  //       <Center>
-  //         <ColumnsWrapper>
-  //           <Box>
-  //             <h1>Thanks for your order!</h1>
-  //             <p>We will email you when your order will be sent.</p>
-  //           </Box>
-  //         </ColumnsWrapper>
-  //       </Center>
-  //     </>
-  //   );
-  // }
+    // Validate name
+    if (name.trim() === "") {
+      isValid = false;
+      setIsErrorName(true);
+      setErrorName("Name is required");
+    } else if (!nameRegex.test(name)) {
+      isValid = false;
+      setIsErrorName(true);
+      setErrorName("Invalid name");
+    } else {
+      setIsErrorName(false);
+      setErrorName("");
+    }
+
+    // Validate phone number
+    if (phoneNumber.trim() === "") {
+      isValid = false;
+      setIsErrorNumber(true);
+      setErrorNumber("Phone number is required");
+    } else if (!phoneRegex.test(phoneNumber)) {
+      isValid = false;
+      setIsErrorNumber(true);
+      setErrorNumber("Invalid phone number");
+      console.log("Invalid phone number");
+    } else {
+      setIsErrorNumber(false);
+      setErrorNumber("");
+    }
+
+    // Validate email
+    if (email.trim() === "") {
+      isValid = false;
+      setIsErrorEmail(true);
+      setErrorEmail("Email is required");
+      console.log("Invalid email");
+    } else if (!emailRegex.test(email)) {
+      isValid = false;
+      setIsErrorEmail(true);
+      setErrorEmail("Invalid email");
+    } else {
+      setIsErrorEmail(false);
+      setErrorEmail("");
+    }
+
+    if (city.trim() === "") {
+      isValid = false;
+      setIsErrorCity(true);
+      setErrorCity("City is required");
+    } else {
+      setIsErrorCity(false);
+      setErrorCity("");
+    }
+
+    // Validate postal code
+    if (postalCode.trim() === "") {
+      isValid = false;
+
+      setIsErrorPostal(true);
+      setErrorPostal("Postal code is required");
+      console.log("Invalid postal code");
+    } else if (!postalCodeRegex.test(postalCode)) {
+      isValid = false;
+
+      setIsErrorPostal(true);
+      setErrorPostal("Invalid postal code");
+    } else {
+      setIsErrorPostal(false);
+      setErrorPostal("");
+    }
+
+    if (streetAddress.trim() === "") {
+      isValid = false;
+      setIsErrorStreet(true);
+      setErrorStreet("Street Adress is required");
+    } else {
+      setIsErrorStreet(false);
+      setErrorStreet("");
+    }
+
+    // Validate country
+    if (country.trim() === "") {
+      isValid = false;
+      setIsErrorCountry(true);
+      setErrorCountry("Country is required");
+      console.log("Country is required");
+    } else {
+      setIsErrorCountry(false);
+      setErrorCountry("");
+    }
+
+    if (paymentMethod.trim() === "") {
+      isValid = false;
+      setIsErrorPaymentMethod(true);
+      setErrorPaymentMethod("Payment method required");
+    } else {
+      setIsErrorPaymentMethod(false);
+      setErrorPaymentMethod("");
+    }
+
+    return isValid;
+  };
+
+  async function goToPayment() {
+    if (validateFields()) {
+      console.log("All fields are valid. Proceeding to payment...");
+      await axios.post("/api/checkout", {
+        name,
+        phoneNumber,
+        email,
+        city,
+        postalCode,
+        streetAddress,
+        country,
+        paymentMethod,
+        products,
+      });
+    } else {
+      console.log("One or more fields are invalid");
+    }
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes["inner-container"]}>
@@ -545,18 +617,6 @@ export default function CartPage() {
                           </td>
                         </tr>
                       ))}
-                      {/* <tr className="subtotal">
-                    <td colSpan={2}>Products</td>
-                    <td>${productsTotal}</td>
-                  </tr>
-                  <tr className="subtotal">
-                    <td colSpan={2}>Shipping</td>
-                    <td>${shippingFee}</td>
-                  </tr>
-                  <tr className="subtotal total">
-                    <td colSpan={2}>Total</td>
-                    <td>${productsTotal + parseInt(shippingFee || 0)}</td>
-                  </tr> */}
                     </tbody>
                   </table>
                 </div>
@@ -573,19 +633,282 @@ export default function CartPage() {
                     </h2>
                   </div>
                   <div className={classes["delivery-address-inputs-wrapper"]}>
-                    <Input
+                    <FormControl
+                      error={isErrorName}
+                      className={classes["name"]}
+                      sx={{
+                        m: 1,
+                        width: "100%",
+                        margin: "0",
+                        "& div": {
+                          fontSize: "14px",
+                          backgroundColor: `${
+                            isErrorName ? "#FDEDED" : "none"
+                          }`,
+                        },
+                        "& div input": {
+                          padding: "4px",
+                        },
+                      }}
+                    >
+                      <OutlinedInput
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Name"
+                        onChange={(ev) => setName(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="name-error-text"
+                      />
+                      {isErrorName && errorName && (
+                        <FormHelperText
+                          id="name-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
+                          {errorName}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+
+                    <FormControl
+                      error={isErrorNumber}
+                      className={classes["phone-number"]}
+                      sx={{
+                        m: 1,
+                        width: "100%",
+                        margin: "0",
+                        "& div": {
+                          fontSize: "14px",
+                          backgroundColor: `${
+                            isErrorNumber ? "#FDEDED" : "none"
+                          }`,
+                        },
+                        "& div input": {
+                          padding: "4px",
+                        },
+                      }}
+                    >
+                      <OutlinedInput
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        type="tel"
+                        placeholder="Phone Number"
+                        onChange={(ev) => setPhoneNumber(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="number-error-text"
+                      />
+                      {isErrorNumber && errorNumber && (
+                        <FormHelperText
+                          id="name-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
+                          {errorNumber}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                    <FormControl
+                      error={isErrorEmail}
+                      className={classes["email"]}
+                      sx={{
+                        m: 1,
+                        width: "100%",
+                        margin: "0",
+                        "& div": {
+                          fontSize: "14px",
+                          backgroundColor: `${
+                            isErrorEmail ? "#FDEDED" : "none"
+                          }`,
+                        },
+                        "& div input": {
+                          padding: "4px",
+                        },
+                      }}
+                    >
+                      <OutlinedInput
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        onChange={(ev) => setEmail(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="email-error-text"
+                      />
+                      {isErrorEmail && errorEmail && (
+                        <FormHelperText
+                          id="email-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
+                          {errorEmail}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                    <div className={classes.country}>
+                      <FormControl
+                        error={isErrorCity}
+                        className={classes["city"]}
+                        sx={{
+                          m: 1,
+                          width: "100%",
+                          margin: "0",
+                          "& div": {
+                            fontSize: "14px",
+                            backgroundColor: `${
+                              isErrorCity ? "#FDEDED" : "none"
+                            }`,
+                          },
+                          "& div input": {
+                            padding: "4px",
+                          },
+                        }}
+                      >
+                        <OutlinedInput
+                          id="city"
+                          name="city"
+                          type="text"
+                          placeholder="City"
+                          onChange={(ev) => setCity(ev.target.value)}
+                          onBlur={validateFields}
+                          required
+                          aria-describedby="city-error-text"
+                        />
+                        {isErrorCity && errorCity && (
+                          <FormHelperText
+                            id="city-error-text"
+                            sx={{ marginLeft: "4px" }}
+                          >
+                            {errorCity}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                      <FormControl
+                        error={isErrorPostal}
+                        className={classes["postal-code"]}
+                        sx={{
+                          m: 1,
+                          width: "100%",
+                          margin: "0",
+                          "& div": {
+                            fontSize: "14px",
+                            backgroundColor: `${
+                              isErrorPostal ? "#FDEDED" : "none"
+                            }`,
+                          },
+                          "& div input": {
+                            padding: "4px",
+                          },
+                        }}
+                      >
+                        <OutlinedInput
+                          id="postalCode"
+                          name="postalCode"
+                          type="text"
+                          placeholder="Postal Code"
+                          onChange={(ev) => setPostalCode(ev.target.value)}
+                          onBlur={validateFields}
+                          required
+                          aria-describedby="postal-error-text"
+                        />
+                        {isErrorPostal && errorPostal && (
+                          <FormHelperText
+                            id="postal-error-text"
+                            sx={{ marginLeft: "4px" }}
+                          >
+                            {errorPostal}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </div>
+                    <FormControl
+                      error={isErrorStreet}
+                      className={classes["street-address"]}
+                      sx={{
+                        m: 1,
+                        width: "100%",
+                        margin: "0",
+                        "& div": {
+                          fontSize: "14px",
+                          backgroundColor: `${
+                            isErrorStreet ? "#FDEDED" : "none"
+                          }`,
+                        },
+                        "& div input": {
+                          padding: "4px",
+                        },
+                      }}
+                    >
+                      <OutlinedInput
+                        id="streetAddress"
+                        name="streetAddress"
+                        type="text"
+                        placeholder="Street Address"
+                        onChange={(ev) => setStreetAddress(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="street-error-text"
+                      />
+                      {isErrorStreet && errorStreet && (
+                        <FormHelperText
+                          id="street-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
+                          {errorStreet}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                    <FormControl
+                      error={isErrorCountry}
+                      sx={{
+                        m: 1,
+                        width: "100%",
+                        margin: "0",
+                        "& div": {
+                          fontSize: "14px",
+                          backgroundColor: `${
+                            isErrorCountry ? "#FDEDED" : "none"
+                          }`,
+                        },
+                        "& div input": {
+                          padding: "4px",
+                        },
+                      }}
+                    >
+                      <OutlinedInput
+                        id="country"
+                        name="country"
+                        type="text"
+                        placeholder="Country"
+                        onChange={(ev) => setCountry(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="country-error-text"
+                      />
+                      {isErrorCountry && errorCountry && (
+                        <FormHelperText
+                          id="country-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
+                          {errorCountry}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                    {/* <Input
                       type="text"
                       placeholder="Name"
                       value={name}
                       name="name"
                       onChange={(ev) => setName(ev.target.value)}
-                    />
-                    <Input
+                      required
+                    /> */}
+                    {/* <Input
                       type="tel"
                       placeholder="Phone Number"
                       value={phoneNumber}
                       name="phoneNumber"
                       onChange={(ev) => setPhoneNumber(ev.target.value)}
+                      required
                     />
                     <Input
                       type="text"
@@ -593,6 +916,7 @@ export default function CartPage() {
                       value={email}
                       name="email"
                       onChange={(ev) => setEmail(ev.target.value)}
+                      required
                     />
                     <CityHolder>
                       <Input
@@ -601,6 +925,7 @@ export default function CartPage() {
                         value={city}
                         name="city"
                         onChange={(ev) => setCity(ev.target.value)}
+                        required
                       />
                       <Input
                         type="text"
@@ -608,6 +933,7 @@ export default function CartPage() {
                         value={postalCode}
                         name="postalCode"
                         onChange={(ev) => setPostalCode(ev.target.value)}
+                        required
                       />
                     </CityHolder>
                     <Input
@@ -616,6 +942,7 @@ export default function CartPage() {
                       value={streetAddress}
                       name="streetAddress"
                       onChange={(ev) => setStreetAddress(ev.target.value)}
+                      required
                     />
                     <Input
                       type="text"
@@ -623,13 +950,60 @@ export default function CartPage() {
                       value={country}
                       name="country"
                       onChange={(ev) => setCountry(ev.target.value)}
-                    />
+                      required
+                    /> */}
                   </div>
-                  <div className={classes["delivery-address"]}>
+                  <div
+                    className={classes["delivery-address"]}
+                    style={{ borderBottom: "1px solid #dadada" }}
+                  >
+                    <h2 className={classes["delivery-address-title"]}>
+                      Payment Method
+                    </h2>
+                  </div>
+                  <FormControl
+                    error={isErrorPaymentMethod}
+                    sx={{
+                      m: 1,
+                      width: "100%",
+                      padding: "1rem",
+                      margin: "0",
+                      "& div div": { padding: "0" },
+                    }}
+                  >
+                    <Select
+                      value={paymentMethod}
+                      onChange={paymentMethodHandler}
+                      onBlur={validateFields}
+                      displayEmpty
+                      inputProps={{ "aria-label": "Without label" }}
+                      required
+                      sx={{
+                        padding: ".4rem",
+                        fontSize: "15px",
+                      }}
+                    >
+                      <MenuItem value={"COD"}>COD</MenuItem>
+                      <MenuItem value={"Gcash"}>Gcash</MenuItem>
+                    </Select>
+                    {isErrorPaymentMethod && errorPaymentMethod && (
+                      <FormHelperText
+                        id="country-error-text"
+                        sx={{ marginLeft: "4px" }}
+                      >
+                        {errorPaymentMethod}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <div
+                    className={classes["delivery-address"]}
+                    style={{ borderTop: "1px solid #dadada" }}
+                  >
                     <h2 className={classes["delivery-address-title"]}>
                       Order Summary
                     </h2>
                   </div>
+
                   <div className={classes["order-summary-wrapper"]}>
                     <p>
                       Subtotal ({products.length}{" "}
@@ -641,12 +1015,27 @@ export default function CartPage() {
                   </div>
                   <div className={classes["order-summary-bottom"]}>
                     <div className={classes["voucher-wrapper"]}>
-                      <Input
-                        style={{ margin: "0" }}
-                        type="text"
-                        placeholder="Voucher Code"
-                        name="voucher"
-                      />
+                      <FormControl
+                        className={classes["postal-code"]}
+                        sx={{
+                          m: 1,
+                          width: "100%",
+                          margin: "0",
+                          "& div": {
+                            fontSize: "14px",
+                          },
+                          "& div input": {
+                            padding: "4px",
+                          },
+                        }}
+                      >
+                        <OutlinedInput
+                          type="text"
+                          placeholder="Voucher Code"
+                          name="voucher"
+                          id="voucher"
+                        />
+                      </FormControl>
                       <CutomButton>Apply</CutomButton>
                     </div>
                     <div className={classes["total-payment-wrapper"]}>
@@ -670,8 +1059,9 @@ export default function CartPage() {
                         outline: "none",
                         border: "none",
                       }}
+                      onClick={goToPayment}
                     >
-                      Continue to payment
+                      Proceed to Checkout
                     </Button>
                   </div>
                 </div>
@@ -681,130 +1071,5 @@ export default function CartPage() {
         </div>
       </div>
     </div>
-    // <>
-    //   <Header />
-    //   <Center>
-    //     <ColumnsWrapper>
-    //       <RevealWrapper delay={0}>
-    //         <Box>
-    //           <h2>Cart</h2>
-    //           {!cartProducts?.length && <div>Your cart is empty</div>}
-    //           {products?.length > 0 && (
-    //             <Table>
-    //               <thead>
-    //                 <tr>
-    //                   <th>Product</th>
-    //                   <th>Quantity</th>
-    //                   <th>Price</th>
-    //                 </tr>
-    //               </thead>
-    //               <tbody>
-    //                 {products.map((product) => (
-    //                   <tr>
-    //                     <ProductInfoCell>
-    //                       <ProductImageBox>
-    //                         <img src={product.images[0]} alt="" />
-    //                       </ProductImageBox>
-    //                       {product.title}
-    //                     </ProductInfoCell>
-    //                     <td>
-    //                       <Button
-    //                         onClick={() => lessOfThisProduct(product._id)}
-    //                       >
-    //                         -
-    //                       </Button>
-    //                       <QuantityLabel>
-    //                         {
-    //                           cartProducts.filter((id) => id === product._id)
-    //                             .length
-    //                         }
-    //                       </QuantityLabel>
-    //                       <Button
-    //                         onClick={() => moreOfThisProduct(product._id)}
-    //                       >
-    //                         +
-    //                       </Button>
-    //                     </td>
-    //                     <td>
-    //                       $
-    //                       {cartProducts.filter((id) => id === product._id)
-    //                         .length * product.price}
-    //                     </td>
-    //                   </tr>
-    //                 ))}
-    //                 <tr className="subtotal">
-    //                   <td colSpan={2}>Products</td>
-    //                   <td>${productsTotal}</td>
-    //                 </tr>
-    //                 <tr className="subtotal">
-    //                   <td colSpan={2}>Shipping</td>
-    //                   <td>${shippingFee}</td>
-    //                 </tr>
-    //                 <tr className="subtotal total">
-    //                   <td colSpan={2}>Total</td>
-    //                   <td>${productsTotal + parseInt(shippingFee || 0)}</td>
-    //                 </tr>
-    //               </tbody>
-    //             </Table>
-    //           )}
-    //         </Box>
-    //       </RevealWrapper>
-    //       {!!cartProducts?.length && (
-    //         <RevealWrapper delay={100}>
-    //           <Box>
-    //             <h2>Order information</h2>
-    //             <Input
-    //               type="text"
-    //               placeholder="Name"
-    //               value={name}
-    //               name="name"
-    //               onChange={(ev) => setName(ev.target.value)}
-    //             />
-    //             <Input
-    //               type="text"
-    //               placeholder="Email"
-    //               value={email}
-    //               name="email"
-    //               onChange={(ev) => setEmail(ev.target.value)}
-    //             />
-    //             <CityHolder>
-    //               <Input
-    //                 type="text"
-    //                 placeholder="City"
-    //                 value={city}
-    //                 name="city"
-    //                 onChange={(ev) => setCity(ev.target.value)}
-    //               />
-    //               <Input
-    //                 type="text"
-    //                 placeholder="Postal Code"
-    //                 value={postalCode}
-    //                 name="postalCode"
-    //                 onChange={(ev) => setPostalCode(ev.target.value)}
-    //               />
-    //             </CityHolder>
-    //             <Input
-    //               type="text"
-    //               placeholder="Street Address"
-    //               value={streetAddress}
-    //               name="streetAddress"
-    //               onChange={(ev) => setStreetAddress(ev.target.value)}
-    //             />
-    //             <Input
-    //               type="text"
-    //               placeholder="Country"
-    //               value={country}
-    //               name="country"
-    //               onChange={(ev) => setCountry(ev.target.value)}
-    //             />
-    //             <Button black block onClick={goToPayment}>
-    //               Continue to payment
-    //             </Button>
-    //           </Box>
-    //         </RevealWrapper>
-    //       )}
-    //     </ColumnsWrapper>
-    //   </Center>
-    // </>
   );
 }
