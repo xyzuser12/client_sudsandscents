@@ -16,6 +16,8 @@ import axios from "axios";
 // ProductBox";
 // import Tabs from "@/components/Tabs";
 // import SingleOrder from "@/components/SingleOrder";
+import Alert from "@mui/material/Alert";
+import Slide from "@mui/material/Slide";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -25,6 +27,7 @@ import InputLabel from "@mui/material/InputLabel";
 import classes from "../styles/account/Account.module.css";
 import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
+import profileTemp from "/public/assets/profiletemp.jpg";
 const ColsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -48,6 +51,9 @@ const WishedProductsGrid = styled.div`
 
 export default function AccountPage() {
   const { data: session } = useSession();
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState("success");
+
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -55,15 +61,23 @@ export default function AccountPage() {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorNumber, setErrorNumber] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
+  const [errorCity, setErrorCity] = useState("");
   const [errorPostal, setErrorPostal] = useState("");
+  const [errorStreet, setErrorStreet] = useState("");
+  const [errorCountry, setErrorCountry] = useState("");
+  const [errorPaymentMethod, setErrorPaymentMethod] = useState("");
 
   const [isErrorName, setIsErrorName] = useState(false);
   const [isErrorNumber, setIsErrorNumber] = useState(false);
   const [isErrorEmail, setIsErrorEmail] = useState(false);
+  const [isErrorCity, setIsErrorCity] = useState(false);
   const [isErrorPostal, setIsErrorPostal] = useState(false);
+  const [isErrorStreet, setIsErrorStreet] = useState(false);
+  const [isErrorCountry, setIsErrorCountry] = useState(false);
 
   console.log(session);
 
@@ -77,16 +91,30 @@ export default function AccountPage() {
       postalCode,
       country,
     };
-    console.log(data);
-    axios.put("/api/address", data);
+    axios
+      .put("/api/address", data)
+      .then((response) => {
+        setAlertSeverity("success");
+        setAlertVisible(true);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error(error);
+        setAlertSeverity("error");
+        setAlertVisible(true);
+        setTimeout(() => {
+          setAlertVisible(false);
+        }, 3000);
+      });
   }
+
   useEffect(() => {
     if (!session) {
       return;
     }
-    // setAddressLoaded(false);
-    // setWishlistLoaded(false);
-    // setOrderLoaded(false);
+
     axios.get("/api/address").then((response) => {
       setName(response?.data?.name);
       setPhoneNumber(response?.data?.phoneNumber);
@@ -95,24 +123,17 @@ export default function AccountPage() {
       setPostalCode(response?.data?.postalCode);
       setStreetAddress(response?.data?.streetAddress);
       setCountry(response?.data?.country);
-      // setAddressLoaded(true);
     });
-
-    // axios.get('/api/wishlist').then(response => {
-    //   setWishedProducts(response.data.map(wp => wp.product));
-    //   setWishlistLoaded(true);
-    // });
-    // axios.get('/api/orders').then(response => {
-    //   setOrders(response.data);
-    //   setOrderLoaded(true);
-    // });
   }, [session]);
   const validateFields = () => {
     let isValid = true;
-    const nameRegex = /^[a-zA-Z\s]*$/;
+    const nameRegex = /^[a-zA-Z\s.,]*$/;
     const phoneRegex = /^09\d{9}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const postalCodeRegex = /^\d{4,5}$/;
+    const onlyLetter = /^[A-Za-z\s]+$/;
+    const onlyNumber = /^[1-9]\d*$/;
+    const noSpecialChar = /^[a-zA-Z0-9]+$/;
 
     // Validate name
     if (!nameRegex.test(name)) {
@@ -145,6 +166,10 @@ export default function AccountPage() {
       isValid = true;
       setIsErrorEmail(false);
       setErrorEmail("");
+    }
+
+    if (!onlyLetter.test(city)) {
+      isValid = false;
     }
 
     // Validate postal code
@@ -223,6 +248,23 @@ export default function AccountPage() {
   return (
     <>
       <div className={classes.container}>
+        {alertVisible && (
+          <Alert
+            severity={alertSeverity}
+            variant="filled"
+            sx={{
+              position: "fixed",
+              top: "1rem",
+              left: "50%",
+              transform: "translateX(-50%) !important",
+              zIndex: "9999999",
+            }}
+          >
+            {alertSeverity === "success"
+              ? "Your information has been successfully saved!"
+              : "Something went wrong, please try again."}
+          </Alert>
+        )}
         <div className={classes["inner-container"]}>
           <h2 className={classes["account-title"]}>Account Details</h2>
           <div className={classes["account-container"]}>
@@ -485,7 +527,11 @@ export default function AccountPage() {
               <h3>Profile photo</h3>
               <div className={classes["image-wrapper"]}>
                 <Image
-                  src={session?.user?.image}
+                  src={`${
+                    session
+                      ? session?.user?.image
+                      : "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,h_236/v1684159321/profiletempo_kwjl6v.jpg"
+                  }`}
                   alt={`profile photo of ${session?.user?.name}`}
                   width={200}
                   height={200}

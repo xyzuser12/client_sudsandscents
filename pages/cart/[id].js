@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@mui/material/Button";
-import CutomButton from "../components/Button";
+import CutomButton from "../../components/Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
@@ -22,8 +22,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
-import classes from "../styles/cart/Cart.module.css";
-import outputImageBg from "../public/assets/outputImage_background.png";
+import classes from "../../styles/cart/Cart.module.css";
+import outputImageBg from "../../public/assets/outputImage_background.png";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -302,9 +302,7 @@ export default function CartPage() {
     if (!session) {
       return;
     }
-    // setAddressLoaded(false);
-    // setWishlistLoaded(false);
-    // setOrderLoaded(false);
+
     axios.get("/api/address").then((response) => {
       setName(response?.data?.name);
       setPhoneNumber(response?.data?.phoneNumber);
@@ -313,17 +311,7 @@ export default function CartPage() {
       setPostalCode(response?.data?.postalCode);
       setStreetAddress(response?.data?.streetAddress);
       setCountry(response?.data?.country);
-      // setAddressLoaded(true);
     });
-
-    // axios.get('/api/wishlist').then(response => {
-    //   setWishedProducts(response.data.map(wp => wp.product));
-    //   setWishlistLoaded(true);
-    // });
-    // axios.get('/api/orders').then(response => {
-    //   setOrders(response.data);
-    //   setOrderLoaded(true);
-    // });
   }, [session]);
 
   const convertCartData = (cartDatas) => {
@@ -419,7 +407,7 @@ export default function CartPage() {
 
   const validateFields = () => {
     let isValid = true;
-    const nameRegex = /^[a-zA-Z\s]*$/;
+    const nameRegex = /^[a-zA-Z\s.,]*$/;
     const phoneRegex = /^09\d{9}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const postalCodeRegex = /^\d{4,5}$/;
@@ -572,16 +560,6 @@ export default function CartPage() {
               {!cartProducts?.length && <div>Your cart is empty</div>}
               {products?.length > 0 && (
                 <div>
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Select all items"
-                    className={classes["select-all"]}
-                    sx={{
-                      color: "#545454",
-                      margin: "0",
-                    }}
-                  />
-
                   <table className={classes["table"]}>
                     <thead className={classes["table-head"]}>
                       <tr>
