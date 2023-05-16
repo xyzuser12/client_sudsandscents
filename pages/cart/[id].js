@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@mui/material/Button";
-import CutomButton from "../components/Button";
+import CutomButton from "../../components/Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
@@ -22,11 +22,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 
-import classes from "../styles/cart/Cart.module.css";
-import outputImageBg from "../public/assets/outputImage_background.png";
-
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { Php } from "@mui/icons-material";
+import classes from "../../styles/cart/Cart.module.css";
+import outputImageBg from "../../public/assets/outputImage_background.png";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -119,9 +116,11 @@ const ingreDataArr = [
     category: "Oil-based",
     categoryId: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
     id: "644662c5be70cd3d8b62bd73",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
     price: 42,
     quantity: 11,
     title: "Sweet Almond",
@@ -130,9 +129,11 @@ const ingreDataArr = [
     category: "Oil-based",
     categoryId: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
     id: "6446630abe70cd3d8b62bd7f",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
     price: 29,
     quantity: 34,
     title: "Coconut",
@@ -143,7 +144,8 @@ const ingreDataArr = [
     composition: "Essential Oils",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: "645354f2ef19e3b71076cecb",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
     price: 123,
     quantity: 234,
     title: "Rose",
@@ -154,7 +156,8 @@ const ingreDataArr = [
     composition: "Essential Oils",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: "64535584ef19e3b71076ced7",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
     price: 41,
     quantity: 654,
     title: "Jasmine",
@@ -164,52 +167,87 @@ const ingreDataArr = [
 const cartDatas = [
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
+    formula:
+      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "6453603cef19e3b71076cf41",
+      "64535667ef19e3b71076cf0c",
+      "645354f2ef19e3b71076cecb",
+    ],
     numberOfLiter: 2,
-    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+    productId:
+      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
     totalEstimatedCost: 245,
   },
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
+    formula:
+      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "6453603cef19e3b71076cf41",
+      "64535667ef19e3b71076cf0c",
+      "645354f2ef19e3b71076cecb",
+    ],
     numberOfLiter: 2,
-    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbt",
+    productId:
+      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbt",
     totalEstimatedCost: 245,
   },
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
+    formula:
+      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "6453603cef19e3b71076cf41",
+      "64535667ef19e3b71076cf0c",
+      "645354f2ef19e3b71076cecb",
+    ],
     numberOfLiter: 2,
-    productId: "d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43",
+    productId:
+      "d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43",
     totalEstimatedCost: 245,
   },
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
+    formula:
+      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "6453603cef19e3b71076cf41",
+      "64535667ef19e3b71076cf0c",
+      "645354f2ef19e3b71076cecb",
+    ],
     numberOfLiter: 2,
-    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbh",
+    productId:
+      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbh",
     totalEstimatedCost: 245,
   },
 ];
 
-const cartRaw = ['["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]'];
+const cartRaw = [
+  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
+  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
+  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
+  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
+  '["2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
+];
 
 export default function CartPage() {
   const { data: session } = useSession();
 
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext);
+  const { cartProducts, addProduct, removeProduct, clearCart } =
+    useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [reverseOrderProducts, setReverseOrderProducts] = useState([]);
   const [ingredients, setIngredients] = useState([]);
@@ -264,9 +302,7 @@ export default function CartPage() {
     if (!session) {
       return;
     }
-    // setAddressLoaded(false);
-    // setWishlistLoaded(false);
-    // setOrderLoaded(false);
+
     axios.get("/api/address").then((response) => {
       setName(response?.data?.name);
       setPhoneNumber(response?.data?.phoneNumber);
@@ -275,24 +311,23 @@ export default function CartPage() {
       setPostalCode(response?.data?.postalCode);
       setStreetAddress(response?.data?.streetAddress);
       setCountry(response?.data?.country);
-      // setAddressLoaded(true);
     });
-
-    // axios.get('/api/wishlist').then(response => {
-    //   setWishedProducts(response.data.map(wp => wp.product));
-    //   setWishlistLoaded(true);
-    // });
-    // axios.get('/api/orders').then(response => {
-    //   setOrders(response.data);
-    //   setOrderLoaded(true);
-    // });
   }, [session]);
 
   const convertCartData = (cartDatas) => {
     const result = [];
 
     for (const cartData of cartDatas) {
-      const [productId, categoryId, categoryName, categoryImage, formula, ingredients, numberOfLiter, totalEstimatedCost] = JSON.parse(cartData);
+      const [
+        productId,
+        categoryId,
+        categoryName,
+        categoryImage,
+        formula,
+        ingredients,
+        numberOfLiter,
+        totalEstimatedCost,
+      ] = JSON.parse(cartData);
 
       const ingredientList = ingredients;
       const totalCost = totalEstimatedCost;
@@ -372,7 +407,7 @@ export default function CartPage() {
 
   const validateFields = () => {
     let isValid = true;
-    const nameRegex = /^[a-zA-Z\s]*$/;
+    const nameRegex = /^[a-zA-Z\s.,]*$/;
     const phoneRegex = /^09\d{9}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const postalCodeRegex = /^\d{4,5}$/;
@@ -495,10 +530,14 @@ export default function CartPage() {
   }
   const checkboxChangeHandler = (event, productId) => {
     if (event.target.checked) {
-      const selectedProduct = products.find((product) => product.productId === productId);
+      const selectedProduct = products.find(
+        (product) => product.productId === productId
+      );
       setProductToPurchase([...productToPurchase, selectedProduct]);
     } else {
-      const updatedProductList = productToPurchase.filter((product) => product.productId !== productId);
+      const updatedProductList = productToPurchase.filter(
+        (product) => product.productId !== productId
+      );
       setProductToPurchase(updatedProductList);
     }
   };
@@ -521,16 +560,6 @@ export default function CartPage() {
               {!cartProducts?.length && <div>Your cart is empty</div>}
               {products?.length > 0 && (
                 <div>
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Select all items"
-                    className={classes["select-all"]}
-                    sx={{
-                      color: "#545454",
-                      margin: "0",
-                    }}
-                  />
-
                   <table className={classes["table"]}>
                     <thead className={classes["table-head"]}>
                       <tr>
@@ -541,31 +570,68 @@ export default function CartPage() {
                         <th>Subtotal</th>
                       </tr>
                     </thead>
-                    <tbody className={classes["table-body"]} style={{ padding: "1px" }}>
+                    <tbody
+                      className={classes["table-body"]}
+                      style={{ padding: "1px" }}
+                    >
                       {products.map((product) => (
-                        <tr className={classes["table-row"]} key={product.productId}>
+                        <tr
+                          className={classes["table-row"]}
+                          key={product.productId}
+                        >
                           <td className={classes["select"]}>
-                            <FormControlLabel control={<Checkbox onChange={(event) => checkboxChangeHandler(event, product.productId)} />} sx={{ marginRight: "0" }} />
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onChange={(event) =>
+                                    checkboxChangeHandler(
+                                      event,
+                                      product.productId
+                                    )
+                                  }
+                                />
+                              }
+                              sx={{ marginRight: "0" }}
+                            />
                           </td>
                           <td className={classes["td-image"]}>
                             <div className={classes["image-wrapper"]}>
-                              <Image src={product.categoryImage} alt="image of perfume" width={100} height={100} className={classes.image} loading="lazy" />
-                              <Image src={outputImageBg} alt="background of image of perfume" className={classes["image-backgound"]} loading="lazy" />
+                              <Image
+                                src={product.categoryImage}
+                                alt="image of perfume"
+                                width={100}
+                                height={100}
+                                className={classes.image}
+                                loading="lazy"
+                              />
+                              <Image
+                                src={outputImageBg}
+                                alt="background of image of perfume"
+                                className={classes["image-backgound"]}
+                                loading="lazy"
+                              />
                             </div>
-                            <p className={classes["product-name"]}>{product.categoryName}</p>
+                            <p className={classes["product-name"]}>
+                              {product.categoryName}
+                            </p>
                           </td>
                           <td className={classes["td-price"]}>
                             {product.ingredients.map((ingredientId) => {
-                              const foundIngredient = ingredients.find((ingredient) => ingredient._id === ingredientId);
+                              const foundIngredient = ingredients.find(
+                                (ingredient) => ingredient._id === ingredientId
+                              );
                               if (foundIngredient) {
                                 return (
                                   <div key={foundIngredient._id}>
                                     <p>
                                       <i className={classes["ingredient-name"]}>
-                                        {foundIngredient.title} {foundIngredient.composition}
+                                        {foundIngredient.title}{" "}
+                                        {foundIngredient.composition}
                                       </i>
                                     </p>
-                                    <p className={classes["ingredient-price"]}>₱{foundIngredient.price.toFixed(2)}</p>
+                                    <p className={classes["ingredient-price"]}>
+                                      ₱{foundIngredient.price.toFixed(2)}
+                                    </p>
                                   </div>
                                 );
                               }
@@ -574,13 +640,33 @@ export default function CartPage() {
                           </td>
                           <td className={classes["td-liters"]}>
                             <div>
-                              <CutomButton onClick={() => lessOfThisProduct(product.productId)}>-</CutomButton>
-                              <QuantityLabel>{product.numberOfLiter}</QuantityLabel>
-                              <CutomButton onClick={() => moreOfThisProduct(product.productId)}>+</CutomButton>
+                              <CutomButton
+                                onClick={() =>
+                                  lessOfThisProduct(product.productId)
+                                }
+                              >
+                                -
+                              </CutomButton>
+                              <QuantityLabel>
+                                {product.numberOfLiter}
+                              </QuantityLabel>
+                              <CutomButton
+                                onClick={() =>
+                                  moreOfThisProduct(product.productId)
+                                }
+                              >
+                                +
+                              </CutomButton>
                             </div>
                           </td>
                           <td className={classes["td-subtotal"]}>
-                            <p>₱{(product.totalEstimatedCost * product.numberOfLiter).toFixed(2)}</p>
+                            <p>
+                              ₱
+                              {(
+                                product.totalEstimatedCost *
+                                product.numberOfLiter
+                              ).toFixed(2)}
+                            </p>
                           </td>
                         </tr>
                       ))}
@@ -595,7 +681,9 @@ export default function CartPage() {
               <RevealWrapper delay={100}>
                 <div className={classes["order-infos-wrapper"]}>
                   <div className={classes["delivery-address"]}>
-                    <h2 className={classes["delivery-address-title"]}>Delivery Address</h2>
+                    <h2 className={classes["delivery-address-title"]}>
+                      Delivery Address
+                    </h2>
                   </div>
                   <div className={classes["delivery-address-inputs-wrapper"]}>
                     <FormControl
@@ -607,16 +695,31 @@ export default function CartPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${isErrorName ? "#FDEDED" : "none"}`,
+                          backgroundColor: `${
+                            isErrorName ? "#FDEDED" : "none"
+                          }`,
                         },
                         "& div input": {
                           padding: "4px",
                         },
                       }}
                     >
-                      <OutlinedInput id="name" name="name" type="text" placeholder="Name" onChange={(ev) => setName(ev.target.value)} onBlur={validateFields} required aria-describedby="name-error-text" value={name} />
+                      <OutlinedInput
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Name"
+                        onChange={(ev) => setName(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="name-error-text"
+                        value={name}
+                      />
                       {isErrorName && errorName && (
-                        <FormHelperText id="name-error-text" sx={{ marginLeft: "4px" }}>
+                        <FormHelperText
+                          id="name-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
                           {errorName}
                         </FormHelperText>
                       )}
@@ -631,16 +734,31 @@ export default function CartPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${isErrorNumber ? "#FDEDED" : "none"}`,
+                          backgroundColor: `${
+                            isErrorNumber ? "#FDEDED" : "none"
+                          }`,
                         },
                         "& div input": {
                           padding: "4px",
                         },
                       }}
                     >
-                      <OutlinedInput id="phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" onChange={(ev) => setPhoneNumber(ev.target.value)} onBlur={validateFields} required aria-describedby="number-error-text" value={phoneNumber} />
+                      <OutlinedInput
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        type="tel"
+                        placeholder="Phone Number"
+                        onChange={(ev) => setPhoneNumber(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="number-error-text"
+                        value={phoneNumber}
+                      />
                       {isErrorNumber && errorNumber && (
-                        <FormHelperText id="name-error-text" sx={{ marginLeft: "4px" }}>
+                        <FormHelperText
+                          id="name-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
                           {errorNumber}
                         </FormHelperText>
                       )}
@@ -654,16 +772,31 @@ export default function CartPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${isErrorEmail ? "#FDEDED" : "none"}`,
+                          backgroundColor: `${
+                            isErrorEmail ? "#FDEDED" : "none"
+                          }`,
                         },
                         "& div input": {
                           padding: "4px",
                         },
                       }}
                     >
-                      <OutlinedInput id="email" name="email" type="email" placeholder="Email" onChange={(ev) => setEmail(ev.target.value)} onBlur={validateFields} required aria-describedby="email-error-text" value={email} />
+                      <OutlinedInput
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        onChange={(ev) => setEmail(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="email-error-text"
+                        value={email}
+                      />
                       {isErrorEmail && errorEmail && (
-                        <FormHelperText id="email-error-text" sx={{ marginLeft: "4px" }}>
+                        <FormHelperText
+                          id="email-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
                           {errorEmail}
                         </FormHelperText>
                       )}
@@ -678,16 +811,31 @@ export default function CartPage() {
                           margin: "0",
                           "& div": {
                             fontSize: "14px",
-                            backgroundColor: `${isErrorCity ? "#FDEDED" : "none"}`,
+                            backgroundColor: `${
+                              isErrorCity ? "#FDEDED" : "none"
+                            }`,
                           },
                           "& div input": {
                             padding: "4px",
                           },
                         }}
                       >
-                        <OutlinedInput id="city" name="city" type="text" placeholder="City" onChange={(ev) => setCity(ev.target.value)} onBlur={validateFields} required aria-describedby="city-error-text" value={city} />
+                        <OutlinedInput
+                          id="city"
+                          name="city"
+                          type="text"
+                          placeholder="City"
+                          onChange={(ev) => setCity(ev.target.value)}
+                          onBlur={validateFields}
+                          required
+                          aria-describedby="city-error-text"
+                          value={city}
+                        />
                         {isErrorCity && errorCity && (
-                          <FormHelperText id="city-error-text" sx={{ marginLeft: "4px" }}>
+                          <FormHelperText
+                            id="city-error-text"
+                            sx={{ marginLeft: "4px" }}
+                          >
                             {errorCity}
                           </FormHelperText>
                         )}
@@ -701,16 +849,31 @@ export default function CartPage() {
                           margin: "0",
                           "& div": {
                             fontSize: "14px",
-                            backgroundColor: `${isErrorPostal ? "#FDEDED" : "none"}`,
+                            backgroundColor: `${
+                              isErrorPostal ? "#FDEDED" : "none"
+                            }`,
                           },
                           "& div input": {
                             padding: "4px",
                           },
                         }}
                       >
-                        <OutlinedInput id="postalCode" name="postalCode" type="text" placeholder="Postal Code" onChange={(ev) => setPostalCode(ev.target.value)} onBlur={validateFields} required aria-describedby="postal-error-text" value={postalCode} />
+                        <OutlinedInput
+                          id="postalCode"
+                          name="postalCode"
+                          type="text"
+                          placeholder="Postal Code"
+                          onChange={(ev) => setPostalCode(ev.target.value)}
+                          onBlur={validateFields}
+                          required
+                          aria-describedby="postal-error-text"
+                          value={postalCode}
+                        />
                         {isErrorPostal && errorPostal && (
-                          <FormHelperText id="postal-error-text" sx={{ marginLeft: "4px" }}>
+                          <FormHelperText
+                            id="postal-error-text"
+                            sx={{ marginLeft: "4px" }}
+                          >
                             {errorPostal}
                           </FormHelperText>
                         )}
@@ -725,16 +888,31 @@ export default function CartPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${isErrorStreet ? "#FDEDED" : "none"}`,
+                          backgroundColor: `${
+                            isErrorStreet ? "#FDEDED" : "none"
+                          }`,
                         },
                         "& div input": {
                           padding: "4px",
                         },
                       }}
                     >
-                      <OutlinedInput id="streetAddress" name="streetAddress" type="text" placeholder="Street Address" onChange={(ev) => setStreetAddress(ev.target.value)} onBlur={validateFields} required aria-describedby="street-error-text" value={streetAddress} />
+                      <OutlinedInput
+                        id="streetAddress"
+                        name="streetAddress"
+                        type="text"
+                        placeholder="Street Address"
+                        onChange={(ev) => setStreetAddress(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="street-error-text"
+                        value={streetAddress}
+                      />
                       {isErrorStreet && errorStreet && (
-                        <FormHelperText id="street-error-text" sx={{ marginLeft: "4px" }}>
+                        <FormHelperText
+                          id="street-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
                           {errorStreet}
                         </FormHelperText>
                       )}
@@ -747,23 +925,43 @@ export default function CartPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${isErrorCountry ? "#FDEDED" : "none"}`,
+                          backgroundColor: `${
+                            isErrorCountry ? "#FDEDED" : "none"
+                          }`,
                         },
                         "& div input": {
                           padding: "4px",
                         },
                       }}
                     >
-                      <OutlinedInput id="country" name="country" type="text" placeholder="Country" onChange={(ev) => setCountry(ev.target.value)} onBlur={validateFields} required aria-describedby="country-error-text" value={country} />
+                      <OutlinedInput
+                        id="country"
+                        name="country"
+                        type="text"
+                        placeholder="Country"
+                        onChange={(ev) => setCountry(ev.target.value)}
+                        onBlur={validateFields}
+                        required
+                        aria-describedby="country-error-text"
+                        value={country}
+                      />
                       {isErrorCountry && errorCountry && (
-                        <FormHelperText id="country-error-text" sx={{ marginLeft: "4px" }}>
+                        <FormHelperText
+                          id="country-error-text"
+                          sx={{ marginLeft: "4px" }}
+                        >
                           {errorCountry}
                         </FormHelperText>
                       )}
                     </FormControl>
                   </div>
-                  <div className={classes["delivery-address"]} style={{ borderBottom: "1px solid #dadada" }}>
-                    <h2 className={classes["delivery-address-title"]}>Payment Method</h2>
+                  <div
+                    className={classes["delivery-address"]}
+                    style={{ borderBottom: "1px solid #dadada" }}
+                  >
+                    <h2 className={classes["delivery-address-title"]}>
+                      Payment Method
+                    </h2>
                   </div>
                   <FormControl
                     error={isErrorPaymentMethod}
@@ -788,44 +986,29 @@ export default function CartPage() {
                       }}
                     >
                       <MenuItem value={"COD"}>COD</MenuItem>
-                      <MenuItem value={"CRD"}>Paypal/Credit Card</MenuItem>
                     </Select>
-
                     {isErrorPaymentMethod && errorPaymentMethod && (
-                      <FormHelperText id="country-error-text" sx={{ marginLeft: "4px" }}>
+                      <FormHelperText
+                        id="country-error-text"
+                        sx={{ marginLeft: "4px" }}
+                      >
                         {errorPaymentMethod}
                       </FormHelperText>
                     )}
                   </FormControl>
-
-                  <PayPalScriptProvider options={{ "client-id": "AYhmiNUu130-H1rJSWMOPmNNaz0c0Pbu8LHhJx5uVoiblHLGAEMxuBIzZz4D5M_PJ74YKE7WZQiBYFH_" }}>
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value: "245",
-                              },
-                            },
-                          ],
-                        });
-                      }}
-                      onApprove={async (data, actions) => {
-                        const details = await actions.order.capture();
-                        const name = details.payer.name.given_name;
-                        alert("Transaction completed by " + name);
-                      }}
-                    />
-                  </PayPalScriptProvider>
-
-                  <div className={classes["delivery-address"]} style={{ borderTop: "1px solid #dadada" }}>
-                    <h2 className={classes["delivery-address-title"]}>Order Summary</h2>
+                  <div
+                    className={classes["delivery-address"]}
+                    style={{ borderTop: "1px solid #dadada" }}
+                  >
+                    <h2 className={classes["delivery-address-title"]}>
+                      Order Summary
+                    </h2>
                   </div>
 
                   <div className={classes["order-summary-wrapper"]}>
                     <p>
-                      Subtotal ({productToPurchase.length} {productToPurchase.length > 1 ? "items" : "item"}):
+                      Subtotal ({productToPurchase.length}{" "}
+                      {productToPurchase.length > 1 ? "items" : "item"}):
                     </p>
                     <p>₱{subTotalOrderSummary.toFixed(2)}</p>
                     <p>Shipping:</p>
@@ -848,13 +1031,26 @@ export default function CartPage() {
                           },
                         }}
                       >
-                        <OutlinedInput type="text" placeholder="Voucher Code" name="voucher" id="voucher" />
+                        <OutlinedInput
+                          type="text"
+                          placeholder="Voucher Code"
+                          name="voucher"
+                          id="voucher"
+                        />
                       </FormControl>
-                      <CutomButton disabled={!productToPurchase.length}> Apply</CutomButton>
+                      <CutomButton disabled={!productToPurchase.length}>
+                        {" "}
+                        Apply
+                      </CutomButton>
                     </div>
                     <div className={classes["total-payment-wrapper"]}>
                       <p>Total Payment: </p>
-                      <p>₱{productToPurchase.length > 0 ? (subTotalOrderSummary + 80).toFixed(2) : 0}</p>
+                      <p>
+                        ₱
+                        {productToPurchase.length > 0
+                          ? (subTotalOrderSummary + 80).toFixed(2)
+                          : 0}
+                      </p>
                     </div>
                     <Button
                       disabled={!(productToPurchase.length > 0)}
