@@ -4,11 +4,10 @@ import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@mui/material/Button";
-import CutomButton from "../../components/Button";
+import CustomButton from "../../components/Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
-import Table from "@/components/Table";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
 import InputLabel from "@mui/material/InputLabel";
@@ -21,98 +20,21 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+import Spinner from "@/components/Spinner";
 
 import classes from "../../styles/cart/Cart.module.css";
 import outputImageBg from "../../public/assets/outputImage_background.png";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Php } from "@mui/icons-material";
-
-const ColumnsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  @media screen and (min-width: 768px) {
-    grid-template-columns: 1.2fr 0.8fr;
-  }
-  gap: 40px;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  table thead tr th:nth-child(3),
-  table tbody tr td:nth-child(3),
-  table tbody tr.subtotal td:nth-child(2) {
-    text-align: right;
-  }
-  table tr.subtotal td {
-    padding: 15px 0;
-  }
-  table tbody tr.subtotal td:nth-child(2) {
-    font-size: 1.4rem;
-  }
-  tr.total td {
-    font-weight: bold;
-  }
-`;
-
-const Box = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px;
-`;
-
-const ProductInfoCell = styled.td`
-  padding: 10px 0;
-  button {
-    padding: 0 !important;
-  }
-`;
-
-const ProductImageBox = styled.div`
-  position: relative;
-  width: 70px;
-  height: 100px;
-  padding: 2px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  &.image {
-    width: 100%;
-    height: 100%;
-    padding: 3rem;
-  }
-  &.image-backgound {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-  @media screen and (min-width: 768px) {
-    padding: 10px;
-    width: 100px;
-    height: 100px;
-    img {
-      max-width: 80px;
-      max-height: 80px;
-    }
-  }
-`;
-
-const QuantityLabel = styled.span`
-  padding: 0 15px;
-  display: block;
-  @media screen and (min-width: 768px) {
-    display: inline-block;
-    padding: 0 6px;
-  }
-`;
-
-const CityHolder = styled.div`
-  display: flex;
-  gap: 5px;
-`;
 
 const ingreDataArr = [
   {
@@ -400,21 +322,12 @@ export default function CartPage() {
     });
     setProductToPurchase(updatedProducts);
   }
-  function lessOfThisProduct(productId) {
-    const item = cartProducts.find((item) => item.includes(productId));
-    removeProduct(item);
-
-    const updatedProducts = productToPurchase.map((product) => {
-      if (product.productId === productId) {
-        return {
-          ...product,
-          numberOfLiter: product.numberOfLiter - 1,
-        };
-      }
-      return product;
-    });
-    setProductToPurchase(updatedProducts);
-  }
+  console.log(cartProducts);
+  const removeProductToCartHandler = (productId) => {
+    if (productId) {
+      removeProduct(productId);
+    }
+  };
 
   const paymentMethodHandler = (e) => {
     setPaymentMethod(e.target.value);
@@ -563,6 +476,14 @@ export default function CartPage() {
     return acc + productCost;
   }, 0);
 
+  const calculateTotalLiters = (toPhurchase) => {
+    let totalAmount = 0;
+    toPhurchase.forEach((item) => {
+      totalAmount += item.numberOfLiter;
+    });
+    return totalAmount;
+  };
+
   console.log(subTotalOrderSummary);
 
   return (
@@ -585,8 +506,201 @@ export default function CartPage() {
                       margin: "0",
                     }}
                   />
+                  <TableContainer component={Paper}>
+                    <Table aria-label="spanning table">
+                      <TableHead>
+                        <TableRow sx={{ backgroundColor: "#F8F8F8" }}>
+                          <TableCell></TableCell>
+                          <TableCell>
+                            <p
+                              style={{
+                                textTransform: "uppercase",
+                                fontSize: "12px",
+                                fontWeight: "600",
+                              }}
+                            >
+                              Product
+                            </p>
+                          </TableCell>
+                          <TableCell align="right">
+                            <p
+                              style={{
+                                textTransform: "uppercase",
+                                fontSize: "12px",
+                                fontWeight: "600",
+                              }}
+                            >
+                              Price
+                            </p>
+                          </TableCell>
+                          <TableCell align="right">
+                            <p
+                              style={{
+                                textTransform: "uppercase",
+                                fontSize: "12px",
+                                fontWeight: "600",
+                              }}
+                            >
+                              Total
+                            </p>
+                          </TableCell>
+                          <TableCell></TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {products &&
+                          products.map((product) => {
+                            console.log(product);
+                            return (
+                              <TableRow
+                                key={product.productId}
+                                sx={{
+                                  borderBottom:
+                                    "1px solid rgba(224, 224, 224, 1)",
+                                  height: "100%",
+                                }}
+                              >
+                                <TableCell
+                                  sx={{ display: "flex", borderBottom: "none" }}
+                                  className={classes["td-image"]}
+                                >
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        onChange={(event) =>
+                                          checkboxChangeHandler(
+                                            event,
+                                            product.productId
+                                          )
+                                        }
+                                      />
+                                    }
+                                    sx={{ marginRight: "0" }}
+                                  />
+                                </TableCell>
+                                <TableCell
+                                  sx={{ borderBottom: "none" }}
+                                  className={classes["td-image"]}
+                                >
+                                  <div style={{ display: "flex", gap: "14px" }}>
+                                    <div className={classes["image-wrapper"]}>
+                                      <Image
+                                        src={product.categoryImage}
+                                        alt="image of perfume"
+                                        width={100}
+                                        height={100}
+                                        loading="lazy"
+                                        style={{
+                                          width: "100%",
+                                          height: "100%",
+                                          padding: "2px",
+                                          zIndex: "2",
+                                        }}
+                                      />
+                                      <Image
+                                        src={
+                                          "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_116/v1684510657/outputImage_background_tasre3.png"
+                                        }
+                                        alt="background of image of perfume"
+                                        width={100}
+                                        height={100}
+                                        loading="lazy"
+                                        style={{
+                                          position: "absolute",
+                                          top: "0",
+                                          left: "0",
+                                          width: "100%",
+                                          height: "100%",
+                                          zIndex: "1",
+                                        }}
+                                      />
+                                    </div>
+                                    <p className={classes["product-name"]}>
+                                      {`${product.categoryName} ${product.numberOfLiter}L`}
+                                    </p>
+                                  </div>
+                                </TableCell>
+                                <TableCell
+                                  align="right"
+                                  sx={{ borderBottom: "none" }}
+                                  className={classes["td-price"]}
+                                >
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      gap: "10px",
+                                    }}
+                                  >
+                                    {product.ingredients.map((ingredientId) => {
+                                      const foundIngredient = ingredients.find(
+                                        (ingredient) =>
+                                          ingredient._id === ingredientId
+                                      );
+                                      if (foundIngredient) {
+                                        return (
+                                          <div key={foundIngredient._id}>
+                                            <p>
+                                              <i
+                                                className={
+                                                  classes["ingredient-name"]
+                                                }
+                                              >
+                                                {foundIngredient.title}{" "}
+                                                {foundIngredient.composition}
+                                              </i>
+                                            </p>
+                                            <p
+                                              className={
+                                                classes["ingredient-price"]
+                                              }
+                                            >
+                                              ₱
+                                              {foundIngredient.price.toFixed(2)}
+                                            </p>
+                                          </div>
+                                        );
+                                      }
+                                      return null;
+                                    })}
+                                  </div>
+                                </TableCell>
+                                <TableCell
+                                  align="right"
+                                  sx={{ borderBottom: "none" }}
+                                >
+                                  <p>
+                                    ₱
+                                    {(
+                                      product.totalEstimatedCost *
+                                      product.numberOfLiter
+                                    ).toFixed(2)}
+                                  </p>
+                                </TableCell>
+                                <TableCell>
+                                  <CloseSharpIcon
+                                    onClick={() =>
+                                      removeProductToCartHandler(
+                                        product.productId
+                                      )
+                                    }
+                                    sx={{
+                                      color: "#aaaaaa",
+                                      "&:hover": {
+                                        color: "#444",
+                                        transition: "color 0.15s",
+                                      },
+                                    }}
+                                  />
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
 
-                  <table className={classes["table"]}>
+                  {/* <table className={classes["table"]}>
                     <thead className={classes["table-head"]}>
                       <tr>
                         <th></th>
@@ -697,7 +811,7 @@ export default function CartPage() {
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </table> */}
                 </div>
               )}
             </div>
@@ -706,12 +820,12 @@ export default function CartPage() {
             {!!cartProducts?.length && (
               <RevealWrapper delay={100}>
                 <div className={classes["order-infos-wrapper"]}>
-                  <div className={classes["delivery-address"]}>
+                  {/* <div className={classes["delivery-address"]}>
                     <h2 className={classes["delivery-address-title"]}>
                       Delivery Address
                     </h2>
-                  </div>
-                  <div className={classes["delivery-address-inputs-wrapper"]}>
+                  </div> */}
+                  {/* <div className={classes["delivery-address-inputs-wrapper"]}>
                     <FormControl
                       error={isErrorName}
                       className={classes["name"]}
@@ -980,16 +1094,16 @@ export default function CartPage() {
                         </FormHelperText>
                       )}
                     </FormControl>
-                  </div>
-                  <div
+                  </div> */}
+                  {/* <div
                     className={classes["delivery-address"]}
                     style={{ borderBottom: "1px solid #dadada" }}
                   >
                     <h2 className={classes["delivery-address-title"]}>
                       Payment Method
                     </h2>
-                  </div>
-                  <FormControl
+                  </div> */}
+                  {/* <FormControl
                     error={isErrorPaymentMethod}
                     sx={{
                       m: 1,
@@ -1023,9 +1137,9 @@ export default function CartPage() {
                         {errorPaymentMethod}
                       </FormHelperText>
                     )}
-                  </FormControl>
+                  </FormControl> */}
 
-                  <PayPalScriptProvider
+                  {/* <PayPalScriptProvider
                     options={{
                       "client-id":
                         "AYhmiNUu130-H1rJSWMOPmNNaz0c0Pbu8LHhJx5uVoiblHLGAEMxuBIzZz4D5M_PJ74YKE7WZQiBYFH_",
@@ -1049,14 +1163,14 @@ export default function CartPage() {
                         alert("Transaction completed by " + name);
                       }}
                     />
-                  </PayPalScriptProvider>
+                  </PayPalScriptProvider> */}
 
                   <div
                     className={classes["delivery-address"]}
                     style={{ borderTop: "1px solid #dadada" }}
                   >
                     <h2 className={classes["delivery-address-title"]}>
-                      Order Summary
+                      Cart Totals
                     </h2>
                   </div>
 
@@ -1066,12 +1180,12 @@ export default function CartPage() {
                       {productToPurchase.length > 1 ? "items" : "item"}):
                     </p>
                     <p>₱{subTotalOrderSummary.toFixed(2)}</p>
-                    <p>Shipping:</p>
-                    <p>₱80.00</p>
+                    <p>Weight:</p>
+                    <p>{`${calculateTotalLiters(productToPurchase)}L`}</p>
                   </div>
                   <div className={classes["order-summary-bottom"]}>
-                    <div className={classes["voucher-wrapper"]}>
-                      <FormControl
+                    {/* <div className={classes["voucher-wrapper"]}> */}
+                    {/* <FormControl
                         disabled={!productToPurchase.length}
                         className={classes["postal-code"]}
                         sx={{
@@ -1092,14 +1206,14 @@ export default function CartPage() {
                           name="voucher"
                           id="voucher"
                         />
-                      </FormControl>
-                      <CutomButton disabled={!productToPurchase.length}>
+                      </FormControl> */}
+                    {/* <CutomButton disabled={!productToPurchase.length}>
                         {" "}
                         Apply
-                      </CutomButton>
-                    </div>
+                      </CutomButton> */}
+                    {/* </div> */}
                     <div className={classes["total-payment-wrapper"]}>
-                      <p>Total Payment: </p>
+                      <p>Total: </p>
                       <p>
                         ₱
                         {productToPurchase.length > 0
@@ -1115,7 +1229,7 @@ export default function CartPage() {
                         width: "100%",
                         alignSelf: "center",
                         padding: "0.8em 2em",
-                        borderRadius: "8px",
+                        borderRadius: "6px",
                         textTransform: "uppercase",
                         fontSize: "14px",
                         fontWeight: "700",

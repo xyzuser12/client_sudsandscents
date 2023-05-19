@@ -19,12 +19,12 @@
 }
 
 .cart-items {
-  width: 70%;
+  width: 65%;
   /* border: 1px solid red; */
 }
 
 .order-infos {
-  width: 30%;
+  width: 35%;
   /* border: 1px solid yellow; */
 }
 
@@ -43,129 +43,6 @@
   color: #545454;
 }
 
-.table {
-  border: 1px solid #dadada;
-  border-radius: 4px;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-head {
-  background-color: #f8f8f8;
-  display: table;
-  width: 100%;
-  border-collapse: collapse;
-  padding: 10px;
-}
-
-.table-head tr th {
-  text-align: left;
-  text-transform: uppercase;
-  color: #545454;
-  font-weight: 500;
-  font-size: 13px;
-  padding: 1rem;
-  border: none;
-  outline: none;
-  text-align: left;
-
-  /* border: 1px solid red; */
-}
-
-.table-head tr th {
-  /* border: 1px solid red; */
-}
-.table-head tr th:first-child {
-  width: 10%;
-  min-width: 50px;
-}
-.table-head tr th:nth-child(2) {
-  width: 20%;
-  min-width: 100px;
-}
-.table-head tr th:nth-child(3) {
-  width: 50%;
-  min-width: 220px;
-}
-.table-head tr th:nth-child(4) {
-  width: 8%;
-  min-width: 100px;
-}
-.table-head tr th:last-child {
-  width: 100%;
-}
-
-.table-body {
-  width: 100%;
-  border: 1px solid #dadada;
-  display: table-row;
-  padding: 1rem;
-  /* border: 1px solid red; */
-}
-
-.table-body .table-row {
-  /* border: 1px solid red; */
-  border-bottom: 1px solid #dadada;
-}
-.table-body td {
-  /* border: 1px solid red; */
-  /* border: 1px solid #dadada; */
-
-  vertical-align: middle;
-  text-align: center;
-}
-
-.table-body .select {
-  width: 5%;
-  padding: 0 0 0 1rem;
-  border-right: 1px solid #dadada;
-}
-.table-body .td-image {
-  width: 20%;
-  height: 100%;
-  padding: 1rem 0 1rem 0.6rem;
-  border-right: 1px solid #dadada;
-
-  /* border: 1px solid red; */
-}
-
-.table-body .td-price {
-  /* width: 90%; */
-  display: flex;
-  text-align: left;
-  flex-direction: column;
-  gap: 0.8rem;
-  padding: 1rem;
-}
-.table-body .td-liters {
-  width: 10%;
-  /* display: flex; */
-  /* flex-direction: column; */
-  min-width: 100px;
-  padding: 0.4rem;
-  border-right: 1px solid #dadada;
-  border-left: 1px solid #dadada;
-}
-
-.table-body .td-liters div {
-  display: flex;
-}
-
-.table-body .td-subtotal {
-}
-
-.table-body .td-subtotal p {
-  color: #545454;
-  font-size: 1rem;
-}
-
-.table-body .td-price .ingredient-name,
-.table-body .td-price .ingredient-price {
-  display: inline-block;
-  font-size: 13px;
-  width: 100%;
-}
-
 .image-wrapper {
   width: 54px;
   display: flex;
@@ -173,7 +50,6 @@
   position: relative;
   width: 100%;
   max-width: 84px;
-  margin: 0 auto;
   padding: 4px;
   justify-content: space-between;
 }
@@ -194,9 +70,11 @@
 }
 
 .product-name {
+  display: flex;
+  align-self: center;
   font-size: 13px;
   font-weight: 600;
-  margin-top: 8px;
+
   font-family: var(--font-poppins);
   color: #545454;
 }
@@ -215,7 +93,7 @@
 
 .delivery-address-title {
   color: #545454;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   margin: 0;
 }
@@ -245,6 +123,7 @@
 
 .order-summary-wrapper p:first-child {
   border-right: 1px solid #dadada;
+  font-weight: 600;
   padding: 0.9rem 0 0.4rem 1rem;
 }
 
@@ -253,6 +132,8 @@
 }
 .order-summary-wrapper p:nth-child(3) {
   border-right: 1px solid #dadada;
+  font-weight: 600;
+
   padding: 0.4rem 0 0.9rem 1rem;
 }
 .order-summary-wrapper p:nth-child(4) {
@@ -279,7 +160,8 @@
 }
 
 .total-payment-wrapper p:first-child {
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: 600;
   color: #545454;
 }
 .total-payment-wrapper p:last-child {
