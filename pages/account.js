@@ -53,7 +53,7 @@ export default function AccountPage() {
   const { data: session } = useSession();
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState("success");
-
+const [userId, setUserId] = useState('')
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -80,10 +80,17 @@ export default function AccountPage() {
   const [isErrorCountry, setIsErrorCountry] = useState(false);
 
   console.log(session);
+  useEffect(() => {
+    axios.get("/api/users", email).then((response) => {
+      console.log(response);
+      setUserId(response.data._id)
+    });
+  });
 
   function saveAccountDetails() {
     const data = {
       name,
+      userId,
       phoneNumber,
       email,
       city,
@@ -116,6 +123,7 @@ export default function AccountPage() {
     }
 
     axios.get("/api/address").then((response) => {
+      console.log(response);
       setName(response?.data?.name);
       setPhoneNumber(response?.data?.phoneNumber);
       setEmail(response?.data?.email);

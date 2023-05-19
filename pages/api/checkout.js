@@ -20,6 +20,7 @@ export default async function handler(req, res) {
       country,
       paymentMethod,
       productToPurchase,
+      status
     } = req.body;
     const orderDoc = await Order.create({
       line_items: productToPurchase,
@@ -31,7 +32,7 @@ export default async function handler(req, res) {
       streetAddress,
       country,
       paymentMethod,
-      paid: false,
+      status
     });
     console.log(orderDoc);
     res.json(orderDoc);

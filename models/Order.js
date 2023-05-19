@@ -12,7 +12,7 @@ const OrderSchema = new Schema(
     streetAddress: String,
     country: String,
     paymentMethod: String,
-    paid: Boolean,
+    status: String,
   },
   {
     timestamps: true,
