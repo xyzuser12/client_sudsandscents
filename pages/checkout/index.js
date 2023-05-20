@@ -32,7 +32,9 @@ import Spinner from "@/components/Spinner";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormLabel from "@mui/material/FormLabel";
-
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Divider from "@mui/material/Divider";
 import classes from "../../styles/checkout/Checkout.module.css";
 import outputImageBg from "../../public/assets/outputImage_background.png";
 
@@ -93,6 +95,19 @@ const ingreDataArr = [
     title: "Jasmine",
   },
 ];
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 
 const cartDatas = [
   {
@@ -276,6 +291,7 @@ export default function CheckoutPage() {
     : [];
   const { data: session } = useSession();
   const [status, setStatus] = useState("Processing");
+  const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -339,6 +355,15 @@ export default function CheckoutPage() {
       setCountry(response?.data?.country);
     });
   }, [session]);
+
+  const openModalChangeHandler = () => {
+    setOpenModal(true);
+  };
+
+  const closeModalChangeHandler = () => {
+    setOpenModal(false);
+    document.body.style.overflow = "";
+  };
 
   const validateFields = () => {
     let isValid = true;
@@ -547,6 +572,9 @@ export default function CheckoutPage() {
         })
         .then((response) => {
           console.log(response);
+          if (response.status === 200) {
+            setOpenModal(true);
+          }
         })
         .catch((err) => {
           console.error(err);
@@ -556,8 +584,181 @@ export default function CheckoutPage() {
     }
   }
 
+  const gotoHome = () => {
+    router.push("/");
+  };
+
   return (
     <div className={classes.container}>
+      <Modal
+        open={openModal}
+        onClose={gotoHome}
+        aria-labelledby="success-modal-title"
+        aria-describedby="success-modal-description"
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "400",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            borderRadius: "6px",
+            boxShadow: 24,
+            padding: "1.4rem",
+          }}
+        >
+          <CloseSharpIcon
+            onClick={gotoHome}
+            sx={{
+              color: "#aaaaaa",
+              alignSelf: "end",
+              "&:hover": {
+                color: "#444",
+                transition: "color 0.15s",
+              },
+            }}
+          />
+          <Image
+            src={
+              "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_133/v1684600258/successOrderIcon_yeveeq.png"
+            }
+            alt="image for success order"
+            width={80}
+            height={100}
+            style={{
+              alignSelf: "center",
+              height: "88px",
+              width: "70px",
+            }}
+          />
+          <h2
+            style={{
+              alignSelf: "center",
+              textAlign: "center",
+              color: "#DE89A1",
+              fontSize: "18px",
+              margin: "10px 0",
+            }}
+            id="success-modal-title"
+          >
+            Thank you for your order!
+          </h2>
+          <p
+            style={{
+              alignSelf: "center",
+              textAlign: "center",
+              color: "#545454",
+              fontSize: "13px",
+              width: "76%",
+              marginBottom: "2rem",
+            }}
+          >
+            {" "}
+            Your order has been successfully placed! An email confirmation will
+            be sent to you shortly.
+          </p>
+          <div>
+            <h3 style={{ color: "#545454", marginBottom: "0.8rem" }}>
+              Order Summary
+            </h3>
+            <Divider />
+            <div className={classes["modal-products-container"]}>
+              {parsedProductToPurchase &&
+                parsedProductToPurchase.map((product) => {
+                  return (
+                    <div
+                      key={product.productId}
+                      className={`${classes["product-wrapper"]} ${classes["modal"]}`}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "1rem",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div>
+                          <p>{`${product.categoryName} ${product.numberOfLiter}L`}</p>
+                        </div>
+                      </div>
+                      <div>
+                        <p>{`₱${(
+                          product.numberOfLiter * product.totalEstimatedCost
+                        ).toFixed(2)} `}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+            <Divider />
+            <div className={classes["modal-subtotal-container"]}>
+              <div>
+                <p>
+                  Subtotal ({parsedProductToPurchase?.length}{" "}
+                  {parsedProductToPurchase?.length > 1 ? "items" : "item"}):
+                </p>
+                <p>₱{subTotalOrderSummary.toFixed(2)}</p>
+              </div>
+              <div>
+                <p>{`${
+                  selectedShippingOption ? shippingOptionTextDisplay() : ""
+                } (Total Weight: ${calculateTotalLiters(
+                  parsedProductToPurchase
+                )}L)`}</p>
+                <p>{`₱${
+                  selectedShippingOption
+                    ? Object.keys(selectedShippingOption)[0] !==
+                      "provincialDelivery"
+                      ? Object.values(selectedShippingOption)[0].toFixed(2)
+                      : Object.values(selectedShippingOption)[0] +
+                        provincialAdditionalFee *
+                          calculateTotalLiters(parsedProductToPurchase) -
+                        provincialAdditionalFee
+                    : "0"
+                }`}</p>
+              </div>
+            </div>
+            <Divider />
+            <div className={classes["modal-total-container"]}>
+              <p>Total: </p>
+              <p>
+                ₱
+                {parsedProductToPurchase?.length > 0
+                  ? calculateTotalPayment().toFixed(2)
+                  : 0}
+              </p>
+            </div>
+
+            <Button
+              variant="contained"
+              className={classes["buy-now__button"]}
+              sx={{
+                width: "100%",
+                alignSelf: "center",
+                padding: "0.8em 2em",
+                borderRadius: "6px",
+                textTransform: "uppercase",
+                fontSize: "14px",
+                fontWeight: "700",
+                letterSpacing: "1px",
+                backgroundColor: "#de89a1",
+                color: "#fff",
+                outline: "none",
+                border: "none",
+              }}
+              // onClick={placeOrderHandler}
+            >
+              View Orders
+            </Button>
+          </div>
+        </Box>
+      </Modal>
       <div className={classes["inner-container"]}>
         <div
           style={{
@@ -1049,40 +1250,48 @@ export default function CheckoutPage() {
                             key={product.productId}
                             className={classes["product-wrapper"]}
                           >
-                            <div className={classes["image-wrapper"]}>
-                              <Image
-                                src={product.categoryImage}
-                                alt="image of perfume"
-                                width={100}
-                                height={100}
-                                loading="lazy"
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  padding: "2px",
-                                  zIndex: "2",
-                                }}
-                              />
-                              <Image
-                                src={
-                                  "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_50/v1684510657/outputImage_background_tasre3.png"
-                                }
-                                alt="background of image of perfume"
-                                width={100}
-                                height={100}
-                                loading="lazy"
-                                style={{
-                                  position: "absolute",
-                                  top: "0",
-                                  left: "0",
-                                  width: "100%",
-                                  height: "100%",
-                                  zIndex: "1",
-                                }}
-                              />
-                            </div>
-                            <div>
-                              <p>{`${product.categoryName} ${product.numberOfLiter}L`}</p>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "1rem",
+                                alignItems: "center",
+                              }}
+                            >
+                              <div className={classes["image-wrapper"]}>
+                                <Image
+                                  src={product.categoryImage}
+                                  alt="image of perfume"
+                                  width={100}
+                                  height={100}
+                                  loading="lazy"
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    padding: "2px",
+                                    zIndex: "2",
+                                  }}
+                                />
+                                <Image
+                                  src={
+                                    "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_50/v1684510657/outputImage_background_tasre3.png"
+                                  }
+                                  alt="background of image of perfume"
+                                  width={100}
+                                  height={100}
+                                  loading="lazy"
+                                  style={{
+                                    position: "absolute",
+                                    top: "0",
+                                    left: "0",
+                                    width: "100%",
+                                    height: "100%",
+                                    zIndex: "1",
+                                  }}
+                                />
+                              </div>
+                              <div>
+                                <p>{`${product.categoryName} ${product.numberOfLiter}L`}</p>
+                              </div>
                             </div>
                             <div>
                               <p>{`₱${(
@@ -1135,7 +1344,7 @@ export default function CheckoutPage() {
                     sx={{
                       m: 1,
                       width: "100%",
-                      padding: "1rem",
+                      padding: " 1rem 2rem",
                       margin: "0",
                       borderBottom: "1px solid #dadada",
                       "& div div": { padding: "0" },
