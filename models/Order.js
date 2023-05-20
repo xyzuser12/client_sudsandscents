@@ -13,6 +13,8 @@ const OrderSchema = new Schema(
     country: String,
     paymentMethod: String,
     status: String,
+    delivery: Object,
+    totalPayment: Number,
   },
   {
     timestamps: true,
