@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Header from "@/components/Header";
+import crypto from "crypto";
 
 import styled from "styled-components";
 import Center from "@/components/Center";
@@ -188,6 +189,94 @@ const cartRaw = [
   '["2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
 ];
 
+const ingreRaw = [
+  {
+    category: "6446553cbe70cd3d8b62bd0f",
+    composition: "Carrier Oils",
+    createdAt: "2023-04-24T10:12:21.072Z",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
+    price: 30,
+    quantity: 100,
+    title: "Jojoba",
+    updatedAt: "2023-05-17T13:47:03.371Z",
+    __v: 0,
+    _id: "64465605be70cd3d8b62bd1d",
+  },
+  {
+    category: "6446553cbe70cd3d8b62bd0f",
+    composition: "Carrier Oils",
+    createdAt: "2023-04-24T10:12:21.072Z",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
+    price: 30,
+    quantity: 100,
+    title: "Jojoba",
+    updatedAt: "2023-05-17T13:47:03.371Z",
+    __v: 0,
+    _id: "6453603cef19e3b71076cf41",
+  },
+  {
+    category: "6446553cbe70cd3d8b62bd0f",
+    composition: "Carrier Oils",
+    createdAt: "2023-04-24T10:12:21.072Z",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
+    price: 30,
+    quantity: 100,
+    title: "Jojoba",
+    updatedAt: "2023-05-17T13:47:03.371Z",
+    __v: 0,
+    _id: "6453577cef19e3b71076cf18",
+  },
+];
+
+const dataRaw = {
+  city: "Manila",
+  country: "Philippines",
+  delivery: {
+    standardDelivery: 90,
+  },
+
+  email: "formalejoraymartbedia@gmail.com",
+  name: "Raymart Formalejo",
+  paymentMethod: "COD",
+  phoneNumber: "09452779188",
+  postalCode: "1013",
+  productToPurchase: [
+    {
+      categoryId: "644653bbbe70cd3d8b62bd0c",
+      categoryImage:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+      categoryName: "Custom Perfume",
+      formula:
+        "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
+      ingredients: [
+        "64465605be70cd3d8b62bd1d",
+        "6453577cef19e3b71076cf18",
+        "6453603cef19e3b71076cf41",
+      ],
+      numberOfLiter: 1,
+      orderId:
+        "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
+      productId:
+        "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
+      totalEstimatedCost: 245,
+      purchaseDate: "2023-05-21 14:07:32",
+    },
+  ],
+
+  status: "Processing",
+  streetAddress: "1247 Yuseco St. Tondo Manila",
+  totalPayment: 335,
+};
+
 const cityList = [
   "Abra",
   "Agusan del Norte",
@@ -283,6 +372,47 @@ const deliveryRaw = [
   },
 ];
 
+const productPurchaseRaw = [
+  {
+    categoryId: "644653bbbe70cd3d8b62bd0c",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryName: "Custom Perfume",
+    formula:
+      "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "64465605be70cd3d8b62bd1d",
+      "6453577cef19e3b71076cf18",
+      "6453603cef19e3b71076cf41",
+    ],
+    numberOfLiter: 1,
+    orderId: "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
+    productId:
+      "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
+    totalEstimatedCost: 245,
+    purchaseDate: "2023-05-21 14:07:32",
+  },
+  {
+    categoryId: "644653bbbe75cd3d8b62bd0c",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryName: "Custom Perfume",
+    formula:
+      "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "64465605be70cd3d8b62bd1d",
+      "6453577cef19e3b71076cf18",
+      "6453603cef19e3b71076cf41",
+    ],
+    numberOfLiter: 1,
+    orderId: "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
+    productId:
+      "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
+    totalEstimatedCost: 245,
+    purchaseDate: "2023-05-21 14:07:32",
+  },
+];
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { productToPurchase } = router.query;
@@ -322,7 +452,17 @@ export default function CheckoutPage() {
   const [deliveryOptionsList, setDeliveryOptionsList] = useState([]);
   const [selectedShippingOption, setSelectedShippingOption] = useState();
   const [shippingFee, setShippingFee] = useState(0);
+  // const [ingre]
+  const [ingredients, setIngredients] = useState([]);
+  const [productToPurchaseEmail, setProductToPurchaseEmail] = useState([]);
   const provincialAdditionalFee = 50;
+
+  const randomBytes = crypto.randomBytes(16); // Generate a 16-byte (128-bit) random number
+  const uniqueId = crypto
+    .createHash("sha256")
+    .update(randomBytes)
+    .digest("hex");
+  const orderId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
   useEffect(() => {
     axios.get("/api/delivery").then((response) => {
@@ -331,10 +471,15 @@ export default function CheckoutPage() {
   }, []);
 
   useEffect(() => {
+    axios.get("/api/products").then((response) => {
+      setIngredients(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
 
-    // Disable if it is past 1:00 PM
     if (currentHour >= 13) {
       setDisableSameDayDelivery(true);
     }
@@ -525,6 +670,62 @@ export default function CheckoutPage() {
     setPaymentMethod(e.target.value);
   };
 
+  function getCurrentDateTime() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = String(currentDate.getHours()).padStart(2, "0");
+    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+    const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+
+    const currentDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return currentDateTime;
+  }
+
+  function getFormattedDate(inputDate) {
+    const dataRaw = getCurrentDateTime();
+    const dateObj = new Date(dataRaw);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+
+    const formattedDate = dateObj.toLocaleString("en-PH", options);
+    const [datePart] = formattedDate.split("/");
+    return `${datePart}`;
+  }
+
+  function processProductPurchaseRaw(productRawData, ingredientsRawData) {
+    return productRawData.map((item) => {
+      const ingredients = item.ingredients.map((ingredientId) => {
+        const ingredient = ingredientsRawData.find(
+          (ingre) => ingre._id === ingredientId
+        );
+        return {
+          _id: ingredient?._id,
+          title: ingredient?.title,
+          price: ingredient?.price,
+          composition: ingredient?.composition,
+        };
+      });
+
+      return {
+        categoryId: item?.categoryId,
+        categoryName: item?.categoryName,
+        formula: item?.formula,
+        ingredients,
+        numberOfLiter: item?.numberOfLiter,
+        productId: item?.productId,
+        totalEstimatedCost: item?.totalEstimatedCost.toString(),
+      };
+    });
+  }
+
   const calculateTotalPayment = () => {
     if (selectedShippingOption) {
       const ship = Object.keys(selectedShippingOption)[0];
@@ -555,20 +756,46 @@ export default function CheckoutPage() {
 
   async function placeOrderHandler() {
     if (validateFields()) {
+      const data = {
+        orderId,
+        purchaseDate: getCurrentDateTime(),
+        name,
+        phoneNumber,
+        email,
+        city,
+        postalCode,
+        streetAddress,
+        country,
+        paymentMethod,
+        productToPurchase: parsedProductToPurchase,
+        status,
+        delivery: selectedShippingOption,
+        totalPayment: calculateTotalPayment(),
+      };
+      const dataOrderForEmail = {
+        orderId,
+        purchaseDate: getFormattedDate(),
+        name,
+        phoneNumber,
+        email,
+        city,
+        postalCode,
+        streetAddress,
+        country,
+        paymentMethod,
+        productToPurchase: processProductPurchaseRaw(
+          productPurchaseRaw,
+          ingredients
+        ),
+        status,
+        delivery: selectedShippingOption,
+        totalPayment: calculateTotalPayment(),
+      };
+
+      // ======================= ORDERS
       await axios
         .post("/api/orders", {
-          name,
-          phoneNumber,
-          email,
-          city,
-          postalCode,
-          streetAddress,
-          country,
-          paymentMethod,
-          productToPurchase: parsedProductToPurchase,
-          status,
-          delivery: selectedShippingOption,
-          totalPayment: calculateTotalPayment(),
+          ...data,
         })
         .then((response) => {
           console.log(response);
@@ -579,6 +806,30 @@ export default function CheckoutPage() {
         .catch((err) => {
           console.error(err);
         });
+      console.log({
+        ...dataOrderForEmail,
+      });
+
+      // ========================== EMAIL
+      await axios
+        .post(
+          "/api/email",
+          JSON.stringify({
+            ...dataOrderForEmail,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.error("💥💥💥💥" + err);
+        });
     } else {
       console.log("One or more fields are invalid");
     }
@@ -587,7 +838,7 @@ export default function CheckoutPage() {
   const gotoHome = () => {
     router.push("/");
   };
-
+  console.log(processProductPurchaseRaw(productPurchaseRaw, ingredients));
   return (
     <div className={classes.container}>
       <Modal
