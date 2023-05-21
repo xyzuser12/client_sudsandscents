@@ -1,4 +1,4 @@
-import { mongooseConnect } from "@/components/lib/mongoose";
+import { mongooseConnect } from "@/lib/mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Order } from "@/models/Order";

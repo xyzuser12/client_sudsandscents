@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-import { mongooseConnect } from "@/components/lib/mongoose";
+import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "../../models/Category";
 import { Product } from "../../models/Product";
 import FetchProducts from "../../api/FetchProducts";

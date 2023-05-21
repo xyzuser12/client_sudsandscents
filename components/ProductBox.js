@@ -4,7 +4,7 @@ import CartIcon from "@/components/icons/CartIcon";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
-import { primary } from "@/components/lib/colors";
+import { primary } from "@/lib/colors";
 import FlyingButton from "@/components/FlyingButton";
 import HeartOutlineIcon from "@/components/icons/HeartOutlineIcon";
 import HeartSolidIcon from "@/components/icons/HeartSolidIcon";

@@ -1,4 +1,4 @@
-import { mongooseConnect } from "@/components/lib/mongoose";
+import { mongooseConnect } from "@/lib/mongoose";
 import { Review } from "@/models/Review";
 
 export default async function handle(req, res) {

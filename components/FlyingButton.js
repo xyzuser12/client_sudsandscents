@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ButtonStyle } from "@/components/Button";
-import { primary } from "@/components/lib/colors";
+import { primary } from "@/lib/colors";
 import { CartContext } from "@/components/CartContext";
 import { useContext, useEffect, useRef, useState } from "react";
 

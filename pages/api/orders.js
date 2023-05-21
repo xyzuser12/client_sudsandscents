@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-import { mongooseConnect } from "@/components/lib/mongoose";
+import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 =======
 import { mongooseConnect } from "@/lib/mongoose";

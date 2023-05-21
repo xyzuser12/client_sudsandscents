@@ -125,7 +125,7 @@ export default function CartPage() {
   const [products, setProducts] = useState([]);
   const [reverseOrderProducts, setReverseOrderProducts] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-
+  const [productFormatted, setProductFormatted] = useState([]);
   const [productToPurchase, setProductToPurchase] = useState([]);
 
   useEffect(() => {
@@ -145,6 +145,14 @@ export default function CartPage() {
       setIngredients(ingredients);
     });
   }, []);
+
+  useEffect(() => {
+    if (products.length > 0 && ingredients.length > 0) {
+      setProductFormatted(generateFormattedCartData(products, ingredients));
+    }
+  }, [ingredients, products]);
+
+  console.log(productFormatted);
 
   const convertCartData = (cartDatas) => {
     const result = [];
@@ -209,7 +217,7 @@ export default function CartPage() {
   };
   const checkboxChangeHandler = (event, productId) => {
     if (event.target.checked) {
-      const selectedProduct = products.find(
+      const selectedProduct = productFormatted.find(
         (product) => product.productId === productId
       );
       setProductToPurchase([...productToPurchase, selectedProduct]);
@@ -222,8 +230,7 @@ export default function CartPage() {
   };
 
   const subTotalOrderSummary = productToPurchase.reduce((acc, curr) => {
-    const productCost = curr.numberOfLiter * curr.totalEstimatedCost;
-    return acc + productCost;
+    return acc + curr.totalEstimatedCost;
   }, 0);
 
   const calculateTotalLiters = (toPhurchase) => {
@@ -234,12 +241,118 @@ export default function CartPage() {
     return totalAmount;
   };
 
+  console.log(productToPurchase);
+
   const goToCheckout = () => {
     router.push({
       pathname: "/checkout",
       query: { productToPurchase: JSON.stringify(productToPurchase) },
     });
   };
+
+  const updateIngre = [
+    {
+      category: "64465be6be70cd3d8b62bd3b",
+      composition: "Essential Oils",
+      createdAt: "2023-05-04T06:50:47.827Z",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      image:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1683183043/ylang-ylang_n8q0hf.jpg",
+      price: 45,
+      quantity: 76,
+      title: "Lily",
+      updatedAt: "2023-05-04T06:50:47.827Z",
+      __v: 0,
+      _id: "645355c7ef19e3b71076cee3",
+    },
+    {
+      category: "64465be6be70cd3d8b62bd3b",
+      composition: "Citrus Oils",
+      createdAt: "2023-05-04T06:58:04.381Z",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      image:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1683183480/ylang-ylang_hgoefm.jpg",
+      price: 32,
+      quantity: 12,
+      title: "Orange",
+      updatedAt: "2023-05-04T06:58:04.381Z",
+      __v: 0,
+      _id: "6453577cef19e3b71076cf18",
+    },
+    {
+      category: "64465be6be70cd3d8b62bd3b",
+      composition: "Woods and Musks",
+      createdAt: "2023-05-04T07:35:24.740Z",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      image:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1683185721/myrrh-oil-500x500_vqewce.webp",
+      price: 12,
+      quantity: 12,
+      title: "Cedarwood",
+      updatedAt: "2023-05-04T07:35:24.740Z",
+      __v: 0,
+      _id: "6453603cef19e3b71076cf41",
+    },
+  ];
+
+  function generateFormattedCartData(cartDatasRaw, ingreDataArrRaw) {
+    const formattedCartData = [];
+
+    for (const cartData of cartDatasRaw) {
+      const {
+        categoryId,
+        categoryImage,
+        categoryName,
+        formula,
+        ingredients,
+        numberOfLiter,
+        productId,
+        totalEstimatedCost,
+      } = cartData;
+      const updatedIngredients = [];
+
+      for (const ingredientId of ingredients) {
+        const foundIngredient = ingreDataArrRaw.find(
+          (ingredient) => ingredient._id === ingredientId
+        );
+
+        console.log(foundIngredient);
+
+        if (foundIngredient) {
+          updatedIngredients.push(foundIngredient);
+        }
+      }
+
+      console.log(numberOfLiter);
+      console.log(updatedIngredients);
+
+      const updatedTotalEstimatedCost = updatedIngredients.reduce(
+        (totalCost, ingredient) => {
+          return totalCost + ingredient.price;
+        },
+        0
+      );
+
+      const formattedCartObj = {
+        categoryId,
+        categoryImage,
+        categoryName,
+        formula,
+        ingredients: updatedIngredients,
+        numberOfLiter,
+        productId,
+        totalEstimatedCost: updatedTotalEstimatedCost * numberOfLiter,
+      };
+
+      formattedCartData.push(formattedCartObj);
+    }
+
+    return formattedCartData;
+  }
+
+  console.log(ingredients);
+  console.log(products);
+  console.log(generateFormattedCartData(products, ingredients));
 
   return (
     <div className={classes.container}>
@@ -275,7 +388,7 @@ export default function CartPage() {
           <RevealWrapper delay={0} className={classes["cart-items"]}>
             <div>
               {!cartProducts?.length && <div>Your cart is empty</div>}
-              {products?.length > 0 && (
+              {productFormatted?.length > 0 && (
                 <div>
                   <FormControlLabel
                     control={<Checkbox />}
@@ -310,7 +423,7 @@ export default function CartPage() {
                                 fontWeight: "600",
                               }}
                             >
-                              Price
+                              Ingredient Price
                             </p>
                           </TableCell>
                           <TableCell align="right">
@@ -321,15 +434,15 @@ export default function CartPage() {
                                 fontWeight: "600",
                               }}
                             >
-                              Total
+                              subTotal
                             </p>
                           </TableCell>
                           <TableCell></TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {products &&
-                          products.map((product) => {
+                        {productFormatted &&
+                          productFormatted.map((product) => {
                             return (
                               <TableRow
                                 key={product.productId}
@@ -412,21 +525,17 @@ export default function CartPage() {
                                     }}
                                   >
                                     {product.ingredients.map((ingredientId) => {
-                                      const foundIngredient = ingredients.find(
-                                        (ingredient) =>
-                                          ingredient._id === ingredientId
-                                      );
-                                      if (foundIngredient) {
+                                      if (ingredientId) {
                                         return (
-                                          <div key={foundIngredient._id}>
+                                          <div key={ingredientId._id}>
                                             <p>
                                               <i
                                                 className={
                                                   classes["ingredient-name"]
                                                 }
                                               >
-                                                {foundIngredient.title}{" "}
-                                                {foundIngredient.composition}
+                                                {ingredientId.title}{" "}
+                                                {ingredientId.composition}
                                               </i>
                                             </p>
                                             <p
@@ -434,8 +543,7 @@ export default function CartPage() {
                                                 classes["ingredient-price"]
                                               }
                                             >
-                                              ₱
-                                              {foundIngredient.price.toFixed(2)}
+                                              ₱{ingredientId.price.toFixed(2)}
                                             </p>
                                           </div>
                                         );
@@ -449,11 +557,7 @@ export default function CartPage() {
                                   sx={{ borderBottom: "none" }}
                                 >
                                   <p>
-                                    ₱
-                                    {(
-                                      product.totalEstimatedCost *
-                                      product.numberOfLiter
-                                    ).toFixed(2)}
+                                    ₱{product.totalEstimatedCost.toFixed(2)}
                                   </p>
                                 </TableCell>
                                 <TableCell>

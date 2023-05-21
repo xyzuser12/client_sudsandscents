@@ -616,8 +616,7 @@ export default function CheckoutPage() {
   };
 
   const subTotalOrderSummary = parsedProductToPurchase?.reduce((acc, curr) => {
-    const productCost = curr.numberOfLiter * curr.totalEstimatedCost;
-    return acc + productCost;
+    return acc + curr.totalEstimatedCost;
   }, 0);
 
   const calculateTotalLiters = (toPhurchase) => {
@@ -838,7 +837,7 @@ export default function CheckoutPage() {
   const gotoHome = () => {
     router.push("/");
   };
-  console.log(processProductPurchaseRaw(productPurchaseRaw, ingredients));
+  console.log(parsedProductToPurchase);
   return (
     <div className={classes.container}>
       <Modal
@@ -1545,10 +1544,9 @@ export default function CheckoutPage() {
                               </div>
                             </div>
                             <div>
-                              <p>{`₱${(
-                                product.numberOfLiter *
-                                product.totalEstimatedCost
-                              ).toFixed(2)} `}</p>
+                              <p>{`₱${product.totalEstimatedCost.toFixed(
+                                2
+                              )} `}</p>
                             </div>
                           </div>
                         );

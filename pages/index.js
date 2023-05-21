@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Featured from "@/components/Featured";
 import { Product } from "@/models/Product";
 import { Category } from "@/models/Category";
-import { mongooseConnect } from "@/components/lib/mongoose";
+import { mongooseConnect } from "@/lib/mongoose";
 import NewProducts from "@/components/NewProducts";
 import { useSession } from "next-auth/react";
 import CategorySection from "../components/home/landing/CategorySection";
