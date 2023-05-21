@@ -1,4 +1,4 @@
-import { mongooseConnect } from "@/lib/mongoose";
+import { mongooseConnect } from "@/components/lib/mongoose";
 import { Product } from "@/models/Product";
 import { Order } from "@/models/Order";
 import { getServerSession } from "next-auth";

@@ -53,7 +53,7 @@ export default function AccountPage() {
   const { data: session } = useSession();
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState("success");
-const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -83,7 +83,7 @@ const [userId, setUserId] = useState('')
   useEffect(() => {
     axios.get("/api/users", email).then((response) => {
       console.log(response);
-      setUserId(response.data._id)
+      setUserId(response.data._id);
     });
   });
 

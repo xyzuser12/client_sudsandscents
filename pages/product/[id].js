@@ -1,7 +1,7 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Title from "@/components/Title";
-import { mongooseConnect } from "@/lib/mongoose";
+import { mongooseConnect } from "@/components/lib/mongoose";
 import { Product } from "@/models/Product";
 import styled from "styled-components";
 import WhiteBox from "@/components/WhiteBox";

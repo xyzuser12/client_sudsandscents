@@ -1,4 +1,4 @@
-import { mongooseConnect } from "@/lib/mongoose";
+import { mongooseConnect } from "@/components/lib/mongoose";
 import { Order } from "@/models/Order";
 import { Delivery } from "@/models/Delivery";
 
