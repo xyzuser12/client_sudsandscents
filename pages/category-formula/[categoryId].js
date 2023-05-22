@@ -335,47 +335,9 @@ const CreateFormulaPage = () => {
     categoryData,
   ]);
 
-  // function fetchCategories() {
-  //   axios.get("/api/categories").then((result) => {
-  //     const categories = result.data;
-  //     const subCategories = getSubCategories(categories);
-  //     const categoryData = getCategoryData(param.categoryId, categories);
-  //     const uniqueSubcategory = getUniqueSubcategories(
-  //       param.categoryId,
-  //       subCateg
-  //     );
-  //     console.log(categoryData);
-  //     // setCategories(categories);
-  //     // setParentCateg(topLevelCategories);
-  //     setSubCateg(subCategories);
-  //     setCategoryData(categoryData);
-  //     setOptionsSubCateg(uniqueSubcategory);
-  //   });
-  // }
-
-  // function fetchIngredients() {
-  //   axios.get("/api/products").then((result) => {
-  //     const ingredients = result.data;
-  //     const ingreBySubCateg = getIngredientsBySubcategory(
-  //       ingredients,
-  //       optionsSubCateg
-  //     );
-  //     console.log(ingredients);
-  //     console.log(optionsSubCateg);
-  //     setIngredients(ingredients);
-  //     setIngredientsBySubcateg(ingreBySubCateg);
-  //     const transformSubcateg = transformData(ingredientsBySubcateg);
-  //     setTransformedIngreDataBySubcateg(transformSubcateg);
-  //   });
-  // }
-  // console.log(router);
-  // console.log(param);
   console.log(categoryData);
-  // console.log(optionsSubCateg);
-  // console.log(ingredients);
   console.log(transformedIngreDataBySubcateg);
   console.log(transformedCategoryData);
-  // console.log(transformData(ingreDataArr));
 
   const getCategoryData = (categoryId, categories) => {
     const categData = categories.find((cat) => {
