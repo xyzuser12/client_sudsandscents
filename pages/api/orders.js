@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import { mongooseConnect } from "@/lib/mongoose";
-import { Product } from "@/models/Product";
-=======
-import { mongooseConnect } from "@/lib/mongoose";
->>>>>>> 282a94494dce53cb12cebb57d150691031c423ed
 import { Order } from "@/models/Order";
 import { transporter } from "../../config/nodemailer";
 

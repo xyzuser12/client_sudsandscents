@@ -753,6 +753,115 @@ export default function CheckoutPage() {
     }
   };
 
+  const productToPurchaseRaw = [
+    {
+      categoryId: "644653bbbe70cd3d8b62bd0c",
+      categoryImage:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+      categoryName: "Custom Perfume",
+      formula:
+        "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+      ingredients: [
+        {
+          category: "Oil-based",
+          categoryId: "6446553cbe70cd3d8b62bd0f",
+          composition: "Carrier Oils",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          id: "644662c5be70cd3d8b62bd73",
+          image:
+            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+          price: 42,
+          quantity: 11,
+          title: "Sweet Almond",
+        },
+        {
+          category: "Oil-based",
+          categoryId: "6446553cbe70cd3d8b62bd0f",
+          composition: "Carrier Oils",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          id: "6446630abe70cd3d8b62bd7f",
+          image:
+            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+          price: 29,
+          quantity: 34,
+          title: "Coconut",
+        },
+        {
+          category: "Floral",
+          categoryId: "64465be6be70cd3d8b62bd3b",
+          composition: "Essential Oils",
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          id: "645354f2ef19e3b71076cecb",
+          image:
+            "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+          price: 123,
+          quantity: 234,
+          title: "Rose",
+        },
+      ],
+      numberOfLiter: 2,
+      productId:
+        "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+      totalEstimatedCost: 245,
+    },
+    {
+      categoryId: "644653bbbe70cd3d8b62bd0c",
+      categoryImage:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+      categoryName: "Custom Perfume",
+      formula:
+        "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+      ingredients: [
+        {
+          category: "Oil-based",
+          categoryId: "6446553cbe70cd3d8b62bd0f",
+          composition: "Carrier Oils",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          id: "644662c5be70cd3d8b62bd73",
+          image:
+            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+          price: 42,
+          quantity: 11,
+          title: "Sweet Almond",
+        },
+        {
+          category: "Oil-based",
+          categoryId: "6446553cbe70cd3d8b62bd0f",
+          composition: "Carrier Oils",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          id: "6446630abe70cd3d8b62bd7f",
+          image:
+            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+          price: 29,
+          quantity: 34,
+          title: "Coconut",
+        },
+        {
+          category: "Floral",
+          categoryId: "64465be6be70cd3d8b62bd3b",
+          composition: "Essential Oils",
+          description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          id: "645354f2ef19e3b71076cecb",
+          image:
+            "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+          price: 123,
+          quantity: 234,
+          title: "Rose",
+        },
+      ],
+      numberOfLiter: 2,
+      productId:
+        "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+      totalEstimatedCost: 245,
+    },
+  ];
+
   async function placeOrderHandler() {
     if (validateFields()) {
       const data = {
@@ -790,6 +899,9 @@ export default function CheckoutPage() {
         delivery: selectedShippingOption,
         totalPayment: calculateTotalPayment(),
       };
+      console.log(dataOrderForEmail);
+      console.log(JSON.parse(productToPurchase));
+      console.log(typeof productToPurchase);
 
       // ======================= ORDERS
       await axios
