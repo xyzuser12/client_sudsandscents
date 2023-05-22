@@ -332,7 +332,7 @@ export default function CartPage() {
           <RevealWrapper delay={0} className={classes["cart-items"]}>
             <div>
               {!cartProducts?.length && <div>Your cart is empty</div>}
-              {productFormatted?.length > 0 && (
+              {!!cartProducts?.length && (
                 <div>
                   <FormControlLabel
                     control={<Checkbox />}
