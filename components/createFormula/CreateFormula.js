@@ -23,7 +23,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Tooltip from "@mui/material/Tooltip";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import { InputAdornment } from "@mui/material";
 import { CartContext } from "../CartContext";
 
@@ -32,6 +32,8 @@ import outputImageBg from "../../public/assets/outputImage_background.png";
 import { flatMap } from "lodash";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
 const ingreRaw = [
   {
@@ -63,6 +65,8 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const { addProduct } = useContext(CartContext);
   const { cartProducts } = useContext(CartContext);
   const [ingreBuyNow, setIngreBuyNow] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+
   const [base, setBase] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -330,6 +334,23 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     });
   };
 
+  const handleAddToCart = () => {
+    addProduct(transformedProduct);
+    setOpenModal(true);
+  };
+
+  const modalCloseHandler = () => {
+    setOpenModal(false);
+  };
+
+  const gotoHome = () => {
+    router.push("/");
+  };
+
+  const gotoProductPage = () => {
+    router.push("/create-formula");
+  };
+
   console.log(ingre);
   console.log(variety);
   console.log(categoryData.id);
@@ -343,11 +364,62 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
   return (
     <div className={`${classes.container} ${classes["create-formula-container"]}`}>
-      <Snackbar open={openCartSnackbar} autoHideDuration={2000} onClose={cartSnackbarCloseHandler}>
+      {/* <Snackbar open={openCartSnackbar} autoHideDuration={2000} onClose={cartSnackbarCloseHandler}>
         <Alert onClose={cartSnackbarCloseHandler} severity="success" sx={{ width: "100%" }}>
           {`${numLiter} ${numLiter > 1 ? "liters" : "liter"} of ${categoryData.name} was added to your cart.`}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
+      <Modal open={openModal} onClose={modalCloseHandler} aria-labelledby="success-modal-title" aria-describedby="success-modal-description">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "400",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            borderRadius: "6px",
+            boxShadow: 24,
+            padding: "1.4rem",
+          }}
+        >
+          <CloseSharpIcon
+            onClick={modalCloseHandler}
+            sx={{
+              color: "#aaaaaa",
+              alignSelf: "end",
+              "&:hover": {
+                color: "#444",
+                transition: "color 0.15s",
+              },
+            }}
+          />
+          <p
+            style={{
+              alignSelf: "center",
+              textAlign: "center",
+              color: "#545454",
+              fontSize: "18px",
+              width: "76%",
+              marginBottom: "2rem",
+            }}
+          >
+            1 item was added to your cart. Do you want to create another product?
+          </p>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button sx={{ width: "40%" }} variant="contained" onClick={gotoProductPage}>
+              YES
+            </Button>
+            <Button sx={{ width: "40%" }} variant="outlined" onClick={gotoProductPage}>
+              NO
+            </Button>
+          </div>
+        </Box>
+      </Modal>
       {/*========================1) TITLE DRID ITEM =======================*/}
       <div className={classes["title"]}>
         {/* <h3 className={classes.classification}>{classification}</h3> */}
@@ -560,7 +632,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                     fontWeight: "normal",
                     letterSpacing: "1px",
                   }}
-                  onClick={() => addProduct(transformedProduct)}
+                  onClick={handleAddToCart}
                 >
                   Add to cart
                 </Button>
