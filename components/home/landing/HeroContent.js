@@ -6,9 +6,7 @@ import classes from "../../../styles/layout/HeroContent.module.css";
 const HeroContent = () => {
   return (
     <section className={`${classes.container} ${classes.flex} ${classes.hero}`}>
-      <h2 className={classes.subtitle}>
-        Crafted to your unique style of living
-      </h2>
+      <h2 className={classes.subtitle}>Crafted to your unique style of living</h2>
       <h1 className={classes.title}>Purely Personal</h1>
       <Link href="/category-formula">
         <Button
@@ -30,7 +28,7 @@ const HeroContent = () => {
             },
           }}
         >
-          Create your Formula
+          Get Started
         </Button>
       </Link>
     </section>

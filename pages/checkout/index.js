@@ -49,11 +49,9 @@ const ingreDataArr = [
     category: "Oil-based",
     categoryId: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
     id: "644662c5be70cd3d8b62bd73",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
     price: 42,
     quantity: 11,
     title: "Sweet Almond",
@@ -62,11 +60,9 @@ const ingreDataArr = [
     category: "Oil-based",
     categoryId: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
     id: "6446630abe70cd3d8b62bd7f",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
     price: 29,
     quantity: 34,
     title: "Coconut",
@@ -77,8 +73,7 @@ const ingreDataArr = [
     composition: "Essential Oils",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: "645354f2ef19e3b71076cecb",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
     price: 123,
     quantity: 234,
     title: "Rose",
@@ -89,8 +84,7 @@ const ingreDataArr = [
     composition: "Essential Oils",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: "64535584ef19e3b71076ced7",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
     price: 41,
     quantity: 654,
     title: "Jasmine",
@@ -113,91 +107,55 @@ const modalStyle = {
 const cartDatas = [
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula:
-      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: [
-      "6453603cef19e3b71076cf41",
-      "64535667ef19e3b71076cf0c",
-      "645354f2ef19e3b71076cecb",
-    ],
+    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
     numberOfLiter: 2,
-    productId:
-      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
     totalEstimatedCost: 245,
   },
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula:
-      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: [
-      "6453603cef19e3b71076cf41",
-      "64535667ef19e3b71076cf0c",
-      "645354f2ef19e3b71076cecb",
-    ],
+    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
     numberOfLiter: 2,
-    productId:
-      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbt",
+    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbt",
     totalEstimatedCost: 245,
   },
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula:
-      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: [
-      "6453603cef19e3b71076cf41",
-      "64535667ef19e3b71076cf0c",
-      "645354f2ef19e3b71076cecb",
-    ],
+    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
     numberOfLiter: 2,
-    productId:
-      "d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43",
+    productId: "d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43",
     totalEstimatedCost: 245,
   },
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula:
-      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: [
-      "6453603cef19e3b71076cf41",
-      "64535667ef19e3b71076cf0c",
-      "645354f2ef19e3b71076cecb",
-    ],
+    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
     numberOfLiter: 2,
-    productId:
-      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbh",
+    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbh",
     totalEstimatedCost: 245,
   },
 ];
 
-const cartRaw = [
-  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
-  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
-  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
-  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
-  '["2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
-];
+const cartRaw = ['["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]', '["2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]'];
 
 const ingreRaw = [
   {
     category: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
     createdAt: "2023-04-24T10:12:21.072Z",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
     price: 30,
     quantity: 100,
     title: "Jojoba",
@@ -209,10 +167,8 @@ const ingreRaw = [
     category: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
     createdAt: "2023-04-24T10:12:21.072Z",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
     price: 30,
     quantity: 100,
     title: "Jojoba",
@@ -224,10 +180,8 @@ const ingreRaw = [
     category: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
     createdAt: "2023-04-24T10:12:21.072Z",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
-    image:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1684331184/bottle-of-lavender-essential-oil-with-fresh-royalty-free-image-920637186-1547242978_t8i1bb.jpg",
     price: 30,
     quantity: 100,
     title: "Jojoba",
@@ -252,21 +206,13 @@ const dataRaw = {
   productToPurchase: [
     {
       categoryId: "644653bbbe70cd3d8b62bd0c",
-      categoryImage:
-        "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+      categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
       categoryName: "Custom Perfume",
-      formula:
-        "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
-      ingredients: [
-        "64465605be70cd3d8b62bd1d",
-        "6453577cef19e3b71076cf18",
-        "6453603cef19e3b71076cf41",
-      ],
+      formula: "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
+      ingredients: ["64465605be70cd3d8b62bd1d", "6453577cef19e3b71076cf18", "6453603cef19e3b71076cf41"],
       numberOfLiter: 1,
-      orderId:
-        "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
-      productId:
-        "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
+      orderId: "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
+      productId: "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
       totalEstimatedCost: 245,
       purchaseDate: "2023-05-21 14:07:32",
     },
@@ -277,90 +223,7 @@ const dataRaw = {
   totalPayment: 335,
 };
 
-const cityList = [
-  "Abra",
-  "Agusan del Norte",
-  "Agusan del Sur",
-  "Aklan",
-  "Albay",
-  "Antique",
-  "Apayao",
-  "Aurora",
-  "Basilan",
-  "Batanes",
-  "Batangas",
-  "Benguet",
-  "Biliran",
-  "Bohol",
-  "Bukidnon",
-  "Bulacan",
-  "Cagayan",
-  "Camarines Norte",
-  "Camarines Sur",
-  "Camiguin",
-  "Capiz",
-  "Catanduanes",
-  "Cavite",
-  "Cebu",
-  "Compostela Valley",
-  "Cotabato",
-  "Davao del Norte",
-  "Davao del Sur",
-  "Davao Occindental",
-  "Davao Oriental",
-  "Dinagat Islands",
-  "Eastern Samar",
-  "Guimaras",
-  "Ifugao",
-  "Ilocos Norte",
-  "Ilocos Sur",
-  "Iloilo",
-  "Isabela",
-  "Kalinga",
-  "La Union",
-  "Laguna",
-  "Lanao del Norte",
-  "Lanao del Sur",
-  "Leyte",
-  "Maguindanao",
-  "Marinduque",
-  "Masbate",
-  "Metro Manila",
-  "Misamis Occidental",
-  "Misamis Oriental",
-  "Mountain Province",
-  "Negros Occidental",
-  "Negros Oriental",
-  "Northern Samar",
-  "Nueva Ecija",
-  "Nueva Vizcaya",
-  "Occidental Mindoro",
-  "Oriental Mindoro",
-  "Palawan",
-  "Pampanga",
-  "Pangasinan",
-  "Quezon",
-  "Quirino",
-  "Rizal",
-  "Romblon",
-  "Samar",
-  "Sarangani",
-  "Siquijor",
-  "Sorsogon",
-  "South Cotabato",
-  "Southern Leyte",
-  "Sultan Kudarat",
-  "Sulu",
-  "Surigao del Norte",
-  "Surigao del Sur",
-  "Tarlac",
-  "Tawi-tawi",
-  "Zambales",
-  "Zamboanga del Norte",
-  "Zamboanga del Sur",
-  "Zamboanga Sibugay",
-  "Manila",
-];
+const cityList = ["Abra", "Agusan del Norte", "Agusan del Sur", "Aklan", "Albay", "Antique", "Apayao", "Aurora", "Basilan", "Batanes", "Batangas", "Benguet", "Biliran", "Bohol", "Bukidnon", "Bulacan", "Cagayan", "Camarines Norte", "Camarines Sur", "Camiguin", "Capiz", "Catanduanes", "Cavite", "Cebu", "Compostela Valley", "Cotabato", "Davao del Norte", "Davao del Sur", "Davao Occindental", "Davao Oriental", "Dinagat Islands", "Eastern Samar", "Guimaras", "Ifugao", "Ilocos Norte", "Ilocos Sur", "Iloilo", "Isabela", "Kalinga", "La Union", "Laguna", "Lanao del Norte", "Lanao del Sur", "Leyte", "Maguindanao", "Marinduque", "Masbate", "Metro Manila", "Misamis Occidental", "Misamis Oriental", "Mountain Province", "Negros Occidental", "Negros Oriental", "Northern Samar", "Nueva Ecija", "Nueva Vizcaya", "Occidental Mindoro", "Oriental Mindoro", "Palawan", "Pampanga", "Pangasinan", "Quezon", "Quirino", "Rizal", "Romblon", "Samar", "Sarangani", "Siquijor", "Sorsogon", "South Cotabato", "Southern Leyte", "Sultan Kudarat", "Sulu", "Surigao del Norte", "Surigao del Sur", "Tarlac", "Tawi-tawi", "Zambales", "Zamboanga del Norte", "Zamboanga del Sur", "Zamboanga Sibugay", "Manila"];
 
 const deliveryRaw = [
   {
@@ -375,39 +238,25 @@ const deliveryRaw = [
 const productPurchaseRaw = [
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula:
-      "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
-    ingredients: [
-      "64465605be70cd3d8b62bd1d",
-      "6453577cef19e3b71076cf18",
-      "6453603cef19e3b71076cf41",
-    ],
+    formula: "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
+    ingredients: ["64465605be70cd3d8b62bd1d", "6453577cef19e3b71076cf18", "6453603cef19e3b71076cf41"],
     numberOfLiter: 1,
     orderId: "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
-    productId:
-      "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
+    productId: "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
     totalEstimatedCost: 245,
     purchaseDate: "2023-05-21 14:07:32",
   },
   {
     categoryId: "644653bbbe75cd3d8b62bd0c",
-    categoryImage:
-      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula:
-      "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
-    ingredients: [
-      "64465605be70cd3d8b62bd1d",
-      "6453577cef19e3b71076cf18",
-      "6453603cef19e3b71076cf41",
-    ],
+    formula: "\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",
+    ingredients: ["64465605be70cd3d8b62bd1d", "6453577cef19e3b71076cf18", "6453603cef19e3b71076cf41"],
     numberOfLiter: 1,
     orderId: "99b887fdd2252445110176344f15e100ddc2fbf48d68b4ad167232d7a2625a5a",
-    productId:
-      "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
+    productId: "3e9a074ecba1826f6b645a430022b4072fa2d59d6ccb632b138ee53d3e4e024f",
     totalEstimatedCost: 245,
     purchaseDate: "2023-05-21 14:07:32",
   },
@@ -416,9 +265,9 @@ const productPurchaseRaw = [
 export default function CheckoutPage() {
   const router = useRouter();
   const { productToPurchase } = router.query;
-  const parsedProductToPurchase = productToPurchase
-    ? JSON.parse(productToPurchase)
-    : [];
+  const parsedProductToPurchase = productToPurchase ? JSON.parse(productToPurchase) : [];
+
+  console.log(productPurchaseRaw);
   const { data: session } = useSession();
   const [status, setStatus] = useState("Processing");
   const [openModal, setOpenModal] = useState(false);
@@ -458,10 +307,7 @@ export default function CheckoutPage() {
   const provincialAdditionalFee = 50;
 
   const randomBytes = crypto.randomBytes(16); // Generate a 16-byte (128-bit) random number
-  const uniqueId = crypto
-    .createHash("sha256")
-    .update(randomBytes)
-    .digest("hex");
+  const uniqueId = crypto.createHash("sha256").update(randomBytes).digest("hex");
   const orderId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
   useEffect(() => {
@@ -632,9 +478,7 @@ export default function CheckoutPage() {
     if (cityValue !== "Manila" && cityValue !== "Metro Manila") {
       const standardShippingValue = `provincialDelivery: ${deliveryOptionsList[0]?.nextDayDelivery}`;
 
-      const keyValuePair = standardShippingValue
-        .split(":")
-        .map((item) => item.trim());
+      const keyValuePair = standardShippingValue.split(":").map((item) => item.trim());
       const selectedOption = {
         [keyValuePair[0]]: parseInt(keyValuePair[1]),
       };
@@ -702,9 +546,7 @@ export default function CheckoutPage() {
   function processProductPurchaseRaw(productRawData, ingredientsRawData) {
     return productRawData.map((item) => {
       const ingredients = item.ingredients.map((ingredientId) => {
-        const ingredient = ingredientsRawData.find(
-          (ingre) => ingre._id === ingredientId
-        );
+        const ingredient = ingredientsRawData.find((ingre) => ingre._id === ingredientId);
         return {
           _id: ingredient?._id,
           title: ingredient?.title,
@@ -729,23 +571,11 @@ export default function CheckoutPage() {
     if (selectedShippingOption) {
       const ship = Object.keys(selectedShippingOption)[0];
 
-      if (
-        parsedProductToPurchase?.length > 0 &&
-        ship === "provincialDelivery"
-      ) {
-        return (
-          subTotalOrderSummary +
-          (Object.values(selectedShippingOption)[0] +
-            provincialAdditionalFee *
-              calculateTotalLiters(parsedProductToPurchase) -
-            provincialAdditionalFee)
-        );
+      if (parsedProductToPurchase?.length > 0 && ship === "provincialDelivery") {
+        return subTotalOrderSummary + (Object.values(selectedShippingOption)[0] + provincialAdditionalFee * calculateTotalLiters(parsedProductToPurchase) - provincialAdditionalFee);
       } else if (parsedProductToPurchase?.length && ship === "bookMyOwn") {
         return subTotalOrderSummary;
-      } else if (
-        parsedProductToPurchase?.length &&
-        ship !== "provincialDelivery"
-      ) {
+      } else if (parsedProductToPurchase?.length && ship !== "provincialDelivery") {
         return subTotalOrderSummary + Object.values(selectedShippingOption)[0];
       }
     } else {
@@ -756,21 +586,17 @@ export default function CheckoutPage() {
   const productToPurchaseRaw = [
     {
       categoryId: "644653bbbe70cd3d8b62bd0c",
-      categoryImage:
-        "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+      categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
       categoryName: "Custom Perfume",
-      formula:
-        "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+      formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
       ingredients: [
         {
           category: "Oil-based",
           categoryId: "6446553cbe70cd3d8b62bd0f",
           composition: "Carrier Oils",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
           id: "644662c5be70cd3d8b62bd73",
-          image:
-            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+          image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
           price: 42,
           quantity: 11,
           title: "Sweet Almond",
@@ -779,11 +605,9 @@ export default function CheckoutPage() {
           category: "Oil-based",
           categoryId: "6446553cbe70cd3d8b62bd0f",
           composition: "Carrier Oils",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
           id: "6446630abe70cd3d8b62bd7f",
-          image:
-            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+          image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
           price: 29,
           quantity: 34,
           title: "Coconut",
@@ -792,38 +616,31 @@ export default function CheckoutPage() {
           category: "Floral",
           categoryId: "64465be6be70cd3d8b62bd3b",
           composition: "Essential Oils",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
           id: "645354f2ef19e3b71076cecb",
-          image:
-            "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+          image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
           price: 123,
           quantity: 234,
           title: "Rose",
         },
       ],
       numberOfLiter: 2,
-      productId:
-        "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+      productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
       totalEstimatedCost: 245,
     },
     {
       categoryId: "644653bbbe70cd3d8b62bd0c",
-      categoryImage:
-        "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+      categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
       categoryName: "Custom Perfume",
-      formula:
-        "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+      formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
       ingredients: [
         {
           category: "Oil-based",
           categoryId: "6446553cbe70cd3d8b62bd0f",
           composition: "Carrier Oils",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
           id: "644662c5be70cd3d8b62bd73",
-          image:
-            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+          image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
           price: 42,
           quantity: 11,
           title: "Sweet Almond",
@@ -832,11 +649,9 @@ export default function CheckoutPage() {
           category: "Oil-based",
           categoryId: "6446553cbe70cd3d8b62bd0f",
           composition: "Carrier Oils",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
           id: "6446630abe70cd3d8b62bd7f",
-          image:
-            "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+          image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
           price: 29,
           quantity: 34,
           title: "Coconut",
@@ -845,19 +660,16 @@ export default function CheckoutPage() {
           category: "Floral",
           categoryId: "64465be6be70cd3d8b62bd3b",
           composition: "Essential Oils",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
           id: "645354f2ef19e3b71076cecb",
-          image:
-            "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+          image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
           price: 123,
           quantity: 234,
           title: "Rose",
         },
       ],
       numberOfLiter: 2,
-      productId:
-        "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+      productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
       totalEstimatedCost: 245,
     },
   ];
@@ -891,10 +703,7 @@ export default function CheckoutPage() {
         streetAddress,
         country,
         paymentMethod,
-        productToPurchase: processProductPurchaseRaw(
-          productPurchaseRaw,
-          ingredients
-        ),
+        productToPurchase: processProductPurchaseRaw(productPurchaseRaw, ingredients),
         status,
         delivery: selectedShippingOption,
         totalPayment: calculateTotalPayment(),
@@ -952,12 +761,7 @@ export default function CheckoutPage() {
   console.log(parsedProductToPurchase);
   return (
     <div className={classes.container}>
-      <Modal
-        open={openModal}
-        onClose={gotoHome}
-        aria-labelledby="success-modal-title"
-        aria-describedby="success-modal-description"
-      >
+      <Modal open={openModal} onClose={gotoHome} aria-labelledby="success-modal-title" aria-describedby="success-modal-description">
         <Box
           sx={{
             display: "flex",
@@ -987,9 +791,7 @@ export default function CheckoutPage() {
             }}
           />
           <Image
-            src={
-              "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_133/v1684600258/successOrderIcon_yeveeq.png"
-            }
+            src={"https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_133/v1684600258/successOrderIcon_yeveeq.png"}
             alt="image for success order"
             width={80}
             height={100}
@@ -1022,22 +824,16 @@ export default function CheckoutPage() {
             }}
           >
             {" "}
-            Your order has been successfully placed! An email confirmation will
-            be sent to you shortly.
+            Your order has been successfully placed! An email confirmation will be sent to you shortly.
           </p>
           <div>
-            <h3 style={{ color: "#545454", marginBottom: "0.8rem" }}>
-              Order Summary
-            </h3>
+            <h3 style={{ color: "#545454", marginBottom: "0.8rem" }}>Order Summary</h3>
             <Divider />
             <div className={classes["modal-products-container"]}>
               {parsedProductToPurchase &&
                 parsedProductToPurchase.map((product) => {
                   return (
-                    <div
-                      key={product.productId}
-                      className={`${classes["product-wrapper"]} ${classes["modal"]}`}
-                    >
+                    <div key={product.productId} className={`${classes["product-wrapper"]} ${classes["modal"]}`}>
                       <div
                         style={{
                           display: "flex",
@@ -1050,9 +846,7 @@ export default function CheckoutPage() {
                         </div>
                       </div>
                       <div>
-                        <p>{`₱${(
-                          product.numberOfLiter * product.totalEstimatedCost
-                        ).toFixed(2)} `}</p>
+                        <p>{`₱${(product.numberOfLiter * product.totalEstimatedCost).toFixed(2)} `}</p>
                       </div>
                     </div>
                   );
@@ -1062,39 +856,19 @@ export default function CheckoutPage() {
             <div className={classes["modal-subtotal-container"]}>
               <div>
                 <p>
-                  Subtotal ({parsedProductToPurchase?.length}{" "}
-                  {parsedProductToPurchase?.length > 1 ? "items" : "item"}):
+                  Subtotal ({parsedProductToPurchase?.length} {parsedProductToPurchase?.length > 1 ? "items" : "item"}):
                 </p>
                 <p>₱{subTotalOrderSummary.toFixed(2)}</p>
               </div>
               <div>
-                <p>{`${
-                  selectedShippingOption ? shippingOptionTextDisplay() : ""
-                } (Total Weight: ${calculateTotalLiters(
-                  parsedProductToPurchase
-                )}L)`}</p>
-                <p>{`₱${
-                  selectedShippingOption
-                    ? Object.keys(selectedShippingOption)[0] !==
-                      "provincialDelivery"
-                      ? Object.values(selectedShippingOption)[0].toFixed(2)
-                      : Object.values(selectedShippingOption)[0] +
-                        provincialAdditionalFee *
-                          calculateTotalLiters(parsedProductToPurchase) -
-                        provincialAdditionalFee
-                    : "0"
-                }`}</p>
+                <p>{`${selectedShippingOption ? shippingOptionTextDisplay() : ""} (Total Weight: ${calculateTotalLiters(parsedProductToPurchase)}L)`}</p>
+                <p>{`₱${selectedShippingOption ? (Object.keys(selectedShippingOption)[0] !== "provincialDelivery" ? Object.values(selectedShippingOption)[0].toFixed(2) : Object.values(selectedShippingOption)[0] + provincialAdditionalFee * calculateTotalLiters(parsedProductToPurchase) - provincialAdditionalFee) : "0"}`}</p>
               </div>
             </div>
             <Divider />
             <div className={classes["modal-total-container"]}>
               <p>Total: </p>
-              <p>
-                ₱
-                {parsedProductToPurchase?.length > 0
-                  ? calculateTotalPayment().toFixed(2)
-                  : 0}
-              </p>
+              <p>₱{parsedProductToPurchase?.length > 0 ? calculateTotalPayment().toFixed(2) : 0}</p>
             </div>
 
             <Button
@@ -1135,21 +909,13 @@ export default function CheckoutPage() {
             <h2 className={classes.cart}>Cart</h2>
           </Link>
           <Link href={"/checkout"}>
-            <h2
-              className={`${classes.cart} ${
-                router.pathname === "/checkout" ? classes.active : ""
-              }`}
-            >
-              Checkout
-            </h2>
+            <h2 className={`${classes.cart} ${router.pathname === "/checkout" ? classes.active : ""}`}>Checkout</h2>
           </Link>
         </div>
 
         <div className={classes["cart-container"]}>
           <RevealWrapper delay={0} className={classes["cart-items"]}>
-            {!parsedProductToPurchase?.length && (
-              <div>Please select first an item to your cart.</div>
-            )}
+            {!parsedProductToPurchase?.length && <div>Please select first an item to your cart.</div>}
             {parsedProductToPurchase?.length > 0 && (
               <Paper sx={{ padding: "1.4rem" }}>
                 <div className={classes["checkout-details-container"]}>
@@ -1164,9 +930,7 @@ export default function CheckoutPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${
-                            isErrorName ? "#FDEDED" : "none"
-                          }`,
+                          backgroundColor: `${isErrorName ? "#FDEDED" : "none"}`,
                         },
                         "& div input": {
                           padding: "4px",
@@ -1178,21 +942,9 @@ export default function CheckoutPage() {
                           Name<span>*</span>
                         </p>
                       </label>
-                      <OutlinedInput
-                        id="name"
-                        name="name"
-                        type="text"
-                        onChange={(ev) => setName(ev.target.value)}
-                        onBlur={validateFields}
-                        required
-                        aria-describedby="name-error-text"
-                        value={name}
-                      />
+                      <OutlinedInput id="name" name="name" type="text" onChange={(ev) => setName(ev.target.value)} onBlur={validateFields} required aria-describedby="name-error-text" value={name} />
                       {isErrorName && errorName && (
-                        <FormHelperText
-                          id="name-error-text"
-                          sx={{ marginLeft: "4px" }}
-                        >
+                        <FormHelperText id="name-error-text" sx={{ marginLeft: "4px" }}>
                           {errorName}
                         </FormHelperText>
                       )}
@@ -1206,9 +958,7 @@ export default function CheckoutPage() {
                         pointerEvents: "none !important",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${
-                            isErrorCountry ? "#FDEDED" : "none"
-                          }`,
+                          backgroundColor: `${isErrorCountry ? "#FDEDED" : "none"}`,
                         },
                         "& div input": {
                           padding: "4px",
@@ -1220,22 +970,9 @@ export default function CheckoutPage() {
                           Country<span>*</span>
                         </p>
                       </label>
-                      <OutlinedInput
-                        id="country"
-                        name="country"
-                        type="text"
-                        placeholder="Country"
-                        onChange={(ev) => setCountry(ev.target.value)}
-                        onBlur={validateFields}
-                        required
-                        aria-describedby="country-error-text"
-                        value={country}
-                      />
+                      <OutlinedInput id="country" name="country" type="text" placeholder="Country" onChange={(ev) => setCountry(ev.target.value)} onBlur={validateFields} required aria-describedby="country-error-text" value={country} />
                       {isErrorCountry && errorCountry && (
-                        <FormHelperText
-                          id="country-error-text"
-                          sx={{ marginLeft: "4px" }}
-                        >
+                        <FormHelperText id="country-error-text" sx={{ marginLeft: "4px" }}>
                           {errorCountry}
                         </FormHelperText>
                       )}
@@ -1249,9 +986,7 @@ export default function CheckoutPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${
-                            isErrorNumber ? "#FDEDED" : "none"
-                          }`,
+                          backgroundColor: `${isErrorNumber ? "#FDEDED" : "none"}`,
                         },
                         "& div input": {
                           padding: "4px",
@@ -1263,22 +998,9 @@ export default function CheckoutPage() {
                           Phone number<span>*</span>
                         </p>
                       </label>
-                      <OutlinedInput
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        type="tel"
-                        placeholder="Phone Number"
-                        onChange={(ev) => setPhoneNumber(ev.target.value)}
-                        onBlur={validateFields}
-                        required
-                        aria-describedby="number-error-text"
-                        value={phoneNumber}
-                      />
+                      <OutlinedInput id="phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" onChange={(ev) => setPhoneNumber(ev.target.value)} onBlur={validateFields} required aria-describedby="number-error-text" value={phoneNumber} />
                       {isErrorNumber && errorNumber && (
-                        <FormHelperText
-                          id="name-error-text"
-                          sx={{ marginLeft: "4px" }}
-                        >
+                        <FormHelperText id="name-error-text" sx={{ marginLeft: "4px" }}>
                           {errorNumber}
                         </FormHelperText>
                       )}
@@ -1292,9 +1014,7 @@ export default function CheckoutPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${
-                            isErrorEmail ? "#FDEDED" : "none"
-                          }`,
+                          backgroundColor: `${isErrorEmail ? "#FDEDED" : "none"}`,
                         },
                         "& div input": {
                           padding: "4px",
@@ -1306,22 +1026,9 @@ export default function CheckoutPage() {
                           Email<span>*</span>
                         </p>
                       </label>
-                      <OutlinedInput
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        onChange={(ev) => setEmail(ev.target.value)}
-                        onBlur={validateFields}
-                        required
-                        aria-describedby="email-error-text"
-                        value={email}
-                      />
+                      <OutlinedInput id="email" name="email" type="email" placeholder="Email" onChange={(ev) => setEmail(ev.target.value)} onBlur={validateFields} required aria-describedby="email-error-text" value={email} />
                       {isErrorEmail && errorEmail && (
-                        <FormHelperText
-                          id="email-error-text"
-                          sx={{ marginLeft: "4px" }}
-                        >
+                        <FormHelperText id="email-error-text" sx={{ marginLeft: "4px" }}>
                           {errorEmail}
                         </FormHelperText>
                       )}
@@ -1336,9 +1043,7 @@ export default function CheckoutPage() {
                           margin: "0",
                           "& div": {
                             fontSize: "14px",
-                            backgroundColor: `${
-                              isErrorCity ? "#FDEDED" : "none"
-                            }`,
+                            backgroundColor: `${isErrorCity ? "#FDEDED" : "none"}`,
                           },
                           "& div input": {
                             padding: "4px",
@@ -1383,10 +1088,7 @@ export default function CheckoutPage() {
                           })}
                         </Select>
                         {isErrorCity && errorCity && (
-                          <FormHelperText
-                            id="city-error-text"
-                            sx={{ marginLeft: "4px" }}
-                          >
+                          <FormHelperText id="city-error-text" sx={{ marginLeft: "4px" }}>
                             {errorCity}
                           </FormHelperText>
                         )}
@@ -1400,9 +1102,7 @@ export default function CheckoutPage() {
                           margin: "0",
                           "& div": {
                             fontSize: "14px",
-                            backgroundColor: `${
-                              isErrorPostal ? "#FDEDED" : "none"
-                            }`,
+                            backgroundColor: `${isErrorPostal ? "#FDEDED" : "none"}`,
                           },
                           "& div input": {
                             padding: "4px",
@@ -1414,21 +1114,9 @@ export default function CheckoutPage() {
                             Postal Code<span>*</span>
                           </p>
                         </label>
-                        <OutlinedInput
-                          id="postalCode"
-                          name="postalCode"
-                          type="text"
-                          onChange={(ev) => setPostalCode(ev.target.value)}
-                          onBlur={validateFields}
-                          required
-                          aria-describedby="postal-error-text"
-                          value={postalCode}
-                        />
+                        <OutlinedInput id="postalCode" name="postalCode" type="text" onChange={(ev) => setPostalCode(ev.target.value)} onBlur={validateFields} required aria-describedby="postal-error-text" value={postalCode} />
                         {isErrorPostal && errorPostal && (
-                          <FormHelperText
-                            id="postal-error-text"
-                            sx={{ marginLeft: "4px" }}
-                          >
+                          <FormHelperText id="postal-error-text" sx={{ marginLeft: "4px" }}>
                             {errorPostal}
                           </FormHelperText>
                         )}
@@ -1443,9 +1131,7 @@ export default function CheckoutPage() {
                         margin: "0",
                         "& div": {
                           fontSize: "14px",
-                          backgroundColor: `${
-                            isErrorStreet ? "#FDEDED" : "none"
-                          }`,
+                          backgroundColor: `${isErrorStreet ? "#FDEDED" : "none"}`,
                         },
                         "& div input": {
                           padding: "4px",
@@ -1457,21 +1143,9 @@ export default function CheckoutPage() {
                           Street address<span>*</span>
                         </p>
                       </label>
-                      <OutlinedInput
-                        id="streetAddress"
-                        name="streetAddress"
-                        type="text"
-                        onChange={(ev) => setStreetAddress(ev.target.value)}
-                        onBlur={validateFields}
-                        required
-                        aria-describedby="street-error-text"
-                        value={streetAddress}
-                      />
+                      <OutlinedInput id="streetAddress" name="streetAddress" type="text" onChange={(ev) => setStreetAddress(ev.target.value)} onBlur={validateFields} required aria-describedby="street-error-text" value={streetAddress} />
                       {isErrorStreet && errorStreet && (
-                        <FormHelperText
-                          id="street-error-text"
-                          sx={{ marginLeft: "4px" }}
-                        >
+                        <FormHelperText id="street-error-text" sx={{ marginLeft: "4px" }}>
                           {errorStreet}
                         </FormHelperText>
                       )}
@@ -1489,19 +1163,9 @@ export default function CheckoutPage() {
                           "& div label": { width: "100%" },
                         }}
                       >
-                        <RadioGroup
-                          row
-                          aria-labelledby="shipping-options-wrapper"
-                          name="shipping-options-wrapper"
-                          onChange={shippingRadioChangeHandler}
-                        >
+                        <RadioGroup row aria-labelledby="shipping-options-wrapper" name="shipping-options-wrapper" onChange={shippingRadioChangeHandler}>
                           <FormControlLabel
-                            disabled={
-                              (city === "Manila" || city === "Metro Manila") &&
-                              calculateTotalLiters(parsedProductToPurchase) <= 4
-                                ? false
-                                : true
-                            }
+                            disabled={(city === "Manila" || city === "Metro Manila") && calculateTotalLiters(parsedProductToPurchase) <= 4 ? false : true}
                             // [keyValuePair[0]]: parseInt(keyValuePair[1])
                             value={`nextDayDelivery: ${deliveryOptionsList[0]?.nextDayDelivery}`}
                             control={<Radio size="small" />}
@@ -1515,11 +1179,7 @@ export default function CheckoutPage() {
                             }}
                           />
                           <FormControlLabel
-                            disabled={
-                              city === "Manila" ||
-                              city === "Metro Manila" ||
-                              disableSameDayDelivery
-                            }
+                            disabled={city === "Manila" || city === "Metro Manila" || disableSameDayDelivery}
                             value={`sameDayDelivery: ${deliveryOptionsList[0]?.sameDayDelivery}`}
                             control={<Radio size="small" />}
                             label="Same day delivery Metro Manila (up to 6L only - 1:00pm cut-off)"
@@ -1532,11 +1192,7 @@ export default function CheckoutPage() {
                             }}
                           />
                           <FormControlLabel
-                            disabled={
-                              city === "Manila" || city === "Metro Manila"
-                                ? false
-                                : true
-                            }
+                            disabled={city === "Manila" || city === "Metro Manila" ? false : true}
                             value={`standardDelivery: ${deliveryOptionsList[0]?.standardDelivery}`}
                             control={<Radio size="small" />}
                             label=" Standard Shipping Metro Manila (2-5 Days)"
@@ -1549,16 +1205,8 @@ export default function CheckoutPage() {
                             }}
                           />
                           <FormControlLabel
-                            disabled={
-                              city === "Manila" || city === "Metro Manila"
-                                ? true
-                                : false
-                            }
-                            checked={
-                              city === "Manila" || city === "Metro Manila"
-                                ? false
-                                : true
-                            }
+                            disabled={city === "Manila" || city === "Metro Manila" ? true : false}
+                            checked={city === "Manila" || city === "Metro Manila" ? false : true}
                             value={`provincialDelivery: ${deliveryOptionsList[0]?.provincialDelivery}`}
                             control={<Radio size="small" />}
                             label="Standard Shipping Provincial (5-10 Days)"
@@ -1571,11 +1219,7 @@ export default function CheckoutPage() {
                             }}
                           />
                           <FormControlLabel
-                            disabled={
-                              city === "Manila" || city === "Metro Manila"
-                                ? false
-                                : true
-                            }
+                            disabled={city === "Manila" || city === "Metro Manila" ? false : true}
                             value={`bookMyOwn: ${deliveryOptionsList[0]?.bookMyOwn}`}
                             control={<Radio size="small" />}
                             label="Book My Own"
@@ -1600,18 +1244,13 @@ export default function CheckoutPage() {
               <RevealWrapper delay={100}>
                 <Paper className={classes["order-infos-wrapper"]}>
                   <div className={classes["delivery-address"]}>
-                    <h2 className={classes["delivery-address-title"]}>
-                      Products
-                    </h2>
+                    <h2 className={classes["delivery-address-title"]}>Products</h2>
                   </div>
                   <div className={classes["products-container"]}>
                     {parsedProductToPurchase &&
                       parsedProductToPurchase.map((product) => {
                         return (
-                          <div
-                            key={product.productId}
-                            className={classes["product-wrapper"]}
-                          >
+                          <div key={product.productId} className={classes["product-wrapper"]}>
                             <div
                               style={{
                                 display: "flex",
@@ -1634,9 +1273,7 @@ export default function CheckoutPage() {
                                   }}
                                 />
                                 <Image
-                                  src={
-                                    "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_50/v1684510657/outputImage_background_tasre3.png"
-                                  }
+                                  src={"https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_50/v1684510657/outputImage_background_tasre3.png"}
                                   alt="background of image of perfume"
                                   width={100}
                                   height={100}
@@ -1656,9 +1293,7 @@ export default function CheckoutPage() {
                               </div>
                             </div>
                             <div>
-                              <p>{`₱${product.totalEstimatedCost.toFixed(
-                                2
-                              )} `}</p>
+                              <p>{`₱${product.totalEstimatedCost.toFixed(2)} `}</p>
                             </div>
                           </div>
                         );
@@ -1667,38 +1302,14 @@ export default function CheckoutPage() {
 
                   <div className={classes["order-summary-wrapper"]}>
                     <p>
-                      Subtotal ({parsedProductToPurchase?.length}{" "}
-                      {parsedProductToPurchase?.length > 1 ? "items" : "item"}):
+                      Subtotal ({parsedProductToPurchase?.length} {parsedProductToPurchase?.length > 1 ? "items" : "item"}):
                     </p>
                     <p>₱{subTotalOrderSummary.toFixed(2)}</p>
-                    <p>{`${
-                      selectedShippingOption ? shippingOptionTextDisplay() : ""
-                    } (Total Weight: ${calculateTotalLiters(
-                      parsedProductToPurchase
-                    )}L)`}</p>
-                    {parsedProductToPurchase && (
-                      <p>{`₱${
-                        selectedShippingOption
-                          ? Object.keys(selectedShippingOption)[0] !==
-                            "provincialDelivery"
-                            ? Object.values(selectedShippingOption)[0].toFixed(
-                                2
-                              )
-                            : Object.values(selectedShippingOption)[0] +
-                              provincialAdditionalFee *
-                                calculateTotalLiters(parsedProductToPurchase) -
-                              provincialAdditionalFee
-                          : "0"
-                      }`}</p>
-                    )}
+                    <p>{`${selectedShippingOption ? shippingOptionTextDisplay() : ""} (Total Weight: ${calculateTotalLiters(parsedProductToPurchase)}L)`}</p>
+                    {parsedProductToPurchase && <p>{`₱${selectedShippingOption ? (Object.keys(selectedShippingOption)[0] !== "provincialDelivery" ? Object.values(selectedShippingOption)[0].toFixed(2) : Object.values(selectedShippingOption)[0] + provincialAdditionalFee * calculateTotalLiters(parsedProductToPurchase) - provincialAdditionalFee) : "0"}`}</p>}
                   </div>
-                  <div
-                    className={classes["delivery-address"]}
-                    style={{ borderBottom: "1px solid #dadada" }}
-                  >
-                    <h2 className={classes["delivery-address-title"]}>
-                      Payment Method
-                    </h2>
+                  <div className={classes["delivery-address"]} style={{ borderBottom: "1px solid #dadada" }}>
+                    <h2 className={classes["delivery-address-title"]}>Payment Method</h2>
                   </div>
                   <FormControl
                     error={isErrorPaymentMethod}
@@ -1727,10 +1338,7 @@ export default function CheckoutPage() {
                     </Select>
 
                     {isErrorPaymentMethod && errorPaymentMethod && (
-                      <FormHelperText
-                        id="country-error-text"
-                        sx={{ marginLeft: "4px" }}
-                      >
+                      <FormHelperText id="country-error-text" sx={{ marginLeft: "4px" }}>
                         {errorPaymentMethod}
                       </FormHelperText>
                     )}
@@ -1752,25 +1360,13 @@ export default function CheckoutPage() {
                           },
                         }}
                       >
-                        <OutlinedInput
-                          type="text"
-                          placeholder="Voucher Code"
-                          name="voucher"
-                          id="voucher"
-                        />
+                        <OutlinedInput type="text" placeholder="Voucher Code" name="voucher" id="voucher" />
                       </FormControl>
-                      <CustomButton disabled={!parsedProductToPurchase.length}>
-                        Apply
-                      </CustomButton>
+                      <CustomButton disabled={!parsedProductToPurchase.length}>Apply</CustomButton>
                     </div>
                     <div className={classes["total-payment-wrapper"]}>
                       <p>Total: </p>
-                      <p>
-                        ₱
-                        {parsedProductToPurchase?.length > 0
-                          ? calculateTotalPayment().toFixed(2)
-                          : 0}
-                      </p>
+                      <p>₱{parsedProductToPurchase?.length > 0 ? calculateTotalPayment().toFixed(2) : 0}</p>
                     </div>
 
                     <Button
