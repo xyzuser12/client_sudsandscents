@@ -123,10 +123,6 @@ const MainNavigation = (props) => {
                   </ActiveLink>
                 </Button>
               </li>
-
-              <li className={classes["list-item"]}>
-                <ProductOptions styleMode={props.styleMode} />
-              </li>
               <li className={classes["list-item"]}>
                 <Button sx={style}>
                   <ActiveLink href="/account" styleMode={props.styleMode}>

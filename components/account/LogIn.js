@@ -39,7 +39,7 @@ const Login = () => {
     });
   }
   async function login() {
-    await signIn("google");
+    await signIn("google", { callbackUrl: "/" });
   }
 
   return (
@@ -125,7 +125,7 @@ const Login = () => {
               </Button>
               <Button
                 className={classes["google-button"]}
-                onClick={() => signIn("google")}
+                onClick={() => signIn("google", { callbackUrl: "/" })}
                 sx={{
                   border: "1px solid hsl(0, 0%, 80%)",
                   color: "#545454",

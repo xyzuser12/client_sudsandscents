@@ -1,13 +1,4 @@
 import { transporter } from "../../config/nodemailer";
-import { Box } from "@mui/material";
-import ReactDOMServer from "react-dom/server";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 
 const CONTACT_MESSAGE_FIELDS = {
   name: "Name",
@@ -78,19 +69,26 @@ const GenerateEmailContent = (
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
         <style type="text/css">
+          body {
+            font-family: 'Inter', sans-serif;
+            
+          }
           body,
           table,
           td,
           a {
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
+            
           }
           table {
             border-collapse: collapse !important;
           }
           body {
-            height: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
             width: 100% !important;
@@ -160,7 +158,6 @@ const GenerateEmailContent = (
             display: flex;
             width: 80%;
             max-width: 600px;
-            height: 100vh;
             align-items: center;
             margin: 0 auto;
             font-family: inter;
@@ -181,7 +178,7 @@ const GenerateEmailContent = (
             />
             <h2
               style="
-                font-family: inter;
+                font-family: 'Poppins', sans-serif;
                 color: #545454;
                 font-size: 18px;
                 margin-top: 18px;
@@ -377,8 +374,6 @@ const GenerateEmailContent = (
         </div>
       </body>
     </html>
-    
-    
 `,
   };
 };
