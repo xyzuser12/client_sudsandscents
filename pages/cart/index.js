@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Header from "@/components/Header";
+import { signIn, useSession } from "next-auth/react";
 
 import styled from "styled-components";
 import Center from "@/components/Center";
@@ -9,7 +10,6 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import { RevealWrapper } from "next-reveal";
-import { useSession } from "next-auth/react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -102,6 +102,8 @@ const cartRaw = ['["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d63
 
 export default function CartPage() {
   const router = useRouter();
+  const { data: session } = useSession();
+
   const { cartProducts, removeProduct, clearCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [reverseOrderProducts, setReverseOrderProducts] = useState([]);
@@ -215,10 +217,14 @@ export default function CartPage() {
   console.log(productToPurchase);
 
   const goToCheckout = () => {
-    router.push({
-      pathname: "/checkout",
-      query: { productToPurchase: JSON.stringify(productToPurchase) },
-    });
+    if (session) {
+      router.push({
+        pathname: "/checkout",
+        query: { productToPurchase: JSON.stringify(productToPurchase) },
+      });
+    } else {
+      router.push("/login");
+    }
   };
 
   const updateIngre = [

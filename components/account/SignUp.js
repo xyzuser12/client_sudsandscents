@@ -1,12 +1,5 @@
 import classes from "../../styles/account/Signup.module.css";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Button,
-  IconButton,
-  Divider,
-} from "@mui/material";
+import { Card, CardHeader, CardContent, Button, IconButton, Divider } from "@mui/material";
 import React, { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import facebookIcon from "../../public/assets/icons/facebook-icon.png";
@@ -14,6 +7,7 @@ import googleIcon from "../../public/assets/icons/google-icon.png";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { signIn, useSession } from "next-auth/react";
 
 const SignUp = () => {
   const handleShowPasswordClick = () => {
@@ -48,39 +42,13 @@ const SignUp = () => {
             <CardContent className={classes.content}>
               <form className={classes.form} onSubmit={handleSignup}>
                 <div className={classes["name-wrapper"]}>
-                  <input
-                    type="name"
-                    name="name"
-                    placeholder="Name"
-                    value={inputValues.Name}
-                    required
-                    className={classes.name}
-                    onChange={handleInputChange}
-                  />
+                  <input type="name" name="name" placeholder="Name" value={inputValues.Name} required className={classes.name} onChange={handleInputChange} />
                 </div>
                 <div className={classes["email-wrapper"]}>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Phone Number / Email"
-                    required
-                    value={inputValues.Email}
-                    onChange={handleInputChange}
-                    className={classes.email}
-                  />
+                  <input type="email" id="email" name="email" placeholder="Phone Number / Email" required value={inputValues.Email} onChange={handleInputChange} className={classes.email} />
                 </div>
                 <div className={classes["password-wrapper"]}>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    required
-                    value={inputValues.Password}
-                    onChange={handleInputChange}
-                    className={classes.password}
-                  />
+                  <input type={showPassword ? "text" : "password"} id="password" name="password" placeholder="Password" required value={inputValues.Password} onChange={handleInputChange} className={classes.password} />
                   <IconButton
                     onClick={handleShowPasswordClick}
                     className={classes.eye}
@@ -95,14 +63,7 @@ const SignUp = () => {
                   </IconButton>
                 </div>
                 <div className={classes["password-wrapper"]}>
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    required
-                    className={classes.password}
-                  />
+                  <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required className={classes.password} />
                   <IconButton
                     onClick={handleShowConfirmPasswordClick}
                     className={classes.eye}
@@ -150,16 +111,12 @@ const SignUp = () => {
                     width: "45%",
                   }}
                 >
-                  <Image
-                    src={facebookIcon}
-                    alt="facebook icon"
-                    loading="lazy"
-                  />
+                  <Image src={facebookIcon} alt="facebook icon" loading="lazy" />
                   <span>Facebook</span>
                 </Button>
                 <Button
                   className={classes["google-button"]}
-                  onClick={() => signIn("google")}
+                  onClick={() => signIn("google", { callbackUrl: "/" })}
                   sx={{
                     border: "1px solid hsl(0, 0%, 80%)",
                     color: "#545454",

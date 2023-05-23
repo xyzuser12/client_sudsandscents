@@ -3,14 +3,7 @@ import { signIn, useSession } from "next-auth/react";
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Button,
-  IconButton,
-  Divider,
-} from "@mui/material";
+import { Card, CardHeader, CardContent, Button, IconButton, Divider } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import facebookIcon from "../../public/assets/icons/facebook-icon.png";
@@ -50,24 +43,10 @@ const Login = () => {
           <CardContent className={classes.content}>
             <form className={classes.form} onSubmit={handleSubmit}>
               <div className={classes["email-wrapper"]}>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  required
-                  className={classes.email}
-                />
+                <input type="email" id="email" name="email" placeholder="Email" required className={classes.email} />
               </div>
               <div className={classes["password-wrapper"]}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                  className={classes.password}
-                />
+                <input type={showPassword ? "text" : "password"} id="password" name="password" placeholder="Password" required className={classes.password} />
                 <IconButton
                   onClick={handleShowPasswordClick}
                   className={classes.eye}

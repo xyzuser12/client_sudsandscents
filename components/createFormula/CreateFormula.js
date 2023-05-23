@@ -2,6 +2,7 @@ import { Fragment, useEffect, forwardRef } from "react";
 import crypto from "crypto";
 import Image from "next/image";
 import { useState, useContext } from "react";
+import { signIn, useSession } from "next-auth/react";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -66,7 +67,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const { cartProducts } = useContext(CartContext);
   const [ingreBuyNow, setIngreBuyNow] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-
+  const { data: session } = useSession();
   const [base, setBase] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -107,7 +108,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const uniqueId = crypto.createHash("sha256").update(randomBytes).digest("hex");
   const productId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
-  console.log(categoryData);
+  console.log(session);
   console.log(ingre);
   useEffect(() => {
     axios.get("/api/products").then((result) => {
@@ -328,10 +329,14 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   }
 
   const goToCheckout = () => {
-    router.push({
-      pathname: "/checkout",
-      query: { productToPurchase: JSON.stringify(generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)) },
-    });
+    if (session) {
+      router.push({
+        pathname: "/checkout",
+        query: { productToPurchase: JSON.stringify(generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)) },
+      });
+    } else {
+      router.push("/login");
+    }
   };
 
   const handleAddToCart = () => {
@@ -348,7 +353,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   };
 
   const gotoProductPage = () => {
-    router.push("/create-formula");
+    router.push("/category-formula");
   };
 
   console.log(ingre);
@@ -414,7 +419,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             <Button sx={{ width: "40%" }} variant="contained" onClick={gotoProductPage}>
               YES
             </Button>
-            <Button sx={{ width: "40%" }} variant="outlined" onClick={gotoProductPage}>
+            <Button sx={{ width: "40%" }} variant="outlined" onClick={gotoHome}>
               NO
             </Button>
           </div>
@@ -654,7 +659,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                   }}
                   onClick={goToCheckout}
                 >
-                  Buy now
+                  Order now
                 </Button>
               </Stack>
             </Fragment>
