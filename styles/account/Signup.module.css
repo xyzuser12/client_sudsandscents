@@ -35,7 +35,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  gap: 1.2rem;
 }
 
 .name-wrapper,
@@ -50,7 +50,7 @@
 .password {
   color: #bdbdbd;
   width: 100%;
-  padding: 1rem 0.8rem;
+  padding: 0.8rem 0.8rem;
   border-radius: 8px;
   border: 1px solid hsl(0, 0%, 80%);
   outline: none;
@@ -92,20 +92,13 @@
   color: #545454;
 }
 
-.social-media-buttons-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-.facebook-button,
 .google-button {
   border: 1px solid hsl(0, 0%, 80%);
   color: #545454;
   text-transform: none;
-  width: 45%;
+  width: 100%;
 }
 
-.facebook-button img,
 .google-button img {
   width: 20px;
   height: 20px;

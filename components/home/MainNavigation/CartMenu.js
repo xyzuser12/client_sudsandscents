@@ -40,8 +40,8 @@ const CartMenu = (props) => {
     setTransformedCartDatas(reversedData);
   }, [cartProducts]);
 
-  console.log(cartProducts);
-  console.log(transformedCartDatas);
+  // console.log(cartProducts);
+  // console.log(transformedCartDatas);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -177,7 +177,7 @@ const CartMenu = (props) => {
       >
         <p className={classes.recent}>Recently Added Products</p>
         {transformedCartDatas.map((cartData) => {
-          console.log(cartData.categoryImage);
+          // console.log(cartData.categoryImage);
           return (
             // <Tooltip title={cartData.categoryName}>
             <MenuItem
@@ -190,20 +190,24 @@ const CartMenu = (props) => {
               }}
             >
               <div className={classes["image-wrapper"]}>
-                <Image
-                  src={cartData.categoryImage}
-                  alt={`${cartData.categoryName} image`}
-                  width={100}
-                  height={100}
-                  className={classes.image}
-                  loading="lazy"
-                />
-                <Image
-                  src={outputImageBg}
-                  alt={`${cartData.categoryName} background image`}
-                  className={classes["image-backgound"]}
-                  loading="lazy"
-                />
+                {cartData.categoryImage && (
+                  <Image
+                    src={cartData.categoryImage}
+                    alt={`${cartData.categoryName} image`}
+                    width={100}
+                    height={100}
+                    className={classes.image}
+                    loading="lazy"
+                  />
+                )}
+                {outputImageBg && (
+                  <Image
+                    src={outputImageBg}
+                    alt={`${cartData.categoryName} background image`}
+                    className={classes["image-backgound"]}
+                    loading="lazy"
+                  />
+                )}
               </div>
               <div className={classes.data}>
                 <p className={classes.name}>{cartData.categoryName}</p>

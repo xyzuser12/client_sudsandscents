@@ -46,6 +46,7 @@ const ActiveLink = ({ href, styleMode, children }) => {
 };
 
 const MainNavigation = (props) => {
+  const router = useRouter();
   // if (session) {
   //   console.log(session);
   // }
@@ -141,6 +142,7 @@ const MainNavigation = (props) => {
           </div>
           <div className={classes["main-menu-icons-right"]}>
             <CartMenu styleMode={props.styleMode} />
+
             <AccountMenu
               styleMode={props.styleMode}
               userSession={props.userSession}

@@ -111,20 +111,12 @@
   color: #545454;
 }
 
-.social-media-buttons-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-.facebook-button,
 .google-button {
   border: 1px solid hsl(0, 0%, 80%);
   color: #545454;
   text-transform: none;
-  width: 45%;
 }
 
-.facebook-button img,
 .google-button img {
   width: 20px;
   height: 20px;

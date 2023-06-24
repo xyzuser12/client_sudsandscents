@@ -3,7 +3,14 @@ import { signIn, useSession } from "next-auth/react";
 
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardHeader, CardContent, Button, IconButton, Divider } from "@mui/material";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Button,
+  IconButton,
+  Divider,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import facebookIcon from "../../public/assets/icons/facebook-icon.png";
@@ -14,16 +21,18 @@ const Login = () => {
   // const session = useSession();
   const { data: session } = useSession();
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleShowPasswordClick = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleSubmit = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
-    // console.log("Email:", email, "Password:", password);
+    // console.log("Email:", username, "Password:", password);
+
+    signIn("credentials", { username, password, callbackUrl: "/" });
   };
 
   async function logout() {
@@ -41,12 +50,30 @@ const Login = () => {
         <Card className={classes["login-container"]}>
           <CardHeader className={classes.header} title="Login" />
           <CardContent className={classes.content}>
-            <form className={classes.form} onSubmit={handleSubmit}>
-              <div className={classes["email-wrapper"]}>
-                <input type="email" id="email" name="email" placeholder="Email" required className={classes.email} />
+            <form className={classes.form}>
+              <div className={classes["username-wrapper"]}>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  required
+                  className={classes.email}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
               <div className={classes["password-wrapper"]}>
-                <input type={showPassword ? "text" : "password"} id="password" name="password" placeholder="Password" required className={classes.password} />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                  className={classes.password}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <IconButton
                   onClick={handleShowPasswordClick}
                   className={classes.eye}
@@ -80,6 +107,7 @@ const Login = () => {
                   letterSpacing: "1px",
                   fontFamily: "var(--font-poppins)",
                 }}
+                onClick={handleLogin}
               >
                 Log in
               </Button>
@@ -89,19 +117,7 @@ const Login = () => {
               <p>OR</p>
             </Divider>
 
-            <div className={classes["social-media-buttons-wrapper"]}>
-              <Button
-                className={classes["facebook-button"]}
-                sx={{
-                  border: "1px solid hsl(0, 0%, 80%)",
-                  color: "#545454",
-                  textTransform: "uppercase",
-                  width: "45%",
-                }}
-              >
-                <Image src={facebookIcon} alt="facebook icon" loading="lazy" />
-                <span>Facebook</span>
-              </Button>
+            <div>
               <Button
                 className={classes["google-button"]}
                 onClick={() => signIn("google", { callbackUrl: "/" })}
@@ -109,10 +125,12 @@ const Login = () => {
                   border: "1px solid hsl(0, 0%, 80%)",
                   color: "#545454",
                   textTransform: "uppercase",
-                  width: "45%",
+                  width: "100%",
                 }}
               >
-                <Image src={googleIcon} alt="google icon" loading="lazy" />
+                {googleIcon && (
+                  <Image src={googleIcon} alt="google icon" loading="lazy" />
+                )}
                 <span>Google</span>
               </Button>
             </div>

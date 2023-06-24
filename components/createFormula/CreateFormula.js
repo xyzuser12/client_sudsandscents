@@ -74,7 +74,9 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const [tabValue, setTabValue] = useState("1");
   const [loading, setLoading] = useState(false);
   const [showCreateFormulaButton, setShowCreateFormulaButton] = useState(true);
-  const [variety, setVariety] = useState(categoryData.subcategories[0].category);
+  const [variety, setVariety] = useState(
+    categoryData.subcategories[0].category
+  );
   const [ingre, setIngre] = useState("");
   const [numLiter, setNumLiter] = useState(1);
   const [transformedProduct, setTransformedProducts] = useState("");
@@ -105,7 +107,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const categoryImage = categoryData.image;
 
   const randomBytes = crypto.randomBytes(16); // Generate a 16-byte (128-bit) random number
-  const uniqueId = crypto.createHash("sha256").update(randomBytes).digest("hex");
+  const uniqueId = crypto
+    .createHash("sha256")
+    .update(randomBytes)
+    .digest("hex");
   const productId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
   console.log(session);
@@ -225,7 +230,16 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   };
 
   const createFormulaHandler = () => {
-    const transformedProductRaw = [productId, categoryData.id, categoryData.name, categoryImage, formula, getSelectedIngredientIds(ingredients), numLiter, totalEstimatedCost];
+    const transformedProductRaw = [
+      productId,
+      categoryData.id,
+      categoryData.name,
+      categoryImage,
+      formula,
+      getSelectedIngredientIds(ingredients),
+      numLiter,
+      totalEstimatedCost,
+    ];
 
     console.log(transformedProductRaw);
 
@@ -259,7 +273,16 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     if (cartDataRaw) {
       const cartData = JSON.parse(cartDataRaw);
 
-      const [productId, categoryId, categoryName, categoryImage, formula, ingredients, numberOfLiter, totalEstimatedCost] = cartData;
+      const [
+        productId,
+        categoryId,
+        categoryName,
+        categoryImage,
+        formula,
+        ingredients,
+        numberOfLiter,
+        totalEstimatedCost,
+      ] = cartData;
 
       const result = [
         {
@@ -288,11 +311,22 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
       console.log(ingreDataArrRaw);
 
       for (const cartData of cartDatasRaw) {
-        const { categoryId, categoryImage, categoryName, formula, ingredients, numberOfLiter, productId, totalEstimatedCost } = cartData;
+        const {
+          categoryId,
+          categoryImage,
+          categoryName,
+          formula,
+          ingredients,
+          numberOfLiter,
+          productId,
+          totalEstimatedCost,
+        } = cartData;
         const updatedIngredients = [];
 
         for (const ingredientId of ingredients) {
-          const foundIngredient = ingreDataArrRaw?.find((ingredient) => ingredient._id === ingredientId);
+          const foundIngredient = ingreDataArrRaw?.find(
+            (ingredient) => ingredient._id === ingredientId
+          );
 
           console.log(foundIngredient);
 
@@ -304,9 +338,12 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
         console.log(numberOfLiter);
         console.log(updatedIngredients);
 
-        const updatedTotalEstimatedCost = updatedIngredients.reduce((totalCost, ingredient) => {
-          return totalCost + ingredient.price;
-        }, 0);
+        const updatedTotalEstimatedCost = updatedIngredients.reduce(
+          (totalCost, ingredient) => {
+            return totalCost + ingredient.price;
+          },
+          0
+        );
 
         const formattedCartObj = {
           categoryId,
@@ -332,7 +369,14 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     if (session) {
       router.push({
         pathname: "/checkout",
-        query: { productToPurchase: JSON.stringify(generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)) },
+        query: {
+          productToPurchase: JSON.stringify(
+            generateFormattedCartData(
+              parseCartData(transformedProduct),
+              ingreBuyNow
+            )
+          ),
+        },
       });
     } else {
       router.push("/login");
@@ -365,16 +409,25 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   console.log("❤️❤️❤️");
   console.log(ingredients);
   console.log(parseCartData(transformedProduct));
-  console.log(generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow));
+  console.log(
+    generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)
+  );
 
   return (
-    <div className={`${classes.container} ${classes["create-formula-container"]}`}>
+    <div
+      className={`${classes.container} ${classes["create-formula-container"]}`}
+    >
       {/* <Snackbar open={openCartSnackbar} autoHideDuration={2000} onClose={cartSnackbarCloseHandler}>
         <Alert onClose={cartSnackbarCloseHandler} severity="success" sx={{ width: "100%" }}>
           {`${numLiter} ${numLiter > 1 ? "liters" : "liter"} of ${categoryData.name} was added to your cart.`}
         </Alert>
       </Snackbar> */}
-      <Modal open={openModal} onClose={modalCloseHandler} aria-labelledby="success-modal-title" aria-describedby="success-modal-description">
+      <Modal
+        open={openModal}
+        onClose={modalCloseHandler}
+        aria-labelledby="success-modal-title"
+        aria-describedby="success-modal-description"
+      >
         <Box
           sx={{
             display: "flex",
@@ -413,10 +466,15 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
               marginBottom: "2rem",
             }}
           >
-            1 item was added to your cart. Do you want to create another product?
+            1 item was added to your cart. Do you want to create another
+            product?
           </p>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button sx={{ width: "40%" }} variant="contained" onClick={gotoProductPage}>
+            <Button
+              sx={{ width: "40%" }}
+              variant="contained"
+              onClick={gotoProductPage}
+            >
               YES
             </Button>
             <Button sx={{ width: "40%" }} variant="outlined" onClick={gotoHome}>
@@ -434,8 +492,24 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
       {/*=======================2) IMAGE DRID ITEM =======================*/}
 
       <div className={classes["image-wrapper"]}>
-        <Image src={categoryImage} alt="image of perfume" width={400} height={400} className={classes.image} loading="lazy" />
-        <Image src={outputImageBg} alt="background of image of perfume" className={classes["image-backgound"]} loading="lazy" />
+        {categoryImage && (
+          <Image
+            src={categoryImage}
+            alt="image of perfume"
+            width={400}
+            height={400}
+            className={classes.image}
+            loading="lazy"
+          />
+        )}
+        {outputImageBg && (
+          <Image
+            src={outputImageBg}
+            alt="background of image of perfume"
+            className={classes["image-backgound"]}
+            loading="lazy"
+          />
+        )}
       </div>
 
       {/*======================3) EDITOR DRID ITEM =======================*/}
@@ -444,9 +518,21 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
           <InputLabel id="base">
             Subcategory<span className={classes["oil__required"]}>*</span>
           </InputLabel>
-          <Select required labelId="base" id="base" value={base} label="Subcategory" className={classes["base__select"]} onChange={baseHandler}>
+          <Select
+            required
+            labelId="base"
+            id="base"
+            value={base}
+            label="Subcategory"
+            className={classes["base__select"]}
+            onChange={baseHandler}
+          >
             {categoryData.subcategories.map((categ) => (
-              <MenuItem key={categ.categoryId} value={`${categ.category}`} onClick={varietyChangeHandler(categ.categoryId)}>
+              <MenuItem
+                key={categ.categoryId}
+                value={`${categ.category}`}
+                onClick={varietyChangeHandler(categ.categoryId)}
+              >
                 {categ.category}
               </MenuItem>
             ))}
@@ -472,15 +558,30 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                   </InputAdornment>
                 }
               />
-              <FormHelperText id="budget-helper-text">Enter your budget for your {categoryData.name} to receive recommendations on ingredients within that budget.</FormHelperText>
+              <FormHelperText id="budget-helper-text">
+                Enter your budget for your {categoryData.name} to receive
+                recommendations on ingredients within that budget.
+              </FormHelperText>
             </FormControl>
 
             <FormControl className={classes.liter}>
               <InputLabel htmlFor="budget">
                 Liter<span className={classes["oil__required"]}>*</span>
               </InputLabel>
-              <OutlinedInput required id="liter" label="Liter" aria-describedby="liter-helper-text" type="number" inputProps={{ step: 1, min: 1 }} endAdornment={"L"} defaultValue={1} onChange={literChangeHandler} />
-              <FormHelperText id="liter-helper-text">The liter of {categoryData.name}.</FormHelperText>
+              <OutlinedInput
+                required
+                id="liter"
+                label="Liter"
+                aria-describedby="liter-helper-text"
+                type="number"
+                inputProps={{ step: 1, min: 1 }}
+                endAdornment={"L"}
+                defaultValue={1}
+                onChange={literChangeHandler}
+              />
+              <FormHelperText id="liter-helper-text">
+                The liter of {categoryData.name}.
+              </FormHelperText>
             </FormControl>
           </div>
         )}
@@ -489,7 +590,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
           {ingre &&
             ingre.ingredients_row.map((ingredient) => {
               return (
-                <div key={ingredient.composition} className={classes["oils-wrapper"]}>
+                <div
+                  key={ingredient.composition}
+                  className={classes["oils-wrapper"]}
+                >
                   <h4 className={classes["oil-title"]}>
                     {ingredient.composition}
                     <span className={classes["oil__required"]}>*</span>
@@ -498,20 +602,62 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                     {ingredient.options.map((option) => {
                       return option.description ? (
                         <Tooltip title={option.description} key={option.id}>
-                          <div key={option.id} className={classes["oil-option"]} onClick={addIngredientHandler(option.id, option.title)}>
-                            <div className={`${classes["image-button"]} ${ingredients.find((i) => i.ingredient.id === option.id)?.ingredient.isSelected && classes.selected}`}>
+                          <div
+                            key={option.id}
+                            className={classes["oil-option"]}
+                            onClick={addIngredientHandler(
+                              option.id,
+                              option.title
+                            )}
+                          >
+                            <div
+                              className={`${classes["image-button"]} ${
+                                ingredients.find(
+                                  (i) => i.ingredient.id === option.id
+                                )?.ingredient.isSelected && classes.selected
+                              }`}
+                            >
                               <div>
-                                <Image src={option.image} width={50} height={50} alt="perfume" loading="lazy" />
+                                {option.image && (
+                                  <Image
+                                    src={option.image}
+                                    width={50}
+                                    height={50}
+                                    alt="perfume"
+                                    loading="lazy"
+                                  />
+                                )}
                               </div>
                             </div>
                             <p>{option.title}</p>
                           </div>
                         </Tooltip>
                       ) : (
-                        <div key={option.id} className={classes["oil-option"]} onClick={addIngredientHandler(option.id, option.title)}>
-                          <div className={`${classes["image-button"]} ${ingredients.find((i) => i.ingredient.id === option.id)?.ingredient.isSelected && classes.selected}`}>
+                        <div
+                          key={option.id}
+                          className={classes["oil-option"]}
+                          onClick={addIngredientHandler(
+                            option.id,
+                            option.title
+                          )}
+                        >
+                          <div
+                            className={`${classes["image-button"]} ${
+                              ingredients.find(
+                                (i) => i.ingredient.id === option.id
+                              )?.ingredient.isSelected && classes.selected
+                            }`}
+                          >
                             <div>
-                              <Image src={option.image} width={50} height={50} alt="perfume" loading="lazy" />
+                              {option.image && (
+                                <Image
+                                  src={option.image}
+                                  width={50}
+                                  height={50}
+                                  alt="perfume"
+                                  loading="lazy"
+                                />
+                              )}
                             </div>
                           </div>
                           <p>{option.title}</p>
@@ -533,17 +679,26 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
           <div className={classes["formula__tab"]}>
             <TabContext value={tabValue}>
               <TabList onChange={tabHandler} aria-label="lab API tabs example">
-                <Tab label="Formula" value="1" className={classes["formula-title"]} />
+                <Tab
+                  label="Formula"
+                  value="1"
+                  className={classes["formula-title"]}
+                />
               </TabList>
               <TabPanel value="1" className={classes["tab-panel"]}>
                 <div className={classes["ingredients-wrapper"]}>
-                  <p className={classes["ingredients-header"]}>To make this blend you will need:</p>
+                  <p className={classes["ingredients-header"]}>
+                    To make this blend you will need:
+                  </p>
                   <ul>
                     <li>10ml jojoba oil</li>
                     <li>15 drops frankincense essential oil</li>
                     <li>9 drops lavender essential oil</li>
                     <li>6 drops cedar wood essential oil </li>
-                    <li>15ml glass bottle (a roll-on bottle or one with a pipette works well)</li>
+                    <li>
+                      15ml glass bottle (a roll-on bottle or one with a pipette
+                      works well)
+                    </li>
                   </ul>
                 </div>
                 <div className={classes["directions-wrapper"]}>
@@ -551,11 +706,16 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                   <ul>
                     <li>Pour the jojoba oil into a glass bottle.</li>
                     <li>Add the drops of essential oils carefully.</li>
-                    <li>Place the lid on the bottle and shake gently to ensure all the oils are blended</li>
+                    <li>
+                      Place the lid on the bottle and shake gently to ensure all
+                      the oils are blended
+                    </li>
                   </ul>
                 </div>
                 <div className={classes["cost-estimation-wrapper"]}>
-                  <p className={classes["cost-estimation-header"]}>Cost Estimation:</p>
+                  <p className={classes["cost-estimation-header"]}>
+                    Cost Estimation:
+                  </p>
                   <ul>
                     <li>10ml Jojoba Oil: ₱ 120.00</li>
                     <li>15 drops Frankincense Essential Oil: ₱ 50.00</li>
@@ -621,9 +781,15 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             <Fragment>
               <div className={classes["total-estimated-cost__wrapper"]}>
                 <h4 className={classes["oil-title"]}>Total estimated cost</h4>
-                <p className={classes["total-cost"]}>₱{totalEstimatedCost.toFixed(2)}</p>
+                <p className={classes["total-cost"]}>
+                  ₱{totalEstimatedCost.toFixed(2)}
+                </p>
               </div>
-              <Stack direction="row" spacing={2} className={classes["stack-action-button"]}>
+              <Stack
+                direction="row"
+                spacing={2}
+                className={classes["stack-action-button"]}
+              >
                 <Button
                   variant="outlined"
                   startIcon={<ShoppingCartIcon />}

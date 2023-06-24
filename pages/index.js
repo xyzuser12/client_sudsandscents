@@ -11,7 +11,9 @@ import OurStory from "../components/home/landing/OurStory";
 import { useQuery } from "@tanstack/react-query";
 
 export default function HomePage({ categories, newProducts }) {
-  console.log(categories);
+  // console.log(categories);
+  const { data: session } = useSession();
+  console.log(session);
   return (
     // <div>
     //    <Header />

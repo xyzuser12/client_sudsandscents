@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
     }
   }, [session]);
 
-  console.log(userSessionData);
+  // console.log(userSessionData);
   return (
     <Fragment>
       <MainNavigation

@@ -80,14 +80,16 @@ const FormulaCategoryList = ({ ingredients, categories }) => {
                 key={cat.id}
               >
                 <div className={classes["image-wrapper"]}>
-                  <Image
-                    src={cat.image}
-                    width={400}
-                    height={400}
-                    alt={cat.name}
-                    loading="lazy"
-                    className={classes["category-image"]}
-                  />
+                  {cat.image && (
+                    <Image
+                      src={cat.image}
+                      width={400}
+                      height={400}
+                      alt={cat.name}
+                      loading="lazy"
+                      className={classes["category-image"]}
+                    />
+                  )}
                 </div>
                 <div className={classes.info}>
                   <h3 className={classes["category-name"]}>{cat.name}</h3>

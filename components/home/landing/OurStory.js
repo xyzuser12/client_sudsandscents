@@ -7,12 +7,14 @@ import { Button } from "@mui/material";
 const OurStory = () => {
   return (
     <section className={classes["our-story-section"]}>
-      <Image
-        src={bgImage}
-        alt="all kinds of livelihood products"
-        loading="lazy"
-        className={classes["bg-image"]}
-      />
+      {bgImage && (
+        <Image
+          src={bgImage}
+          alt="all kinds of livelihood products"
+          loading="lazy"
+          className={classes["bg-image"]}
+        />
+      )}
 
       <div className={classes["story-wrapper"]}>
         <div>

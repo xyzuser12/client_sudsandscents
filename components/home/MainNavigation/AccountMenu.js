@@ -1,6 +1,6 @@
 // import * as React from "react";
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -9,28 +9,33 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { Button } from "@mui/material";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-
+import { useRouter } from "next/router";
 import classes from "../../../styles/layout/AccountMenu.module.css";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 
 const AccountMenu = ({ styleMode, userSession }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [showAccountBtn, setShowAccountBtn] = useState(true);
   const open = Boolean(anchorEl);
+  const router = useRouter();
+  console.log(router);
+  useEffect(() => {
+    if (router.pathname === "/login" || router.pathname === "/signup") {
+      setShowAccountBtn(false);
+    } else {
+      setShowAccountBtn(true);
+    }
+  }, [router.pathname]);
+
   if (userSession) {
-    console.log(typeof userSession?.data?.user.image);
+    // console.log(typeof userSession?.data?.user.image);
   }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const signOutHandler = async (e) => {
-    e.preventDefault();
-    // setAnchorEl(null);
-    await signOut();
   };
 
   return (
@@ -43,17 +48,20 @@ const AccountMenu = ({ styleMode, userSession }) => {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
+            disabled={!showAccountBtn}
           >
             {userSession && userSession.status === "authenticated" ? (
               <Avatar
                 sx={{ width: 30, height: 30, backgroundColor: "transparent" }}
               >
-                <Image
-                  src={userSession.data.user.image}
-                  width="30"
-                  height="30"
-                  alt={userSession.data.user.name}
-                />
+                {userSession.data.user.image && (
+                  <Image
+                    src={userSession.data.user.image}
+                    width="30"
+                    height="30"
+                    alt={userSession.data.user.name}
+                  />
+                )}
               </Avatar>
             ) : (
               <Avatar
@@ -66,6 +74,9 @@ const AccountMenu = ({ styleMode, userSession }) => {
                         ? classes.iconButton
                         : classes.iconButtonDark
                     }`,
+                  }}
+                  sx={{
+                    color: `${!showAccountBtn ? "transparent !important" : ""}`,
                   }}
                 />
               </Avatar>
@@ -123,7 +134,7 @@ const AccountMenu = ({ styleMode, userSession }) => {
             </Link>
           </div>
         ) : (
-          <MenuItem onClick={signOutHandler}>
+          <MenuItem onClick={() => signOut()}>
             <Avatar /> Logout
           </MenuItem>
         )}

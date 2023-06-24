@@ -7,11 +7,6 @@ import Button from "@mui/material/Button";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
-import categoryImage1 from "../../../public/assets/carousel/Facial-wash.png";
-import categoryImage2 from "../../../public/assets/carousel/Lotion.png";
-import categoryImage3 from "../../../public/assets/carousel/Perfume.png";
-import categoryImage4 from "../../../public/assets/carousel/Shampoo.png";
-import categoryImage5 from "../../../public/assets/carousel/Soap.png";
 
 import classes from "../../../styles/layout/CategorySection.module.css";
 
@@ -108,13 +103,15 @@ const CategorySection = ({ categories }) => {
           {parentCateg.map((category) => {
             return (
               <div key={category.id} className={classes["image-wrapper"]}>
-                <Image
-                  src={category.image}
-                  alt="category image"
-                  loading="lazy"
-                  width={300}
-                  height={300}
-                />
+                {category.image && (
+                  <Image
+                    src={category.image}
+                    alt="category image"
+                    loading="lazy"
+                    width={300}
+                    height={300}
+                  />
+                )}
                 <h4 className={classes["category-title"]}>{category.name}</h4>
               </div>
             );

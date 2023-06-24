@@ -534,17 +534,19 @@ export default function AccountPage() {
             <div className={classes["profile-pic-wrapper"]}>
               <h3>Profile photo</h3>
               <div className={classes["image-wrapper"]}>
-                <Image
-                  src={`${
-                    session
-                      ? session?.user?.image
-                      : "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,h_236/v1684159321/profiletempo_kwjl6v.jpg"
-                  }`}
-                  alt={`profile photo of ${session?.user?.name}`}
-                  width={200}
-                  height={200}
-                  className={classes["profile-photo"]}
-                />
+                {session?.user?.image && (
+                  <Image
+                    src={`${
+                      session
+                        ? session?.user?.image
+                        : "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,h_236/v1684159321/profiletempo_kwjl6v.jpg"
+                    }`}
+                    alt={`profile photo of ${session?.user?.name}`}
+                    width={200}
+                    height={200}
+                    className={classes["profile-photo"]}
+                  />
+                )}
                 <IconButton
                   aria-label="delete"
                   size="large"
