@@ -36,16 +36,18 @@ const SignUp = () => {
     setShowConfirmPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  console.log(cPassword);
   const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        "/api/signup",
+        "/api/users2",
         {
           username,
           email,
           password,
+          cPassword,
         },
         {
           headers: {

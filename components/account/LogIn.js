@@ -21,7 +21,7 @@ const Login = () => {
   // const session = useSession();
   const { data: session } = useSession();
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleShowPasswordClick = () => {
@@ -32,7 +32,7 @@ const Login = () => {
     event.preventDefault();
     // console.log("Email:", username, "Password:", password);
 
-    signIn("credentials", { username, password, callbackUrl: "/" });
+    signIn("credentials", { email, password, callbackUrl: "/" });
   };
 
   async function logout() {
@@ -54,13 +54,13 @@ const Login = () => {
               <div className={classes["username-wrapper"]}>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  placeholder="Username"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
                   required
                   className={classes.email}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className={classes["password-wrapper"]}>

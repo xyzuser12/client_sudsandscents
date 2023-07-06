@@ -23,16 +23,17 @@ const authOptions = {
         },
       },
       async authorize(credentials, req) {
-        const { username, password } = credentials;
-        console.log(credentials);
+        const { email, password } = credentials;
+        // console.log(credentials);
         // await prisma.user.deleteMany();
         const user = await prisma.user.findUnique({
-          where: { username },
+          where: { email },
         });
 
         if (!user) return null;
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
+        console.log(`=================${isPasswordValid}==================`);
         // const user = await prisma.user.
         // const user = {
         //   name: "Raymart Formalejo",
@@ -45,8 +46,11 @@ const authOptions = {
         // if(isValidationFailed) {
         //   throw new Error('Email password invalid')
         // }
-
-        return user;
+        if (isPasswordValid) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
 

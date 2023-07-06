@@ -13,13 +13,15 @@ import { useRouter } from "next/router";
 import classes from "../../../styles/layout/AccountMenu.module.css";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const AccountMenu = ({ styleMode, userSession }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showAccountBtn, setShowAccountBtn] = useState(true);
   const open = Boolean(anchorEl);
   const router = useRouter();
-  console.log(router);
+  const { data: sessison } = useSession();
+  console.log(userSession);
   useEffect(() => {
     if (router.pathname === "/login" || router.pathname === "/signup") {
       setShowAccountBtn(false);
