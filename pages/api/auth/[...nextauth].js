@@ -60,20 +60,52 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    session({ session, token }) {
-      session.user.id = token.id;
-      session.user.username = token.username;
-      return session;
-    },
-    jwt({ token, account, user }) {
+    async jwt({ token, account }) {
       if (account) {
-        token.accessToken = account.access_token;
-        token.id = user.id;
-        token.username = user.username;
-        token.googleId = account.id;
+        token = Object.assign({}, token, {
+          access_token: account.access_token,
+        });
       }
+      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+      console.log(account);
+      console.log(token);
       return token;
     },
+    async session({ session, token }) {
+      if (session) {
+        session = Object.assign({}, session, {
+          access_token: token.access_token,
+        });
+        console.log(session);
+      }
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+      console.log(session);
+      console.log(token);
+      return session;
+    },
+    // session({ session, token }) {
+    //   console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    //   console.log(session);
+    //   console.log(token);
+    //   session.user.id = token.id;
+    //   session.user.username = token.username;
+    //   return session;
+    // },
+    // jwt({ token, account, user }) {
+    //   console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    //   console.log(token);
+    //   console.log(account);
+    //   console.log(user);
+    //   if (account) {
+    //     token.accessToken = account.access_token;
+    //     token.id = user.id;
+    //     token.username = user.username;
+    //     token.googleId = account.id;
+    //   }
+    //   return token;
+    // },
   },
   pages: {
     signIn: "/login",

@@ -268,7 +268,9 @@ const eme = [
 
 const CreateFormulaPage = () => {
   const [categoryData, setCategoryData] = useState();
+  const [category, setCategory] = useState();
   const [subCateg, setSubCateg] = useState([]);
+
   const [optionsSubCateg, setOptionsSubCateg] = useState([]);
 
   const [ingredients, setIngredients] = useState([]);
@@ -276,207 +278,218 @@ const CreateFormulaPage = () => {
   const [transformedCategoryData, setTransformedCategoryData] = useState({});
   const [transformedIngreDataBySubcateg, setTransformedIngreDataBySubcateg] =
     useState([]);
+  const [ingre, setIngre] = useState([]);
 
   const router = useRouter();
   const param = router.query;
+  console.log(param);
 
-  const getUniqueSubcategoriesMemoized = useCallback((categoryId, subCateg) => {
-    return getUniqueSubcategories(categoryId, subCateg);
-  }, []);
+  // const transformCategoryDataMemoized = useCallback(
+  //   (categData, transformSubcateg) => {
+  //     return transformCategoryData(categData, transformSubcateg);
+  //   },
+  //   []
+  // );
 
-  const transformCategoryDataMemoized = useCallback(
-    (categData, transformSubcateg) => {
-      return transformCategoryData(categData, transformSubcateg);
-    },
-    []
-  );
-
+  // useEffect(() => {
+  //   axios.get("/api/categories").then((result) => {
+  //     const categories = result.data;
+  //     const subCategories = getSubCategories(categories);
+  //     setSubCateg(subCategories);
+  //     const categoryData = getCategoryData(param.categoryId, categories);
+  //     setCategoryData(categoryData);
+  //     const uniqueSubcategory = getUniqueSubcategoriesMemoized(
+  //       param.categoryId,
+  //       subCategories
+  //     );
+  //     setOptionsSubCateg(uniqueSubcategory);
+  //   });
+  // }, [param.categoryId, getUniqueSubcategoriesMemoized]);
   useEffect(() => {
-    axios.get("/api/categories").then((result) => {
-      const categories = result.data;
-      const subCategories = getSubCategories(categories);
-      setSubCateg(subCategories);
-      const categoryData = getCategoryData(param.categoryId, categories);
-      setCategoryData(categoryData);
-      const uniqueSubcategory = getUniqueSubcategoriesMemoized(
-        param.categoryId,
-        subCategories
-      );
-      setOptionsSubCateg(uniqueSubcategory);
-    });
-  }, [param.categoryId, getUniqueSubcategoriesMemoized]);
+    async function getProducts() {
+      const ingredients = await axios
+        .get("/api/products2?categoryId=" + param.categoryId)
+        .then((res) => res.data);
 
-  useEffect(() => {
-    axios.get("/api/products").then((result) => {
-      const ingredients = result.data;
       setIngredients(ingredients);
-      const ingreBySubCateg = getIngredientsBySubcategory(
-        ingredients,
-        optionsSubCateg
-      );
-      setIngredientsBySubcateg(ingreBySubCateg);
-    });
-  }, [optionsSubCateg]);
-
-  useEffect(() => {
-    const transformSubcateg = transformData(ingredientsBySubcateg);
-    setTransformedIngreDataBySubcateg(transformSubcateg);
-  }, [ingredientsBySubcateg]);
-
-  useEffect(() => {
-    const transformCategory = transformCategoryDataMemoized(
-      categoryData,
-      transformedIngreDataBySubcateg
-    );
-    setTransformedCategoryData(transformCategory);
-  }, [
-    transformedIngreDataBySubcateg,
-    transformCategoryDataMemoized,
-    categoryData,
-  ]);
-
-  console.log(categoryData);
-  console.log(transformedIngreDataBySubcateg);
-  console.log(transformedCategoryData);
-
-  const getCategoryData = (categoryId, categories) => {
-    const categData = categories.find((cat) => {
-      // console.log(cat);
-      // console.log(categoryId);
-      return categoryId === cat._id;
-    });
-    return categData;
-  };
-
-  function getSubCategories(categ) {
-    // console.log(categ);
-    const subCategories = [];
-    if (categ) {
-      categ.forEach((category) => {
-        if (category.parent) {
-          const parentCategory = category.parent.name;
-          const parentCategoryId = category.parent._id;
-          const parentCategoryProperties = category.properties;
-
-          subCategories.push({
-            id: category._id,
-            name: category.name,
-            parent: parentCategory,
-            parentId: parentCategoryId,
-            composition: parentCategoryProperties,
-          });
-        }
-      });
     }
+    getProducts();
+  }, []);
+  useEffect(() => {
+    async function getCategories() {
+      const categories = await axios
+        .get("/api/categories2?categoryId=" + param.categoryId)
+        .then((res) => res.data);
+      setCategory(categories);
+    }
+    getCategories();
+  }, []);
+  console.log("=================================");
+  console.log(category);
+  console.log(ingredients);
 
-    return subCategories;
-  }
-  function getUniqueSubcategories(categoryId, subcategories) {
-    // console.log(categoryId);
-    // console.log(subcategories);
-    const subcategoriesWithParentId = subcategories.map((subcat) => {
-      return {
-        id: subcat.id,
-        name: subcat.name,
-        parent: subcat.parent,
-        parentId: subcat.parentId,
-        composition: subcat.composition,
-      };
-    });
+  // useEffect(() => {
+  //   axios.get("/api/products").then((result) => {
+  //     const ingredients = result.data;
+  //     setIngredients(ingredients);
+  //     const ingreBySubCateg = getIngredientsBySubcategory(
+  //       ingredients,
+  //       optionsSubCateg
+  //     );
+  //     setIngredientsBySubcateg(ingreBySubCateg);
+  //   });
+  // }, [optionsSubCateg]);
 
-    const subcategoriesForCategory = subcategoriesWithParentId.filter(
-      (subcat) => {
-        return subcat.parentId == categoryId;
-      }
-    );
+  // useEffect(() => {
+  //   const transformSubcateg = transformData(ingredientsBySubcateg);
+  //   setTransformedIngreDataBySubcateg(transformSubcateg);
+  // }, [ingredientsBySubcateg]);
 
-    return subcategoriesForCategory;
-  }
-  function getIngredientsBySubcategory(ingredientsArr, subcategData) {
-    return ingredientsArr
-      .filter((ingredient) => {
-        const subcateg = subcategData.find(
-          (subcateg) => subcateg.id === ingredient.category
-        );
-        // console.log(subcateg);
-        return subcateg;
-      })
-      .map((ingredient) => {
-        const subcateg = subcategData.find(
-          (subcateg) => subcateg.id === ingredient.category
-        );
-        return {
-          id: ingredient._id,
-          categoryId: subcateg.id,
-          category: subcateg.name,
-          composition: ingredient.composition,
-          description: ingredient.description,
-          image: ingredient.image,
-          price: ingredient.price,
-          quantity: ingredient.quantity,
-          title: ingredient.title,
-        };
-      });
-  }
-  function transformData(ingreDataArr) {
-    // console.log(ingreDataArr);
-    const uniqueCategories = Array.from(
-      new Set(ingreDataArr.map((item) => item.categoryId))
-    ).map((categoryId) => {
-      const categoryItems = ingreDataArr.filter(
-        (item) => item.categoryId === categoryId
-      );
-      const uniqueCompositions = Array.from(
-        new Set(categoryItems.map((item) => item.composition))
-      ).map((composition) => {
-        const compositionItems = categoryItems.filter(
-          (item) => item.composition === composition
-        );
-        const options = compositionItems.map(
-          ({ description, id, image, price, quantity, title }) => ({
-            description,
-            id,
-            image,
-            price,
-            quantity,
-            title,
-          })
-        );
-        return { composition, options };
-      });
-      const { category } = categoryItems[0];
-      return { categoryId, category, ingredients_row: uniqueCompositions };
-    });
-    return uniqueCategories;
-  }
+  // useEffect(() => {
+  //   const transformCategory = transformCategoryDataMemoized(
+  //     categoryData,
+  //     transformedIngreDataBySubcateg
+  //   );
+  //   setTransformedCategoryData(transformCategory);
+  // }, [
+  //   transformedIngreDataBySubcateg,
+  //   transformCategoryDataMemoized,
+  //   categoryData,
+  // ]);
 
-  function transformCategoryData(parentCateg, transformsubcateg) {
-    const subcategories = transformsubcateg.map((subcateg) => {
-      return {
-        category: subcateg.category,
-        categoryId: subcateg.categoryId,
-      };
-    });
+  // const getCategoryData = (categoryId, categories) => {
+  //   const categData = categories.find((cat) => {
+  //     // console.log(cat);
+  //     // console.log(categoryId);
+  //     return categoryId === cat._id;
+  //   });
+  //   return categData;
+  // };
 
-    const transformedData = {
-      image: parentCateg?.image,
-      name: parentCateg?.name,
-      id: parentCateg?._id,
-      subcategories: subcategories,
-    };
+  // function getSubCategories(categ) {
+  //   // console.log(categ);
+  //   const subCategories = [];
+  //   if (categ) {
+  //     categ.forEach((category) => {
+  //       if (category.parent) {
+  //         const parentCategory = category.parent.name;
+  //         const parentCategoryId = category.parent._id;
+  //         const parentCategoryProperties = category.properties;
 
-    return transformedData;
-  }
+  //         subCategories.push({
+  //           id: category._id,
+  //           name: category.name,
+  //           parent: parentCategory,
+  //           parentId: parentCategoryId,
+  //           composition: parentCategoryProperties,
+  //         });
+  //       }
+  //     });
+  //   }
+
+  //   return subCategories;
+  // }
+  // function getUniqueSubcategories(categoryId, subcategories) {
+  //   // console.log(categoryId);
+  //   // console.log(subcategories);
+  //   const subcategoriesWithParentId = subcategories.map((subcat) => {
+  //     return {
+  //       id: subcat.id,
+  //       name: subcat.name,
+  //       parent: subcat.parent,
+  //       parentId: subcat.parentId,
+  //       composition: subcat.composition,
+  //     };
+  //   });
+
+  //   const subcategoriesForCategory = subcategoriesWithParentId.filter(
+  //     (subcat) => {
+  //       return subcat.parentId == categoryId;
+  //     }
+  //   );
+
+  //   return subcategoriesForCategory;
+  // }
+  // function getIngredientsBySubcategory(ingredientsArr, subcategData) {
+  //   return ingredientsArr
+  //     .filter((ingredient) => {
+  //       const subcateg = subcategData.find(
+  //         (subcateg) => subcateg.id === ingredient.category
+  //       );
+  //       // console.log(subcateg);
+  //       return subcateg;
+  //     })
+  //     .map((ingredient) => {
+  //       const subcateg = subcategData.find(
+  //         (subcateg) => subcateg.id === ingredient.category
+  //       );
+  //       return {
+  //         id: ingredient._id,
+  //         categoryId: subcateg.id,
+  //         category: subcateg.name,
+  //         composition: ingredient.composition,
+  //         description: ingredient.description,
+  //         image: ingredient.image,
+  //         price: ingredient.price,
+  //         quantity: ingredient.quantity,
+  //         title: ingredient.title,
+  //       };
+  //     });
+  // }
+  // function transformData(ingreDataArr) {
+  //   // console.log(ingreDataArr);
+  //   const uniqueCategories = Array.from(
+  //     new Set(ingreDataArr.map((item) => item.categoryId))
+  //   ).map((categoryId) => {
+  //     const categoryItems = ingreDataArr.filter(
+  //       (item) => item.categoryId === categoryId
+  //     );
+  //     const uniqueCompositions = Array.from(
+  //       new Set(categoryItems.map((item) => item.composition))
+  //     ).map((composition) => {
+  //       const compositionItems = categoryItems.filter(
+  //         (item) => item.composition === composition
+  //       );
+  //       const options = compositionItems.map(
+  //         ({ description, id, image, price, quantity, title }) => ({
+  //           description,
+  //           id,
+  //           image,
+  //           price,
+  //           quantity,
+  //           title,
+  //         })
+  //       );
+  //       return { composition, options };
+  //     });
+  //     const { category } = categoryItems[0];
+  //     return { categoryId, category, ingredients_row: uniqueCompositions };
+  //   });
+  //   return uniqueCategories;
+  // }
+
+  // function transformCategoryData(parentCateg, transformsubcateg) {
+  //   const subcategories = transformsubcateg.map((subcateg) => {
+  //     return {
+  //       category: subcateg.category,
+  //       categoryId: subcateg.categoryId,
+  //     };
+  //   });
+
+  //   const transformedData = {
+  //     image: parentCateg?.image,
+  //     name: parentCateg?.name,
+  //     id: parentCateg?._id,
+  //     subcategories: subcategories,
+  //   };
+
+  //   return transformedData;
+  // }
   return (
     <Fragment>
-      {transformedCategoryData &&
-        transformedCategoryData.subcategories?.length > 0 &&
-        transformedIngreDataBySubcateg.length > 0 && (
-          <CreateFormula
-            categoryData={transformedCategoryData}
-            ingredientData={transformedIngreDataBySubcateg}
-          />
-        )}
+      {category && ingredients && (
+        <CreateFormula categoryData={category} ingredientData={ingredients} />
+      )}
     </Fragment>
   );
 };

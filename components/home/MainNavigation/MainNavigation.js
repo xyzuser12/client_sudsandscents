@@ -80,7 +80,7 @@ const MainNavigation = (props) => {
         <div className={classes.nav}>
           <div className={classes["main-menu-icons-left"]}>
             <DrawerMobile styleMode={props.styleMode} />
-            <IconButton
+            {/* <IconButton
               sx={{
                 fontSize: "0.8rem",
                 color: `${
@@ -91,7 +91,7 @@ const MainNavigation = (props) => {
               }}
             >
               <SearchRoundedIcon />
-            </IconButton>
+            </IconButton> */}
           </div>
           <Link href="/">
             <p className={classes.logo}>

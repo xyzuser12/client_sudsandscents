@@ -50,6 +50,46 @@
   font-size: 0.875rem;
 }
 
+.modal-title {
+  align-self: left;
+  color: #545454;
+  font-size: 21px;
+  margin: 10px 0;
+}
+
+.modal-text {
+  align-self: left;
+  color: #545454;
+  font-size: 15px;
+  margin-bottom: 1rem;
+}
+
+.modal-options {
+  display: flex;
+  justify-content: space-between;
+  color: #545454;
+}
+
+.modal-option-item {
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  width: 48%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-option-item:hover,
+.modal-option-item:focus {
+  border-color: #de89a1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.modal-option-item p {
+  font-size: 12px;
+}
+
 @media (min-width: 520px) {
   .card {
     flex-direction: row;

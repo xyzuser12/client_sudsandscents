@@ -75,7 +75,8 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const [loading, setLoading] = useState(false);
   const [showCreateFormulaButton, setShowCreateFormulaButton] = useState(true);
   const [variety, setVariety] = useState(
-    categoryData.subcategories[0].category
+    // categoryData?.subcategories[0]?.category
+    null
   );
   const [ingre, setIngre] = useState("");
   const [numLiter, setNumLiter] = useState(1);
@@ -113,19 +114,19 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     .digest("hex");
   const productId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
-  console.log(session);
-  console.log(ingre);
+  console.log(categoryData);
+  console.log(ingredientData);
   useEffect(() => {
     axios.get("/api/products").then((result) => {
       setIngreBuyNow(result.data);
     });
   }, []);
 
-  useEffect(() => {
-    if (ingredientData && variety) {
-      setIngre(ingredientData.find((ingre) => ingre.categoryId === variety));
-    }
-  }, [ingredientData, variety]);
+  // useEffect(() => {
+  //   if (ingredientData && variety) {
+  //     setIngre(ingredientData.find((ingre) => ingre.categoryId === variety));
+  //   }
+  // }, [ingredientData, variety]);
 
   useEffect(() => {
     if (hasMounted && cartProducts.length > 0) {
@@ -177,6 +178,11 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     if (value !== variety) {
       setVariety(value);
     }
+  };
+
+  const convertImage = (image) => {
+    const imageData = Buffer.from(image).toString("base64");
+    return imageData;
   };
 
   function getSelectedIngredientIds(ingreRaw) {
@@ -400,18 +406,61 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     router.push("/category-formula");
   };
 
-  console.log(ingre);
-  console.log(variety);
-  console.log(categoryData.id);
-  console.log(categoryData.name);
-  console.log(formula);
-  console.log(getSelectedIngredientIds(ingredients));
-  console.log("❤️❤️❤️");
-  console.log(ingredients);
-  console.log(parseCartData(transformedProduct));
-  console.log(
-    generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)
-  );
+  // console.log(ingre);
+  // console.log(variety);
+  // console.log(categoryData.id);
+  // console.log(categoryData.name);
+  // console.log(formula);
+  // console.log(getSelectedIngredientIds(ingredients));
+  // console.log("❤️❤️❤️");
+  // console.log(ingredients);
+  // console.log(parseCartData(transformedProduct));
+  // console.log(
+  //   generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)
+  // );
+
+  function transformIngredientData(ingredientRaw) {
+    const transformedData = [];
+    console.log(ingredientRaw);
+
+    // Create a map to group ingredients by composition name
+    const compositionMap = new Map();
+
+    // Group ingredients by composition name
+    for (const ingredient of ingredientRaw) {
+      const { composition } = ingredient;
+
+      if (composition && composition.name) {
+        if (!compositionMap.has(composition.name)) {
+          compositionMap.set(composition.name, []);
+        }
+
+        const ingredientRow = {
+          name: ingredient.name,
+          id: ingredient.id,
+          description: ingredient.description,
+          price: ingredient.price,
+          image: ingredient.image,
+        };
+
+        compositionMap.get(composition.name).push(ingredientRow);
+      }
+    }
+
+    // Transform the grouped ingredients into the desired format
+    for (const [compositionName, ingredientsRow] of compositionMap) {
+      transformedData.push({
+        compositionName,
+        ingredientsRow,
+      });
+    }
+
+    return transformedData;
+  }
+
+  // Usage
+  const transformedIngredients = transformIngredientData(ingredientData);
+  console.log(transformedIngredients);
 
   return (
     <div
@@ -492,9 +541,11 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
       {/*=======================2) IMAGE DRID ITEM =======================*/}
 
       <div className={classes["image-wrapper"]}>
-        {categoryImage && (
+        {categoryData?.image && (
           <Image
-            src={categoryImage}
+            src={`data:image/jpeg;base64,${convertImage(
+              categoryData.image.data
+            )}`}
             alt="image of perfume"
             width={400}
             height={400}
@@ -514,7 +565,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
       {/*======================3) EDITOR DRID ITEM =======================*/}
       <div className={classes["editor-wrapper"]}>
-        <FormControl color="secondary" className={classes["base-wrapper"]}>
+        {/* <FormControl color="secondary" className={classes["base-wrapper"]}>
           <InputLabel id="base">
             Subcategory<span className={classes["oil__required"]}>*</span>
           </InputLabel>
@@ -537,11 +588,11 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
 
-        {ingre && (
+        {ingredientData && (
           <div className={classes["editor-button-wrapper"]}>
-            <FormControl className={classes.budget}>
+            {/* <FormControl className={classes.budget}>
               <InputLabel htmlFor="budget">Budget (optional)</InputLabel>
               <OutlinedInput
                 id="budget"
@@ -562,7 +613,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                 Enter your budget for your {categoryData.name} to receive
                 recommendations on ingredients within that budget.
               </FormHelperText>
-            </FormControl>
+            </FormControl> */}
 
             <FormControl className={classes.liter}>
               <InputLabel htmlFor="budget">
@@ -587,19 +638,19 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
         )}
 
         <div className={classes["ingredient-optoins-wrapper"]}>
-          {ingre &&
-            ingre.ingredients_row.map((ingredient) => {
+          {ingredientData &&
+            transformIngredientData(ingredientData).map((ingredient) => {
               return (
                 <div
-                  key={ingredient.composition}
+                  key={ingredient.compositionName}
                   className={classes["oils-wrapper"]}
                 >
                   <h4 className={classes["oil-title"]}>
-                    {ingredient.composition}
+                    {ingredient.compositionName}
                     <span className={classes["oil__required"]}>*</span>
                   </h4>
                   <div className={classes["oils-wrapper__options"]}>
-                    {ingredient.options.map((option) => {
+                    {ingredient.ingredientsRow.map((option) => {
                       return option.description ? (
                         <Tooltip title={option.description} key={option.id}>
                           <div
@@ -620,16 +671,18 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                               <div>
                                 {option.image && (
                                   <Image
-                                    src={option.image}
+                                    src={`data:image/jpeg;base64,${convertImage(
+                                      option.image.data
+                                    )}`}
                                     width={50}
                                     height={50}
-                                    alt="perfume"
+                                    alt={option.name}
                                     loading="lazy"
                                   />
                                 )}
                               </div>
                             </div>
-                            <p>{option.title}</p>
+                            <p>{option.name}</p>
                           </div>
                         </Tooltip>
                       ) : (
@@ -651,16 +704,18 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                             <div>
                               {option.image && (
                                 <Image
-                                  src={option.image}
+                                  src={`data:image/jpeg;base64,${convertImage(
+                                    option.image.data
+                                  )}`}
                                   width={50}
                                   height={50}
-                                  alt="perfume"
+                                  alt={option.name}
                                   loading="lazy"
                                 />
                               )}
                             </div>
                           </div>
-                          <p>{option.title}</p>
+                          <p>{option.name}</p>
                         </div>
                       );
                     })}
