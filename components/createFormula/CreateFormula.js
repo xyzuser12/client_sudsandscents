@@ -116,6 +116,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
   console.log(categoryData);
   console.log(ingredientData);
+  console.log(ingredients);
   useEffect(() => {
     axios.get("/api/products").then((result) => {
       setIngreBuyNow(result.data);
@@ -203,7 +204,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   };
 
   const resetData = () => {
-    setVariety(categoryData.subcategories[0].category);
+    setVariety(categoryData.name);
     setIngre("");
     setTransformedProducts();
     setNumLiter(1);
@@ -591,39 +592,35 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
         </FormControl> */}
 
         {ingredientData && (
-          <div className={classes["editor-button-wrapper"]}>
-            {/* <FormControl className={classes.budget}>
-              <InputLabel htmlFor="budget">Budget (optional)</InputLabel>
-              <OutlinedInput
-                id="budget"
-                label="Budget (optional)"
-                aria-describedby="budget-helper-text"
-                type="number"
-                inputProps={{ step: 1, min: 0 }}
-                startAdornment={"₱ "}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <Button variant="outlined" color="primary">
-                      Send
-                    </Button>
-                  </InputAdornment>
-                }
-              />
-              <FormHelperText id="budget-helper-text">
-                Enter your budget for your {categoryData.name} to receive
-                recommendations on ingredients within that budget.
-              </FormHelperText>
-            </FormControl> */}
+          <div>
+            <FormControl sx={{ width: "100%" }}>
+              <label className={classes["oil-title"]} htmlFor="product_name">
+                Product Name
+              </label>
 
-            <FormControl className={classes.liter}>
-              <InputLabel htmlFor="budget">
-                Liter<span className={classes["oil__required"]}>*</span>
-              </InputLabel>
+              <OutlinedInput
+                id="product_name"
+                type="text"
+                placeholder={`Name your ${categoryData.name}`}
+                // inputProps={{ step: 1, min: 0 }}
+                // endAdornment={
+                //   <InputAdornment position="end">
+                //     <Button variant="outlined" color="primary">
+                //       Send
+                //     </Button>
+                //   </InputAdornment>
+                // }
+              />
+            </FormControl>
+
+            <FormControl sx={{ width: "100%", marginTop: "1rem" }}>
+              <label className={classes["oil-title"]} htmlFor="product_name">
+                Liter
+              </label>
+
               <OutlinedInput
                 required
                 id="liter"
-                label="Liter"
-                aria-describedby="liter-helper-text"
                 type="number"
                 inputProps={{ step: 1, min: 1 }}
                 endAdornment={"L"}
