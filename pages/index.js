@@ -1,16 +1,9 @@
-import Header from "@/components/Header";
-import Featured from "@/components/Featured";
-import { Product } from "@/models/Product";
 import { Category } from "@/models/Category";
 import { mongooseConnect } from "@/lib/mongoose";
-import NewProducts from "@/components/NewProducts";
 import { useSession } from "next-auth/react";
 import CategorySection from "../components/home/landing/CategorySection";
 import HeroContent from "../components/home/landing/HeroContent";
 import OurStory from "../components/home/landing/OurStory";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function HomePage({ categories, newProducts }) {
   // console.log(categories);
@@ -39,12 +32,6 @@ export default function HomePage({ categories, newProducts }) {
   // }, []);
   console.log(session);
   return (
-    // <div>
-    //    <Header />
-    //   <Featured product={categories} />
-    //    <NewProducts products={newProducts} />
-    // </div>
-
     <main>
       <HeroContent />
       <CategorySection categories={categories} />

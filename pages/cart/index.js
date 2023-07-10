@@ -1,25 +1,15 @@
 import Image from "next/image";
-import Header from "@/components/Header";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-import styled from "styled-components";
-import Center from "@/components/Center";
 import Button from "@mui/material/Button";
-import CustomButton from "../../components/Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import { RevealWrapper } from "next-reveal";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
+
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -28,7 +18,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
-import Spinner from "@/components/Spinner";
 
 import classes from "../../styles/cart/Cart.module.css";
 import outputImageBg from "../../public/assets/outputImage_background.png";
@@ -43,9 +32,11 @@ const ingreDataArr = [
     category: "Oil-based",
     categoryId: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
     id: "644662c5be70cd3d8b62bd73",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334401/Frankincense_sgpmuj.png",
     price: 42,
     quantity: 11,
     title: "Sweet Almond",
@@ -54,9 +45,11 @@ const ingreDataArr = [
     category: "Oil-based",
     categoryId: "6446553cbe70cd3d8b62bd0f",
     composition: "Carrier Oils",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ultrices quam a pellentesque. Proin semper metus non lectus convallis, eget sagittis libero mollis. Suspendisse sed lorem nisl.",
     id: "6446630abe70cd3d8b62bd7f",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1682334470/coconut_zafspz.png",
     price: 29,
     quantity: 34,
     title: "Coconut",
@@ -67,7 +60,8 @@ const ingreDataArr = [
     composition: "Essential Oils",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: "645354f2ef19e3b71076cecb",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182831/cedarwood_zuynog.webp",
     price: 123,
     quantity: 234,
     title: "Rose",
@@ -78,7 +72,8 @@ const ingreDataArr = [
     composition: "Essential Oils",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     id: "64535584ef19e3b71076ced7",
-    image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
+    image:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1683182976/jasmine_qfdcu6.jpg",
     price: 41,
     quantity: 654,
     title: "Jasmine",
@@ -88,17 +83,26 @@ const ingreDataArr = [
 const cartDatas = [
   {
     categoryId: "644653bbbe70cd3d8b62bd0c",
-    categoryImage: "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
+    categoryImage:
+      "https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png",
     categoryName: "Custom Perfume",
-    formula: "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
-    ingredients: ["6453603cef19e3b71076cf41", "64535667ef19e3b71076cf0c", "645354f2ef19e3b71076cecb"],
+    formula:
+      "\n    To make this blend you will need:\n    10ml jojoba oil\n    15 drops frankincense essential oil\n    9 drops lavender essential oil\n    6 drops cedar wood essential oil\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\n    Directions:\n    \n    Pour the jojoba oil into a glass bottle.\n    Add the drops of essential oils carefully.\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\n    Cost Estimation:\n    \n    10ml Jojoba Oil: ₱ 120.00\n    15 drops Frankincense Essential Oil: ₱ 50.00\n    9 drops Lavender Essential Oil: ₱ 30.00\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\n    15ml Glass Bottle: ₱ 20.00",
+    ingredients: [
+      "6453603cef19e3b71076cf41",
+      "64535667ef19e3b71076cf0c",
+      "645354f2ef19e3b71076cecb",
+    ],
     numberOfLiter: 2,
-    productId: "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
+    productId:
+      "2d06cffba29d0d39b4c2aef9b6f2c963a392f0ba2a85e81effe489a451e4bbbe",
     totalEstimatedCost: 245,
   },
 ];
 
-const cartRaw = ['["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]'];
+const cartRaw = [
+  '["d7cfd193d046f7db76ffa0cb1a40a988a65ff2d6e60825961077b24f8d639e43","644653bbbe70cd3d8b62bd0c","Custom Perfume","https://res.cloudinary.com/dkppw65bv/image/upload/v1681367352/Perfume_xe5qhi.png","\n  To make this blend you will need:\n  10ml jojoba oil\n  15 drops frankincense essential oil\n  9 drops lavender essential oil\n  6 drops cedar wood essential oil\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\n  Directions:\n  \n  Pour the jojoba oil into a glass bottle.\n  Add the drops of essential oils carefully.\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\n  Cost Estimation:\n  \n  10ml Jojoba Oil: ₱ 120.00\n  15 drops Frankincense Essential Oil: ₱ 50.00\n  9 drops Lavender Essential Oil: ₱ 30.00\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\n  15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1,245]',
+];
 
 export default function CartPage() {
   const router = useRouter();
@@ -144,7 +148,16 @@ export default function CartPage() {
     const result = [];
 
     for (const cartData of cartDatas) {
-      const [productId, categoryId, categoryName, categoryImage, formula, ingredients, numberOfLiter, totalEstimatedCost] = JSON.parse(cartData);
+      const [
+        productId,
+        categoryId,
+        categoryName,
+        categoryImage,
+        formula,
+        ingredients,
+        numberOfLiter,
+        totalEstimatedCost,
+      ] = JSON.parse(cartData);
 
       const ingredientList = ingredients;
       const totalCost = totalEstimatedCost;
@@ -194,10 +207,14 @@ export default function CartPage() {
   };
   const checkboxChangeHandler = (event, productId) => {
     if (event.target.checked) {
-      const selectedProduct = productFormatted.find((product) => product.productId === productId);
+      const selectedProduct = productFormatted.find(
+        (product) => product.productId === productId
+      );
       setProductToPurchase([...productToPurchase, selectedProduct]);
     } else {
-      const updatedProductList = productToPurchase.filter((product) => product.productId !== productId);
+      const updatedProductList = productToPurchase.filter(
+        (product) => product.productId !== productId
+      );
       setProductToPurchase(updatedProductList);
     }
   };
@@ -233,7 +250,8 @@ export default function CartPage() {
       composition: "Essential Oils",
       createdAt: "2023-05-04T06:50:47.827Z",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683183043/ylang-ylang_n8q0hf.jpg",
+      image:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1683183043/ylang-ylang_n8q0hf.jpg",
       price: 45,
       quantity: 76,
       title: "Lily",
@@ -246,7 +264,8 @@ export default function CartPage() {
       composition: "Citrus Oils",
       createdAt: "2023-05-04T06:58:04.381Z",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683183480/ylang-ylang_hgoefm.jpg",
+      image:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1683183480/ylang-ylang_hgoefm.jpg",
       price: 32,
       quantity: 12,
       title: "Orange",
@@ -259,7 +278,8 @@ export default function CartPage() {
       composition: "Woods and Musks",
       createdAt: "2023-05-04T07:35:24.740Z",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      image: "https://res.cloudinary.com/dkppw65bv/image/upload/v1683185721/myrrh-oil-500x500_vqewce.webp",
+      image:
+        "https://res.cloudinary.com/dkppw65bv/image/upload/v1683185721/myrrh-oil-500x500_vqewce.webp",
       price: 12,
       quantity: 12,
       title: "Cedarwood",
@@ -273,11 +293,22 @@ export default function CartPage() {
     const formattedCartData = [];
 
     for (const cartData of cartDatasRaw) {
-      const { categoryId, categoryImage, categoryName, formula, ingredients, numberOfLiter, productId, totalEstimatedCost } = cartData;
+      const {
+        categoryId,
+        categoryImage,
+        categoryName,
+        formula,
+        ingredients,
+        numberOfLiter,
+        productId,
+        totalEstimatedCost,
+      } = cartData;
       const updatedIngredients = [];
 
       for (const ingredientId of ingredients) {
-        const foundIngredient = ingreDataArrRaw.find((ingredient) => ingredient._id === ingredientId);
+        const foundIngredient = ingreDataArrRaw.find(
+          (ingredient) => ingredient._id === ingredientId
+        );
 
         console.log(foundIngredient);
 
@@ -289,9 +320,12 @@ export default function CartPage() {
       console.log(numberOfLiter);
       console.log(updatedIngredients);
 
-      const updatedTotalEstimatedCost = updatedIngredients.reduce((totalCost, ingredient) => {
-        return totalCost + ingredient.price;
-      }, 0);
+      const updatedTotalEstimatedCost = updatedIngredients.reduce(
+        (totalCost, ingredient) => {
+          return totalCost + ingredient.price;
+        },
+        0
+      );
 
       const formattedCartObj = {
         categoryId,
@@ -326,8 +360,18 @@ export default function CartPage() {
             margin: "0 auto 1rem auto",
           }}
         >
-          <Link href={`/checkout?productToPurchase=${encodeURIComponent(productToPurchase)}`}>
-            <h2 className={`${classes.cart} ${router.pathname === "/cart" ? classes.active : ""}`}>Cart</h2>
+          <Link
+            href={`/checkout?productToPurchase=${encodeURIComponent(
+              productToPurchase
+            )}`}
+          >
+            <h2
+              className={`${classes.cart} ${
+                router.pathname === "/cart" ? classes.active : ""
+              }`}
+            >
+              Cart
+            </h2>
           </Link>
           <Link href={"/checkout"} disabled style={{ pointerEvents: "none" }}>
             <h2 className={classes.cart}>Checkout</h2>
@@ -397,14 +441,33 @@ export default function CartPage() {
                               <TableRow
                                 key={product.productId}
                                 sx={{
-                                  borderBottom: "1px solid rgba(224, 224, 224, 1)",
+                                  borderBottom:
+                                    "1px solid rgba(224, 224, 224, 1)",
                                   height: "100%",
                                 }}
                               >
-                                <TableCell sx={{ display: "flex", borderBottom: "none" }} className={classes["td-image"]}>
-                                  <FormControlLabel control={<Checkbox onChange={(event) => checkboxChangeHandler(event, product.productId)} />} sx={{ marginRight: "0" }} />
+                                <TableCell
+                                  sx={{ display: "flex", borderBottom: "none" }}
+                                  className={classes["td-image"]}
+                                >
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        onChange={(event) =>
+                                          checkboxChangeHandler(
+                                            event,
+                                            product.productId
+                                          )
+                                        }
+                                      />
+                                    }
+                                    sx={{ marginRight: "0" }}
+                                  />
                                 </TableCell>
-                                <TableCell sx={{ borderBottom: "none" }} className={classes["td-image"]}>
+                                <TableCell
+                                  sx={{ borderBottom: "none" }}
+                                  className={classes["td-image"]}
+                                >
                                   <div style={{ display: "flex", gap: "14px" }}>
                                     <div className={classes["image-wrapper"]}>
                                       <Image
@@ -421,7 +484,9 @@ export default function CartPage() {
                                         }}
                                       />
                                       <Image
-                                        src={"https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_116/v1684510657/outputImage_background_tasre3.png"}
+                                        src={
+                                          "https://res.cloudinary.com/dkppw65bv/image/upload/c_scale,w_116/v1684510657/outputImage_background_tasre3.png"
+                                        }
                                         alt="background of image of perfume"
                                         width={100}
                                         height={100}
@@ -436,10 +501,16 @@ export default function CartPage() {
                                         }}
                                       />
                                     </div>
-                                    <p className={classes["product-name"]}>{`${product.categoryName} ${product.numberOfLiter}L`}</p>
+                                    <p
+                                      className={classes["product-name"]}
+                                    >{`${product.categoryName} ${product.numberOfLiter}L`}</p>
                                   </div>
                                 </TableCell>
-                                <TableCell align="right" sx={{ borderBottom: "none" }} className={classes["td-price"]}>
+                                <TableCell
+                                  align="right"
+                                  sx={{ borderBottom: "none" }}
+                                  className={classes["td-price"]}
+                                >
                                   <div
                                     style={{
                                       display: "flex",
@@ -452,11 +523,22 @@ export default function CartPage() {
                                         return (
                                           <div key={ingredientId._id}>
                                             <p>
-                                              <i className={classes["ingredient-name"]}>
-                                                {ingredientId.title} {ingredientId.composition}
+                                              <i
+                                                className={
+                                                  classes["ingredient-name"]
+                                                }
+                                              >
+                                                {ingredientId.title}{" "}
+                                                {ingredientId.composition}
                                               </i>
                                             </p>
-                                            <p className={classes["ingredient-price"]}>₱{ingredientId.price.toFixed(2)}</p>
+                                            <p
+                                              className={
+                                                classes["ingredient-price"]
+                                              }
+                                            >
+                                              ₱{ingredientId.price.toFixed(2)}
+                                            </p>
                                           </div>
                                         );
                                       }
@@ -464,12 +546,21 @@ export default function CartPage() {
                                     })}
                                   </div>
                                 </TableCell>
-                                <TableCell align="right" sx={{ borderBottom: "none" }}>
-                                  <p>₱{product.totalEstimatedCost.toFixed(2)}</p>
+                                <TableCell
+                                  align="right"
+                                  sx={{ borderBottom: "none" }}
+                                >
+                                  <p>
+                                    ₱{product.totalEstimatedCost.toFixed(2)}
+                                  </p>
                                 </TableCell>
                                 <TableCell>
                                   <CloseSharpIcon
-                                    onClick={() => removeProductToCartHandler(product.productId)}
+                                    onClick={() =>
+                                      removeProductToCartHandler(
+                                        product.productId
+                                      )
+                                    }
                                     sx={{
                                       color: "#aaaaaa",
                                       "&:hover": {
@@ -494,12 +585,15 @@ export default function CartPage() {
               <RevealWrapper delay={100}>
                 <Paper className={classes["order-infos-wrapper"]}>
                   <div className={classes["delivery-address"]}>
-                    <h2 className={classes["delivery-address-title"]}>Cart Totals</h2>
+                    <h2 className={classes["delivery-address-title"]}>
+                      Cart Totals
+                    </h2>
                   </div>
 
                   <div className={classes["order-summary-wrapper"]}>
                     <p>
-                      Subtotal ({productToPurchase.length} {productToPurchase.length > 1 ? "items" : "item"}):
+                      Subtotal ({productToPurchase.length}{" "}
+                      {productToPurchase.length > 1 ? "items" : "item"}):
                     </p>
                     <p>₱{subTotalOrderSummary.toFixed(2)}</p>
                     <p>Total Weight:</p>
@@ -508,7 +602,12 @@ export default function CartPage() {
                   <div className={classes["order-summary-bottom"]}>
                     <div className={classes["total-payment-wrapper"]}>
                       <p>Total: </p>
-                      <p>₱{productToPurchase.length > 0 ? subTotalOrderSummary.toFixed(2) : 0}</p>
+                      <p>
+                        ₱
+                        {productToPurchase.length > 0
+                          ? subTotalOrderSummary.toFixed(2)
+                          : 0}
+                      </p>
                     </div>
                     <Button
                       disabled={!(productToPurchase.length > 0)}
