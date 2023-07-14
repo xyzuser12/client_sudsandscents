@@ -1,66 +1,29 @@
-import { useState, useEffect, Fragment } from "react";
-import Link from "next/link";
+import { useState, Fragment } from "react";
 import Image from "next/image";
-import { ReactNode } from "react";
-import { useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+import LoadingButton from '@mui/lab/LoadingButton';
 import FormControl from "@mui/material/FormControl";
 import { OutlinedInput } from "@mui/material";
-
-// import FetchProducts from "../../api/FetchCategories";
 import { useRouter } from "next/router";
-
 import classes from "../../styles/formulaCategory/FormulaCategoryList.module.css";
-// import image1 from "../../assets/images/products/Facial-wash.png";
-// import image2 from "../../assets/images/products/Lotion.png";
-// import image3 from "../../assets/images/products/Perfume.png";
-// import image4 from "../../assets/images/products/Shampoo.png";
-// import image5 from "../../assets/images/products/Soap.png";
-
-// const CAT_IMAGES = [
-//   { id: "custom-perfume", images: { imageSmall: image3, imageLarge: image3 } },
-//   {
-//     id: "custom-facial-wash",
-//     images: { imageSmall: image1, imageLarge: image1 },
-//   },
-//   { id: "custom-lotion", images: { imageSmall: image2, imageLarge: image2 } },
-//   { id: "custom-shampoo", images: { imageSmall: image4, imageLarge: image4 } },
-//   { id: "custom-soap", images: { imageSmall: image5, imageLarge: image5 } },
-// ];
-
-const styleModal = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "#fff",
-  border: "1px solid #BDBDBD",
-  borderRadius: "6px",
-  boxShadow: 24,
-  padding: "1.6rem",
-};
+import ModalAi from "../ModalAi";
 
 function ChildModal({ categId }) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [budget, setBudget] = useState(0);
   const [disableBtn, setDisableBtn] = useState(true);
+  console.log(budget)
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
-  function createFormulaBudgetHandler() {
-    router.push({
-      pathname: "/category-formula/" + categId,
-      query: { budget },
-    });
-  }
+
 
   const budgetHandler = (e) => {
     setBudget(e.target.value);
@@ -69,9 +32,29 @@ function ChildModal({ categId }) {
     console.log(e.target.value);
   };
 
+  const [aimodal, setaimodal] = useState(false)
+  const [data, setdata] = useState({ quantity: 0, ingredients: [] })
+
+  const [loading, setloading] = useState(false)
+  async function createFormulaBudgetHandler() {
+    setloading(true)
+    const req = await fetch('/api/amountai', {
+      method: 'POST',
+      body: JSON.stringify({ id: categId, amount: budget })
+    })
+    const res = await req.json()
+    setloading(false)
+    setdata(res)
+    setaimodal(true)
+  }
+
   return (
     <Fragment>
       <div className={classes["modal-option-item"]} onClick={handleOpen}>
+        <ModalAi gotoHome={() => {
+          setaimodal(false)
+        }} openModal={aimodal} name={"customProductName"} data={data} />
+
         <Image
           src={"/assets/icons/budgetIcon.png"}
           alt="formula"
@@ -129,14 +112,20 @@ function ChildModal({ categId }) {
               onChange={budgetHandler}
             />
           </FormControl>
-          <Button
-            disabled={disableBtn}
-            variant="contained"
-            sx={{ width: "50%", margin: "1rem auto 0" }}
-            onClick={createFormulaBudgetHandler}
-          >
-            SEND
-          </Button>
+          {
+            loading ?
+              (<LoadingButton sx={{ width: "50%", margin: "1rem auto 0" }} loading variant="contained">
+                Submit
+              </LoadingButton>) :
+              (<Button
+                disabled={disableBtn}
+                variant="contained"
+                sx={{ width: "50%", margin: "1rem auto 0" }}
+                onClick={createFormulaBudgetHandler}
+              >
+                SEND
+              </Button>)
+          }
         </Box>
       </Modal>
     </Fragment>
@@ -237,9 +226,8 @@ const FormulaCategoryList = ({ categories }) => {
             return (
               <div
                 onClick={() => handleOpen(cat.id)}
-                className={`${classes["card-item"]} ${
-                  classes[`card-item-${cat.id}`]
-                }`}
+                className={`${classes["card-item"]} ${classes[`card-item-${cat.id}`]
+                  }`}
                 key={cat.id}
               >
                 <div className={classes["image-wrapper"]}>

@@ -19,6 +19,7 @@ export default async function handle(req, res) {
       return res.json(category);
     } else {
       const categories = await prisma.category.findMany();
+      console.log(categories)
       return res.json(categories);
     }
   }

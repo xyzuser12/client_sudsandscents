@@ -1,13 +1,10 @@
-import { Fragment, useEffect, forwardRef } from "react";
+import { Fragment, useEffect } from "react";
 import crypto from "crypto";
 import Image from "next/image";
 import { useState, useContext } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -22,44 +19,16 @@ import Divider from "@mui/material/Divider";
 import { OutlinedInput } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
 import Tooltip from "@mui/material/Tooltip";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
-import { InputAdornment } from "@mui/material";
 import { CartContext } from "../CartContext";
-
 import classes from "../../styles/createFormula/CreateFormula.module.css";
 import outputImageBg from "../../public/assets/outputImage_background.png";
-import { flatMap } from "lodash";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import ModalAi from "../ModalAi";
 
-const ingreRaw = [
-  {
-    ingredient: {
-      id: "645355c7ef19e3b71076cee3",
-      isSelected: true,
-    },
-  },
-  {
-    ingredient: {
-      id: "64535667ef19e3b71076cf0c",
-      isSelected: false,
-    },
-  },
-  {
-    ingredient: {
-      id: "6453577cef19e3b71076cf18",
-      isSelected: true,
-    },
-  },
-];
-
-const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 const CreateFormula = ({ categoryData, ingredientData }) => {
   const router = useRouter();
@@ -114,21 +83,13 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     .digest("hex");
   const productId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
-  console.log(categoryData);
-  console.log(ingredientData);
-  console.log(ingredients);
   useEffect(() => {
     axios.get("/api/products").then((result) => {
       setIngreBuyNow(result.data);
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (ingredientData && variety) {
-  //     setIngre(ingredientData.find((ingre) => ingre.categoryId === variety));
-  //   }
-  // }, [ingredientData, variety]);
-
+  console.log(numLiter, ingredients)
   useEffect(() => {
     if (hasMounted && cartProducts.length > 0) {
       cartSnackbarHandler();
@@ -165,39 +126,18 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
       }
     });
   };
-  console.log(ingredients);
 
-  const baseHandler = (e) => {
-    setBase(e.target.value);
-  };
+  console.log(ingredients);
 
   const tabHandler = (event, newTabValue) => {
     setTabValue(newTabValue);
   };
 
-  const varietyChangeHandler = (value) => () => {
-    if (value !== variety) {
-      setVariety(value);
-    }
-  };
 
   const convertImage = (image) => {
     const imageData = Buffer.from(image).toString("base64");
     return imageData;
   };
-
-  function getSelectedIngredientIds(ingreRaw) {
-    const selectedIds = [];
-    if (ingreRaw) {
-      ingreRaw.forEach((item) => {
-        if (item.ingredient.isSelected) {
-          selectedIds.push(item.ingredient.id);
-        }
-      });
-    }
-
-    return selectedIds;
-  }
 
   const literChangeHandler = (e) => {
     setNumLiter(parseInt(e.target.value));
@@ -236,45 +176,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     15ml Glass Bottle: ₱ 20.00`);
   };
 
-  const createFormulaHandler = () => {
-    const transformedProductRaw = [
-      productId,
-      categoryData.id,
-      categoryData.name,
-      categoryImage,
-      formula,
-      getSelectedIngredientIds(ingredients),
-      numLiter,
-      totalEstimatedCost,
-    ];
-
-    console.log(transformedProductRaw);
-
-    setLoading((prev) => !prev);
-
-    setTimeout(() => {
-      setLoading(false);
-      setShowCreateFormulaButton(false);
-    }, 2000);
-    setTransformedProducts(JSON.stringify(transformedProductRaw));
-  };
-
   const cartSnackbarHandler = () => {
     setOpenCartSnackbar(true);
   };
 
-  const cartSnackbarCloseHandler = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenCartSnackbar(false);
-  };
-  const addToCartHandler = (prod) => {
-    addProduct(prod);
-    cartSnackbarHandler();
-    resetData();
-  };
 
   const parseCartData = (cartDataRaw) => {
     if (cartDataRaw) {
@@ -313,9 +218,6 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   function generateFormattedCartData(cartDatasRaw, ingreDataArrRaw) {
     if (cartDatasRaw && ingreDataArrRaw) {
       const formattedCartData = [];
-      console.log(cartDatasRaw);
-      console.log("😘😘😘");
-      console.log(ingreDataArrRaw);
 
       for (const cartData of cartDatasRaw) {
         const {
@@ -399,6 +301,8 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     setOpenModal(false);
   };
 
+  const [aimodal, setaimodal] = useState(false)
+
   const gotoHome = () => {
     router.push("/");
   };
@@ -407,22 +311,9 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     router.push("/category-formula");
   };
 
-  // console.log(ingre);
-  // console.log(variety);
-  // console.log(categoryData.id);
-  // console.log(categoryData.name);
-  // console.log(formula);
-  // console.log(getSelectedIngredientIds(ingredients));
-  // console.log("❤️❤️❤️");
-  // console.log(ingredients);
-  // console.log(parseCartData(transformedProduct));
-  // console.log(
-  //   generateFormattedCartData(parseCartData(transformedProduct), ingreBuyNow)
-  // );
 
   function transformIngredientData(ingredientRaw) {
     const transformedData = [];
-    console.log(ingredientRaw);
 
     // Create a map to group ingredients by composition name
     const compositionMap = new Map();
@@ -459,19 +350,15 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
     return transformedData;
   }
 
-  // Usage
-  const transformedIngredients = transformIngredientData(ingredientData);
-  console.log(transformedIngredients);
+  const [data_, setdata_] = useState({ quantity: 0, ingredients: [] })
 
   return (
     <div
       className={`${classes.container} ${classes["create-formula-container"]}`}
     >
-      {/* <Snackbar open={openCartSnackbar} autoHideDuration={2000} onClose={cartSnackbarCloseHandler}>
-        <Alert onClose={cartSnackbarCloseHandler} severity="success" sx={{ width: "100%" }}>
-          {`${numLiter} ${numLiter > 1 ? "liters" : "liter"} of ${categoryData.name} was added to your cart.`}
-        </Alert>
-      </Snackbar> */}
+      <ModalAi gotoHome={() => {
+        setaimodal(false)
+      }} openModal={aimodal} name={customProductName} data={data_} />
       <Modal
         open={openModal}
         onClose={modalCloseHandler}
@@ -533,9 +420,9 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
           </div>
         </Box>
       </Modal>
+
       {/*========================1) TITLE DRID ITEM =======================*/}
       <div className={classes["title"]}>
-        {/* <h3 className={classes.classification}>{classification}</h3> */}
         <h2 className={classes["product-name"]}>{customProductName}</h2>
       </div>
 
@@ -566,30 +453,6 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
       {/*======================3) EDITOR DRID ITEM =======================*/}
       <div className={classes["editor-wrapper"]}>
-        {/* <FormControl color="secondary" className={classes["base-wrapper"]}>
-          <InputLabel id="base">
-            Subcategory<span className={classes["oil__required"]}>*</span>
-          </InputLabel>
-          <Select
-            required
-            labelId="base"
-            id="base"
-            value={base}
-            label="Subcategory"
-            className={classes["base__select"]}
-            onChange={baseHandler}
-          >
-            {categoryData.subcategories.map((categ) => (
-              <MenuItem
-                key={categ.categoryId}
-                value={`${categ.category}`}
-                onClick={varietyChangeHandler(categ.categoryId)}
-              >
-                {categ.category}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
 
         {ingredientData && (
           <div>
@@ -602,14 +465,6 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                 id="product_name"
                 type="text"
                 placeholder={`Name your ${categoryData.name}`}
-                // inputProps={{ step: 1, min: 0 }}
-                // endAdornment={
-                //   <InputAdornment position="end">
-                //     <Button variant="outlined" color="primary">
-                //       Send
-                //     </Button>
-                //   </InputAdornment>
-                // }
               />
             </FormControl>
 
@@ -659,11 +514,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                             )}
                           >
                             <div
-                              className={`${classes["image-button"]} ${
-                                ingredients.find(
-                                  (i) => i.ingredient.id === option.id
-                                )?.ingredient.isSelected && classes.selected
-                              }`}
+                              className={`${classes["image-button"]} ${ingredients.find(
+                                (i) => i.ingredient.id === option.id
+                              )?.ingredient.isSelected && classes.selected
+                                }`}
                             >
                               <div>
                                 {option.image && (
@@ -692,11 +546,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                           )}
                         >
                           <div
-                            className={`${classes["image-button"]} ${
-                              ingredients.find(
-                                (i) => i.ingredient.id === option.id
-                              )?.ingredient.isSelected && classes.selected
-                            }`}
+                            className={`${classes["image-button"]} ${ingredients.find(
+                              (i) => i.ingredient.id === option.id
+                            )?.ingredient.isSelected && classes.selected
+                              }`}
                           >
                             <div>
                               {option.image && (
@@ -801,11 +654,21 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
       )}
 
       {/*======================5) ACTION BUTTONS GRID ITEM ========================*/}
-      {ingre && (
+      {!ingre && (
         <div className={classes["actions-buttons-wrapper"]}>
           {showCreateFormulaButton ? (
             <LoadingButton
-              onClick={createFormulaHandler}
+              onClick={async () => {
+                const data = await fetch('/api/formulaai', {
+                  method: "POST",
+                  body: JSON.stringify({ liters: numLiter, ingredients: ingredients })
+                })
+                const res = await data.json()
+                setdata_(res)
+                setaimodal(true)
+                //createFormulaHandler
+              }
+              }
               className={classes["create-formula__button"]}
               loading={loading}
               color="primary"
