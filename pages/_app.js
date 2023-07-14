@@ -33,10 +33,7 @@ export default function App({
 }) {
   return (
     <>
-      {/* <GlobalStyles />
-      <CartContextProvider>
-        <Component {...pageProps} />
-      </CartContextProvider> */}
+
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
