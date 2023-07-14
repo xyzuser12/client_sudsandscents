@@ -1,5 +1,3 @@
-import { Category } from "@/models/Category";
-import { mongooseConnect } from "@/lib/mongoose";
 import { useSession } from "next-auth/react";
 import CategorySection from "../components/home/landing/CategorySection";
 import HeroContent from "../components/home/landing/HeroContent";
@@ -40,13 +38,3 @@ export default function HomePage({ categories, newProducts }) {
   );
 }
 
-export async function getServerSideProps() {
-  await mongooseConnect();
-  const category = await Category.find();
-
-  return {
-    props: {
-      categories: JSON.parse(JSON.stringify(category)),
-    },
-  };
-}
