@@ -21,7 +21,7 @@ const CategorySection = ({ categories }) => {
   function getTopLevelCategories(categ) {
     const topLevelCategories = [];
 
-    categ.forEach((category) => {
+    categ?.forEach((category) => {
       if (!category.parent) {
         topLevelCategories.push({
           id: category._id,

@@ -82,6 +82,7 @@ export default async function handler(req, res) {
           const newUser = await prisma.user.create({
             data: {
               name: username,
+              id: email,
               email,
               password: hashedPassword,
               // image: Buffer.from(image, "base64"), // Convert base64 image to buffer

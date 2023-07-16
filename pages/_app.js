@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { CartContextProvider } from "@/components/CartContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
@@ -33,13 +34,18 @@ export default function App({
 }) {
   return (
     <>
-
+      {/* <GlobalStyles />
+      <CartContextProvider>
+        <Component {...pageProps} />
+      </CartContextProvider> */}
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <CartContextProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </CartContextProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </SessionProvider>
