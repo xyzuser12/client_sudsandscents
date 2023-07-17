@@ -352,6 +352,8 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
 
   const [data_, setdata_] = useState({ quantity: 0, ingredients: [] })
 
+  const [total, settotal] = useState(0)
+
   return (
     <div
       className={`${classes.container} ${classes["create-formula-container"]}`}
@@ -664,6 +666,17 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
                   body: JSON.stringify({ liters: numLiter, ingredients: ingredients })
                 })
                 const res = await data.json()
+
+                let total_ = 0;
+
+                if (res.ingredients) {
+                  for (const ing of res.ingredients) {
+                    console.log(ing)
+                    total_ += (ing.quantity ? ing.quantity : 0) * (ing.price ? ing.price : 0)
+                  }
+                }
+                console.log(total_)
+                settotal(total_)
                 setdata_(res)
                 setaimodal(true)
                 //createFormulaHandler
@@ -694,10 +707,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             </LoadingButton>
           ) : (
             <Fragment>
-              <div className={classes["total-estimated-cost__wrapper"]}>
+              <div style={{ display: total == 0 ? 'none' : 'block' }} className={classes["total-estimated-cost__wrapper"]}>
                 <h4 className={classes["oil-title"]}>Total estimated cost</h4>
                 <p className={classes["total-cost"]}>
-                  ₱{totalEstimatedCost.toFixed(2)}
+                  ₱{total.toFixed(2)}
                 </p>
               </div>
               <Stack
@@ -746,10 +759,10 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
             </Fragment>
           )}
           <Fragment>
-            <div className={classes["total-estimated-cost__wrapper"]}>
+            <div style={{ display: total == 0 ? 'none' : 'block' }} className={classes["total-estimated-cost__wrapper"]}>
               <h4 className={classes["oil-title"]}>Total estimated cost</h4>
               <p className={classes["total-cost"]}>
-                ₱{totalEstimatedCost.toFixed(2)}
+                ₱{total.toFixed(2)}
               </p>
             </div>
             <Stack
