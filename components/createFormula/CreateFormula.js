@@ -84,7 +84,7 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
   const productId = uniqueId.replace(/[^a-zA-Z0-9]/g, "");
 
   useEffect(() => {
-    axios.get("/api/products").then((result) => {
+    axios.get("/api/products2").then((result) => {
       setIngreBuyNow(result.data);
     });
   }, []);
@@ -745,6 +745,57 @@ const CreateFormula = ({ categoryData, ingredientData }) => {
               </Stack>
             </Fragment>
           )}
+          <Fragment>
+            <div className={classes["total-estimated-cost__wrapper"]}>
+              <h4 className={classes["oil-title"]}>Total estimated cost</h4>
+              <p className={classes["total-cost"]}>
+                ₱{totalEstimatedCost.toFixed(2)}
+              </p>
+            </div>
+            <Stack
+              direction="row"
+              spacing={2}
+              className={classes["stack-action-button"]}
+            >
+              <Button
+                variant="outlined"
+                startIcon={<ShoppingCartIcon />}
+                className={classes["add-to-cart__button"]}
+                sx={{
+                  alignSelf: "center",
+                  padding: "0.8em 2em",
+                  borderRadius: "50px",
+                  textTransform: "uppercase",
+                  fontSize: "clamp(14px, 2vw, 15px)",
+                  fontWeight: "normal",
+                  letterSpacing: "1px",
+                }}
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </Button>
+              <Button
+                variant="contained"
+                className={classes["buy-now__button"]}
+                sx={{
+                  alignSelf: "center",
+                  padding: "0.8em 2em",
+                  borderRadius: "50px",
+                  textTransform: "uppercase",
+                  fontSize: "clamp(14px, 2vw, 15px)",
+                  fontWeight: "normal",
+                  letterSpacing: "1px",
+                  backgroundColor: "#de89a1",
+                  color: "#fff",
+                  outline: "none",
+                  border: "none",
+                }}
+                onClick={goToCheckout}
+              >
+                Order now
+              </Button>
+            </Stack>
+          </Fragment>
         </div>
       )}
     </div>

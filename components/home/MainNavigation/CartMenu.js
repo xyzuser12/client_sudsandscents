@@ -1,7 +1,7 @@
 import { Fragment, useState, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton } from "@mui/material";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { CartContext } from "../../CartContext";
 import Badge from "@mui/material/Badge";
@@ -9,18 +9,10 @@ import Box from "@mui/material/Box";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useEffect } from "react";
-import { set } from "lodash";
 import Button from "@mui/material/Button";
 
 import outputImageBg from "../../../public/assets/outputImage_background.png";
 import classes from "../../../styles/layout/CartMenu.module.css";
-
-const cartDatas = [
-  '["644653bbbe70cd3d8b62bd0c","Custom Perfume","\\n  To make this blend you will need:\\n  10ml jojoba oil\\n  15 drops frankincense essential oil\\n  9 drops lavender essential oil\\n  6 drops cedar wood essential oil\\n  15ml glass bottle (a roll-on bottle or one with a pipette works well)\\n  Directions:\\n  \\n  Pour the jojoba oil into a glass bottle.\\n  Add the drops of essential oils carefully.\\n  Place the lid on the bottle and shake gently to ensure all the oils are blended\\n  Cost Estimation:\\n  \\n  10ml Jojoba Oil: ₱ 120.00\\n  15 drops Frankincense Essential Oil: ₱ 50.00\\n  9 drops Lavender Essential Oil: ₱ 30.00\\n  6 drops Cedar Wood Essential Oil: ₱ 25.00\\n  15ml Glass Bottle: ₱ 20.00",["645355c7ef19e3b71076cee3","64535667ef19e3b71076cf0c","64536084ef19e3b71076cf4d"],1, 245]',
-
-  '["644653bbbe70cd3d8b62bd0c","Custom Perfume","\\n    To make this blend you will need:\\n    10ml jojoba oil\\n    15 drops frankincense essential oil\\n    9 drops lavender essential oil\\n    6 drops cedar wood essential oil\\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\\n    Directions:\\n    \\n    Pour the jojoba oil into a glass bottle.\\n    Add the drops of essential oils carefully.\\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\\n    Cost Estimation:\\n    \\n    10ml Jojoba Oil: ₱ 120.00\\n    15 drops Frankincense Essential Oil: ₱ 50.00\\n    9 drops Lavender Essential Oil: ₱ 30.00\\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\\n    15ml Glass Bottle: ₱ 20.00",["64466360be70cd3d8b62bd9c","64536178ef19e3b71076cf87","645361e6ef19e3b71076cfab"],1, 245]',
-  '["644653bbbe70cd3d8b62bd0c","Custom Perfume","\\n    To make this blend you will need:\\n    10ml jojoba oil\\n    15 drops frankincense essential oil\\n    9 drops lavender essential oil\\n    6 drops cedar wood essential oil\\n    15ml glass bottle (a roll-on bottle or one with a pipette works well)\\n    Directions:\\n    \\n    Pour the jojoba oil into a glass bottle.\\n    Add the drops of essential oils carefully.\\n    Place the lid on the bottle and shake gently to ensure all the oils are blended\\n    Cost Estimation:\\n    \\n    10ml Jojoba Oil: ₱ 120.00\\n    15 drops Frankincense Essential Oil: ₱ 50.00\\n    9 drops Lavender Essential Oil: ₱ 30.00\\n    6 drops Cedar Wood Essential Oil: ₱ 25.00\\n    15ml Glass Bottle: ₱ 20.00",["64466387be70cd3d8b62bda8","64466a11be70cd3d8b62bdbe","645361e6ef19e3b71076cfab","64536178ef19e3b71076cf87","644662c5be70cd3d8b62bd73"],"3", 245]',
-];
 
 const CartMenu = (props) => {
   const { cartProducts } = useContext(CartContext);
@@ -52,6 +44,8 @@ const CartMenu = (props) => {
   const convertCartData = (cartDatas) => {
     const result = [];
 
+    console.log(cartDatas, "Cart")
+
     for (const cartData of cartDatas) {
       const [
         productId,
@@ -62,7 +56,7 @@ const CartMenu = (props) => {
         ingredients,
         numberOfLiter,
         totalEstimatedCost,
-      ] = JSON.parse(cartData);
+      ] = (cartData);
 
       const ingredientList = ingredients;
       const totalCost = totalEstimatedCost;
@@ -116,11 +110,10 @@ const CartMenu = (props) => {
           aria-expanded={open ? "true" : undefined}
           sx={{
             fontSize: "0.8rem",
-            color: `${
-              props.styleMode === "light"
-                ? "rgb(var(--background-rgb))"
-                : "rgb(var(--foreground-rgb))"
-            }`,
+            color: `${props.styleMode === "light"
+              ? "rgb(var(--background-rgb))"
+              : "rgb(var(--foreground-rgb))"
+              }`,
           }}
         >
           <Badge

@@ -1,20 +1,11 @@
-// import { makeStyles } from "@mui/styles";
-import React, { ReactNode, useState, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import { IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
-import Badge from "@mui/material/Badge";
-
-import { CartContext } from "../../CartContext";
 
 import classes from "../../../styles/layout/MainNavigation.module.css";
 import DrawerMobile from "./DrawerMobile";
 import AccountMenu from "./AccountMenu";
-import ProductOptions from "./ProductOptions";
 import CartMenu from "./CartMenu";
 
 const ActiveLink = ({ href, styleMode, children }) => {
@@ -30,15 +21,13 @@ const ActiveLink = ({ href, styleMode, children }) => {
   return (
     <Link
       href={href}
-      className={` ${
-        styleMode === "light"
-          ? classes["link-list-item"]
-          : classes["link-list-item-dark"]
-      } ${
-        styleMode === "light"
+      className={` ${styleMode === "light"
+        ? classes["link-list-item"]
+        : classes["link-list-item-dark"]
+        } ${styleMode === "light"
           ? classes[className]
           : classes[className + "-dark"]
-      } `}
+        } `}
     >
       {children}
     </Link>
@@ -51,11 +40,10 @@ const MainNavigation = (props) => {
   //   console.log(session);
   // }
   const style = {
-    color: `${
-      props.styleMode === "light"
-        ? "rgb(var(--background-rgb))"
-        : "rgb(var(--foreground-rgb))"
-    }`,
+    color: `${props.styleMode === "light"
+      ? "rgb(var(--background-rgb))"
+      : "rgb(var(--foreground-rgb))"
+      }`,
     position: "relative",
     fontFamily: "var(--font-inter)",
     fontWeight: "400",
@@ -64,48 +52,33 @@ const MainNavigation = (props) => {
   };
   return (
     <div
-      className={`${
-        props.backgroundSColorAcc === "transparent"
-          ? classes.container
-          : classes["container-login"]
-      }`}
+      className={`${props.backgroundSColorAcc === "transparent"
+        ? classes.container
+        : classes["container-login"]
+        }`}
     >
       <nav
-        className={`${
-          props.styleMode === "light"
-            ? classes["nav-container"]
-            : classes["nav-container-dark-text"]
-        }`}
+        className={`${props.styleMode === "light"
+          ? classes["nav-container"]
+          : classes["nav-container-dark-text"]
+          }`}
       >
         <div className={classes.nav}>
           <div className={classes["main-menu-icons-left"]}>
             <DrawerMobile styleMode={props.styleMode} />
-            {/* <IconButton
-              sx={{
-                fontSize: "0.8rem",
-                color: `${
-                  props.styleMode === "light"
-                    ? "rgb(var(--background-rgb))"
-                    : "rgb(var(--foreground-rgb))"
-                }`,
-              }}
-            >
-              <SearchRoundedIcon />
-            </IconButton> */}
           </div>
           <Link href="/">
             <p className={classes.logo}>
-              Scents{" "}
+              Suds{" "}
               <span
-                className={`${
-                  props.styleMode === "light"
-                    ? classes["logo-light"]
-                    : classes["logo-dark"]
-                }`}
+                className={`${props.styleMode === "light"
+                  ? classes["logo-light"]
+                  : classes["logo-dark"]
+                  }`}
               >
                 &
               </span>{" "}
-              Suds
+              Scents
             </p>
           </Link>
           <div className={classes["main-menu"]}>

@@ -19,8 +19,15 @@ export default function ModalAi({ openModal, gotoHome, name, data }) {
 
     const { ingredients } = data
 
+    let total = 0;
+
+    if (ingredients) {
+        for (const ing of ingredients) {
+            total += (ing.quantity ? ing.quantity : 0) * (ing.price ? ing.price : 0)
+        }
+    }
+
     const ingre = ingredients.map(values => values.name)
-    console.log(ingre)
     return (
         <Modal
             open={openModal}
@@ -114,7 +121,7 @@ export default function ModalAi({ openModal, gotoHome, name, data }) {
                                 return (
                                     <li>
                                         <Stack spacing={{ xs: 1, sm: 2 }} direction="row" justifyContent={'space-between'}>
-                                            <div>{`${quantity.toFixed(2)} ${name}`}</div>
+                                            <div>{`${quantity.toFixed(2)} ml ${name}`}</div>
                                             <div>₱ {total.toFixed(2)}</div>
                                         </Stack>
                                     </li>
@@ -123,8 +130,17 @@ export default function ModalAi({ openModal, gotoHome, name, data }) {
                         </ul>
 
                     </div>
-
-
+                    <Divider />
+                    <div style={{ margin: "10px" }} className={classes["cost-estimation-wrapper"]}>
+                        <Stack spacing={{ xs: 1, sm: 2 }} direction="row" justifyContent={'space-between'}>
+                            <p style={{ fontWeight: 'bold', fontSize: '15px' }}>
+                                Total Estimated Cost:
+                            </p>
+                            <div style={{ fontSize: "12px", fontWeight: 'bold' }}>
+                                ₱ {total.toFixed(2)}
+                            </div>
+                        </Stack>
+                    </div>
                     <Button
                         className={classes["save-copy__button"]}
                         variant="outlined"
