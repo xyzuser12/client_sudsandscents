@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 
 import Image from "next/image";
@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import facebookIcon from "../../public/assets/icons/facebook-icon.png";
 import googleIcon from "../../public/assets/icons/google-icon.png";
 import classes from "../../styles/account/LogIn.module.css";
 
