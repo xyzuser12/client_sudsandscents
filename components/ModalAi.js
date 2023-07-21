@@ -8,6 +8,7 @@ import React from "react";
 
 export default function ModalAi({ openModal, gotoHome, name, data }) {
     const componentRef = React.useRef(null);
+    console.log(name)
 
     const downloadComponentAsImage = () => {
         html2canvas(componentRef.current).then((canvas) => {
@@ -105,7 +106,7 @@ export default function ModalAi({ openModal, gotoHome, name, data }) {
                         <ol style={{ fontSize: "10px" }}>
                             <li>Pour the <b>{ingre.join(', ')}</b> into a glass bottle.</li>
                             <li> Add the drops of essential oils carefully.</li>
-                            <li>Place the lid on the bottle and shake gently to ensure all the oils are blended</li>
+                            {/*<li>Place the lid on the bottle and shake gently to ensure all the oils are blended</li>*/}
                         </ol>
                     </div>
 

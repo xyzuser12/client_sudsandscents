@@ -15,7 +15,7 @@ export default async function handle(req, res) {
     })
 
     const result = category.map(values => {
-        const quantity = (liters * 1000 / (values.milliliter ? values.milliliter : 0))
+        const quantity = (((liters * 1000) / ids.length) / (values.milliliter ? values.milliliter : 0))
         const data = { ...values, quantity }
         return data
     })
