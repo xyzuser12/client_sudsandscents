@@ -41,6 +41,8 @@ const Contact = () => {
       <br />
       <br />
       <br />
+      <br />
+      <br />
       <ImageBanner imageUrl="/assets/images/contactbanner.png" altText="Contact Banner" text="CONTACT US" description="We value your feedback, inquiries, and suggestions. Whether you have a question, need assistance, or simply want to get in touch with us, this is the place to do it." />
       <br />
       <br />
@@ -49,6 +51,7 @@ const Contact = () => {
       <br />
       <div className="grid-container" style={gridContainerStyle}>
         <div className="description" style={connectStyle}>
+          <br></br>
           CONNECT WITH US!
           <br /> <br />
           <div className="description" style={titleStyle}>
