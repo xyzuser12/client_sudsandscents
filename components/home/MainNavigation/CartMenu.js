@@ -44,22 +44,14 @@ const CartMenu = (props) => {
   const convertCartData = (cartDatas) => {
     const result = [];
 
-    console.log(cartDatas, "Cart")
+    console.log(cartDatas, "Cart");
 
     for (const cartData of cartDatas) {
-      const [
-        productId,
-        categoryId,
-        categoryName,
-        categoryImage,
-        formula,
-        ingredients,
-        numberOfLiter,
-        totalEstimatedCost,
-      ] = (cartData);
+      const [productId, categoryId, categoryName, categoryImage, formula, ingredients, numberOfLiter, totalEstimatedCost] = cartData;
 
       const ingredientList = ingredients;
       const totalCost = totalEstimatedCost;
+      const fixedTotalEstimatedCost = parseFloat(totalEstimatedCost).toFixed(2);
 
       result.push({
         productId,
@@ -110,10 +102,7 @@ const CartMenu = (props) => {
           aria-expanded={open ? "true" : undefined}
           sx={{
             fontSize: "0.8rem",
-            color: `${props.styleMode === "light"
-              ? "rgb(var(--background-rgb))"
-              : "rgb(var(--foreground-rgb))"
-              }`,
+            color: `${props.styleMode === "light" ? "rgb(var(--background-rgb))" : "rgb(var(--foreground-rgb))"}`,
           }}
         >
           <Badge
@@ -183,30 +172,14 @@ const CartMenu = (props) => {
               }}
             >
               <div className={classes["image-wrapper"]}>
-                {cartData.categoryImage && (
-                  <Image
-                    src={cartData.categoryImage}
-                    alt={`${cartData.categoryName} image`}
-                    width={100}
-                    height={100}
-                    className={classes.image}
-                    loading="lazy"
-                  />
-                )}
-                {outputImageBg && (
-                  <Image
-                    src={outputImageBg}
-                    alt={`${cartData.categoryName} background image`}
-                    className={classes["image-backgound"]}
-                    loading="lazy"
-                  />
-                )}
+                {cartData.categoryImage && <Image src={cartData.categoryImage} alt={`${cartData.categoryName} image`} width={100} height={100} className={classes.image} loading="lazy" />}
+                {outputImageBg && <Image src={outputImageBg} alt={`${cartData.categoryName} background image`} className={classes["image-backgound"]} loading="lazy" />}
               </div>
               <div className={classes.data}>
                 <p className={classes.name}>{cartData.categoryName}</p>
                 <div className={classes.number}>
                   <div>{cartData.numberOfLiter}L</div>
-                  <div>₱{cartData?.totalEstimatedCost?.toFixed(2)}</div>
+                  <div>₱{cartData?.fixedTotalEstimatedCost}</div>
                 </div>
               </div>
             </MenuItem>
