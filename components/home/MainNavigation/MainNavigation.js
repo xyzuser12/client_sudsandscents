@@ -21,15 +21,13 @@ const ActiveLink = ({ href, styleMode, children }) => {
   return (
     <Link
       href={href}
-      className={` ${
-        styleMode === "light"
-          ? classes["link-list-item"]
-          : classes["link-list-item-dark"]
-      } ${
-        styleMode === "light"
+      className={` ${styleMode === "light"
+        ? classes["link-list-item"]
+        : classes["link-list-item-dark"]
+        } ${styleMode === "light"
           ? classes[className]
           : classes[className + "-dark"]
-      } `}
+        } `}
     >
       {children}
     </Link>
@@ -42,11 +40,10 @@ const MainNavigation = (props) => {
   //   console.log(session);
   // }
   const style = {
-    color: `${
-      props.styleMode === "light"
-        ? "rgb(var(--background-rgb))"
-        : "rgb(var(--foreground-rgb))"
-    }`,
+    color: `${props.styleMode === "light"
+      ? "rgb(var(--background-rgb))"
+      : "rgb(var(--foreground-rgb))"
+      }`,
     position: "relative",
     fontFamily: "var(--font-inter)",
     fontWeight: "400",
@@ -55,18 +52,16 @@ const MainNavigation = (props) => {
   };
   return (
     <div
-      className={`${
-        props.backgroundSColorAcc === "transparent"
-          ? classes.container
-          : classes["container-login"]
-      }`}
+      className={`${props.backgroundSColorAcc === "transparent"
+        ? classes.container
+        : classes["container-login"]
+        }`}
     >
       <nav
-        className={`${
-          props.styleMode === "light"
-            ? classes["nav-container"]
-            : classes["nav-container-dark-text"]
-        }`}
+        className={`${props.styleMode === "light"
+          ? classes["nav-container"]
+          : classes["nav-container-dark-text"]
+          }`}
       >
         <div className={classes.nav}>
           <div className={classes["main-menu-icons-left"]}>
@@ -76,11 +71,10 @@ const MainNavigation = (props) => {
             <p className={classes.logo}>
               Suds{" "}
               <span
-                className={`${
-                  props.styleMode === "light"
-                    ? classes["logo-light"]
-                    : classes["logo-dark"]
-                }`}
+                className={`${props.styleMode === "light"
+                  ? classes["logo-light"]
+                  : classes["logo-dark"]
+                  }`}
               >
                 &
               </span>{" "}
@@ -98,11 +92,8 @@ const MainNavigation = (props) => {
               </li>
               <li className={classes["list-item"]}>
                 <Button sx={style}>
-                  <ActiveLink
-                    href="/category-formula"
-                    styleMode={props.styleMode}
-                  >
-                    Products
+                  <ActiveLink href="/about" styleMode={props.styleMode}>
+                    About
                   </ActiveLink>
                 </Button>
               </li>
@@ -110,13 +101,6 @@ const MainNavigation = (props) => {
                 <Button sx={style}>
                   <ActiveLink href="/account" styleMode={props.styleMode}>
                     Account
-                  </ActiveLink>
-                </Button>
-              </li>
-              <li className={classes["list-item"]}>
-                <Button sx={style}>
-                  <ActiveLink href="/about" styleMode={props.styleMode}>
-                    About
                   </ActiveLink>
                 </Button>
               </li>
